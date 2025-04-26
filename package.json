@@ -1,6 +1,6 @@
 {
 	"name": "@yoshinani/style-guide",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "Yoshinani's Style Guide",
 	"exports": {
 		"./typescript": "./typescript/base.json",
