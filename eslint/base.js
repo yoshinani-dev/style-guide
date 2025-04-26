@@ -14,6 +14,8 @@ module.exports = {
   plugins: ["@typescript-eslint", "eslint-plugin-import"],
   rules: {
     eqeqeq: ["error", "always", { null: "ignore" }],
+    // https://www.notion.so/yoshinani-note/any-1dff5577f5838174907ae6b2cfaf72ea?pvs=4
+    "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/no-confusing-void-expression": [
       "error",
       { ignoreArrowShorthand: true },
