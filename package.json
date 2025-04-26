@@ -1,6 +1,6 @@
 {
 	"name": "@yoshinani/style-guide",
-	"version": "0.0.6",
+	"version": "0.0.10",
 	"description": "Yoshinani's Style Guide",
 	"homepage": "https://github.com/yoshinani-dev/style-guide#readme",
 	"bugs": {
@@ -23,7 +23,6 @@
 	"dependencies": {
 		"@typescript-eslint/eslint-plugin": "^8.18.2",
 		"@typescript-eslint/parser": "^8.18.2",
-		"@vercel/style-guide": "^6.0.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-eslint-comments": "^3.2.0",
 		"eslint-plugin-functional": "6.6.3",
@@ -36,7 +35,7 @@
 		"husky": "^9.1.7"
 	},
 	"peerDependencies": {
-		"eslint": "^8"
+		"eslint": ">=8 <9"
 	},
 	"packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0",
 	"scripts": {

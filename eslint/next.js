@@ -3,7 +3,6 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "prettier",
-    require.resolve("@vercel/style-guide/eslint/next"),
     require.resolve("./base"),
   ],
   globals: {
