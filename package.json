@@ -2,6 +2,14 @@
 	"name": "@yoshinani/style-guide",
 	"version": "0.0.3",
 	"description": "Yoshinani's Style Guide",
+	"homepage": "https://github.com/yoshinani-dev/style-guide#readme",
+	"bugs": {
+		"url": "https://github.com/yoshinani-dev/style-guide/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/yoshinani-dev/style-guide.git"
+	},
 	"exports": {
 		"./typescript": "./typescript/base.json",
 		"./typescript/nextjs": "./typescript/nextjs.json",
