@@ -39,12 +39,12 @@ issue が作成された後、通常は2〜4週間ほど変更を実装する前
 コミットメッセージは以下の形式で記述してください:
 
 ```
-type(scope?): メッセージ
+type: メッセージ
 
 Resolves #1
 ```
 
-scope はほとんどの場合で含めてください。許可されている type と scope の一覧は以下に記載されています:
+許可されている type の一覧は以下に記載されています:
 
 - https://github.com/yoshinani-dev/style-guide/blob/main/.commitlintrc.js
 
