@@ -175,17 +175,17 @@ module.exports = {
 
 このスタイルガイドは複数の TypeScript 設定を提供しています。これらの設定は LTS の Node.js バージョンに対応しており、それぞれに適した `lib`、`module`、`target`、`moduleResolution` 設定が含まれています。利用可能な設定は以下の通りです。
 
-| Node.js バージョン | TypeScript 設定                           |
-| ------------------ | ----------------------------------------- |
-| v16                | `@yoshinani/style-guide/typescript/node16`   |
-| v18                | `@yoshinani/style-guide/typescript/node18`   |
-| v20                | `@yoshinani/style-guide/typescript/node20`   |
+| 種類           | 設定パッケージ名                                      |
+| -------------- | --------------------------------------------------- |
+| base           | `@yoshinani/style-guide/typescript/base`            |
+| nextjs         | `@yoshinani/style-guide/typescript/nextjs`          |
+| react-library  | `@yoshinani/style-guide/typescript/react-library`   |
 
 共有 TypeScript 設定を使うには、`tsconfig.json` に以下のように記載します。
 
 ```json
 {
-  "extends": "@yoshinani/style-guide/typescript/node16"
+  "extends": "@yoshinani/style-guide/typescript"
 }
 ```
 
