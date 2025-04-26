@@ -51,92 +51,27 @@ yarn add --dev @yoshinani/style-guide
 >
 > 参考: https://eslint.org/docs/user-guide/getting-started#installation-and-usage
 
-この ESLint 設定は合成可能（composable）です。
+利用できる設定は以下の通りです。
 
-以下のベース設定が利用可能です。これらの設定は `extends` の最初に記載してください（どちらか一方または両方を使用可能）。
-
-- `@yoshinani/style-guide/eslint/browser`
-- `@yoshinani/style-guide/eslint/node`
-
-設定をスコープして、特定のファイルのみに適用することもできます。詳細は [Scoped configuration with `overrides`](#scoped-configuration-with-overrides) を参照してください。
-
-追加で利用できる設定は以下の通りです。
-
-- `@yoshinani/style-guide/eslint/jest`
-- `@yoshinani/style-guide/eslint/jest-react`（`@testing-library/react` のルールを含む）
-- `@yoshinani/style-guide/eslint/next`（`@next/eslint-plugin-next` を `next` と同じバージョンでインストールする必要あり）
-- `@yoshinani/style-guide/eslint/playwright-test`
-- `@yoshinani/style-guide/eslint/react`
-- `@yoshinani/style-guide/eslint/typescript`（`typescript` のインストールと[追加設定](#configuring-eslint-for-typescript)が必要）
-- `@yoshinani/style-guide/eslint/vitest`
+- `@yoshinani/style-guide/eslint/base`
+- `@yoshinani/style-guide/eslint/next`
+- `@yoshinani/style-guide/eslint/library`
+- `@yoshinani/style-guide/eslint/react-internal`
 
 > ESLint の設定解決の問題（[eslint/eslint#9188](https://github.com/eslint/eslint/issues/9188)）のため、`require.resolve` を使って絶対パスを指定してください。
 
 例として、Next.js プロジェクトで共有 ESLint 設定を使う場合、`.eslintrc.js` に以下のように記載します。
 
 ```js
-module.exports = {
-  extends: [
-    require.resolve('@yoshinani/style-guide/eslint/browser'),
-    require.resolve('@yoshinani/style-guide/eslint/react'),
-    require.resolve('@yoshinani/style-guide/eslint/next'),
-  ],
-};
-```
-
-### TypeScript 用 ESLint 設定
-
-TypeScript 設定で有効になっている一部のルールは追加の型情報が必要です。`tsconfig.json` へのパスを指定してください。
-
-詳細は https://typescript-eslint.io/docs/linting/type-linting を参照してください。
-
-```js
-const { resolve } = require('node:path');
-
-const project = resolve(__dirname, 'tsconfig.json');
-
+/** @type {import("eslint").Linter.Config} */
 module.exports = {
   root: true,
-  extends: [
-    require.resolve('@yoshinani/style-guide/eslint/node'),
-    require.resolve('@yoshinani/style-guide/eslint/typescript'),
-  ],
+  extends: [require.resolve("@yoshinani/style-guide/eslint/next")],
+  parser: "@typescript-eslint/parser",
   parserOptions: {
-    project,
+    project: true,
   },
-  settings: {
-    'import/resolver': {
-      typescript: {
-        project,
-      },
-    },
-  },
-};
-```
-
-### `jsx-a11y` のカスタムコンポーネント設定
-
-React アプリでは、`Button` などの共通コンポーネントでネイティブ要素をラップすることが一般的です。`jsx-a11y` の `components` 設定でこの情報を渡せます。
-
-以下は一例です。
-
-```js
-module.exports = {
-  root: true,
-  extends: [require.resolve('@yoshinani/style-guide/eslint/react')],
-  settings: {
-    'jsx-a11y': {
-      components: {
-        Article: 'article',
-        Button: 'button',
-        Image: 'img',
-        Input: 'input',
-        Link: 'a',
-        Video: 'video',
-      },
-    },
-  },
-};
+}
 ```
 
 ### `overrides` を使ったスコープ設定
@@ -153,20 +88,6 @@ module.exports = {
       files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
       extends: [require.resolve('@yoshinani/style-guide/eslint/jest')],
     },
-  ],
-};
-```
-
-#### ファイル拡張子について
-
-デフォルトでは、すべての TypeScript ルールは `.ts` および `.tsx` ファイルにスコープされています。
-
-ただし、`overrides` を使う場合はファイル拡張子を明示的に含める必要があります。そうしないと ESLint は `.js` ファイルのみを対象にします。
-
-```js
-module.exports = {
-  overrides: [
-    { files: [`directory/**/*.[jt]s?(x)`], rules: { 'my-rule': 'off' } },
   ],
 };
 ```
