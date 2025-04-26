@@ -13,7 +13,6 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "prettier",
-    "turbo",
     require.resolve("@vercel/style-guide/eslint/react"),
     require.resolve("./base"),
   ],
