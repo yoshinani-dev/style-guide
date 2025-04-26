@@ -16,7 +16,6 @@ module.exports = {
     require.resolve("@vercel/style-guide/eslint/react"),
     require.resolve("./base"),
   ],
-  plugins: ["only-warn"],
   globals: {
     React: true,
   },

@@ -11,7 +11,6 @@ module.exports = {
     require.resolve("@vercel/style-guide/eslint/typescript"),
     require.resolve("./base"),
   ],
-  plugins: ["only-warn"],
   globals: {
     React: true,
     JSX: true,
