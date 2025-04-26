@@ -2,6 +2,14 @@
 	"name": "@yoshinani/style-guide",
 	"version": "0.0.1",
 	"description": "Yoshinani's Style Guide",
+	"exports": {
+		"./typescript": "./typescript/base.json",
+		"./typescript/nextjs": "./typescript/nextjs.json",
+		"./typescript/react-library": "./typescript/react-library.json"
+	},
+	"files": [
+		"typescript"
+	],
 	"devDependencies": {
 		"@commitlint/cli": "^19.8.0",
 		"@commitlint/config-conventional": "^19.8.0",
