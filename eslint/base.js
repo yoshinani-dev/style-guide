@@ -11,7 +11,7 @@ module.exports = {
       },
     },
   },
-  plugins: ["@typescript-eslint", "eslint-plugin-import", "eslint-comments", "functional"],
+  plugins: ["@typescript-eslint", "import", "eslint-comments", "functional"],
   rules: {
     // [比較演算子禁止](https://www.notion.so/yoshinani-note/1dff5577f5838145acfcca9176913b79)
     eqeqeq: ["error", "always", { null: "ignore" }],
