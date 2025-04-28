@@ -14,11 +14,13 @@
 		"./typescript": "./typescript/base.json",
 		"./typescript/nextjs": "./typescript/nextjs.json",
 		"./typescript/react-library": "./typescript/react-library.json",
-		"./eslint/*": "./eslint/*.mjs"
+		"./eslint/*": "./eslint/*.mjs",
+		"./commitlint": "./commitlint/commitlint.config.mjs"
 	},
 	"files": [
 		"typescript",
-		"eslint"
+		"eslint",
+		"commitlint"
 	],
 	"dependencies": {
 		"@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
