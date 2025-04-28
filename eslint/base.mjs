@@ -22,10 +22,6 @@ export default tseslint.config(
       functional,
       "@eslint-community/eslint-comments": comments,
     },
-    extends: [
-      functional.configs.externalTypeScriptRecommended,
-      functional.configs.stylistic,
-    ],
     languageOptions: {
       parserOptions: {
         projectService: true,
@@ -51,7 +47,6 @@ export default tseslint.config(
           ignoreArrowShorthand: true,
         },
       ],
-
       // [awaitつけ忘れ防止](https://www.notion.so/yoshinani-note/await-1dff5577f58381e5ab40f29d8d3f0be4)
       "@typescript-eslint/no-floating-promises": "error",
       "@typescript-eslint/no-shadow": "off",
@@ -64,10 +59,8 @@ export default tseslint.config(
           },
         },
       ],
-
       // [不要なオプショナルチェーン禁止](https://www.notion.so/yoshinani-note/1dff5577f583816e8b5eec9963add23d)
       "@typescript-eslint/no-unnecessary-condition": "error",
-
       // [nullなどをそのまま文字列にするのを禁止](https://www.notion.so/yoshinani-note/null-1dff5577f5838104b3b9db6eee64f106)
       "@typescript-eslint/restrict-template-expressions": [
         "error",
@@ -79,7 +72,6 @@ export default tseslint.config(
           allowNever: false,
         },
       ],
-
       // [ルール無効化の際に理由を添える](https://www.notion.so/yoshinani-note/1dff5577f583818b913fec991d5e8b46)
       "@eslint-community/eslint-comments/require-description": [
         "error",
@@ -169,7 +161,6 @@ export default tseslint.config(
       "app/**/{page,layout,not-found,*error,opengraph-image,apple-icon}.tsx",
       "app/**/{sitemap,robots}.ts",
     ],
-
     rules: {
       "import/no-default-export": "off",
 
@@ -183,7 +174,6 @@ export default tseslint.config(
   },
   {
     files: ["**/env.ts"],
-
     rules: {
       "@typescript-eslint/dot-notation": "off",
       "no-process-env": "off",
@@ -191,7 +181,6 @@ export default tseslint.config(
   },
   {
     files: ["**/*.ts", "**/*.tsx"],
-
     rules: {
       "func-names": "off",
     },
