@@ -1,7 +1,8 @@
 {
 	"name": "@yoshinani/style-guide",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"description": "Yoshinani's Style Guide",
+	"license": "MIT",
 	"homepage": "https://github.com/yoshinani-dev/style-guide#readme",
 	"bugs": {
 		"url": "https://github.com/yoshinani-dev/style-guide/issues"
@@ -15,12 +16,14 @@
 		"./typescript/nextjs": "./typescript/nextjs.json",
 		"./typescript/react-library": "./typescript/react-library.json",
 		"./eslint/*": "./eslint/*.mjs",
-		"./commitlint": "./commitlint/commitlint.config.mjs"
+		"./commitlint": "./commitlint/commitlint.config.mjs",
+		"./prettier": "./prettier/prettier.config.cjs"
 	},
 	"files": [
 		"typescript",
 		"eslint",
-		"commitlint"
+		"commitlint",
+		"prettier"
 	],
 	"dependencies": {
 		"@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
@@ -43,7 +46,8 @@
 	},
 	"peerDependencies": {
 		"eslint": ">=9 <10",
-		"@commitlint/config-conventional": "19.8.0"
+		"@commitlint/config-conventional": "^19",
+		"prettier": "^3"
 	},
 	"packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0",
 	"scripts": {
