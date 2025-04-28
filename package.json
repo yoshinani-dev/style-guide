@@ -2,6 +2,7 @@
 	"name": "@yoshinani/style-guide",
 	"version": "0.1.6",
 	"description": "Yoshinani's Style Guide",
+	"license": "MIT",
 	"homepage": "https://github.com/yoshinani-dev/style-guide#readme",
 	"bugs": {
 		"url": "https://github.com/yoshinani-dev/style-guide/issues"
