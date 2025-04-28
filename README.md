@@ -111,3 +111,28 @@ module.exports = {
 ```
 
 ベースとなる TypeScript 設定は [`@yoshinani/style-guide/typescript`](./typescript/tsconfig.base.json) としても利用可能で、一般的なルールのみを指定しています。`lib`、`module`、`target`、`moduleResolution` 設定をカスタマイズする場合はこのファイルを継承してください。
+
+## commitlint
+
+1. 各プロジェクトで、`@commitlint/cli`、`husty`をインストールしてください。
+
+2. ルートに`commitlint.config.mjs`を作成してください。
+
+```js:commitlint.config.mjs
+export { default } from "@yoshinani/style-guide/commitlint"
+```
+
+3. huskyの設定をしてください。
+
+```bash:.husky/commit-msg
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+pnpm commitlint --edit "$1"
+```
+
+```json:package.json
+"scripts": {
+  "prepare": "husky",
+}
+```
