@@ -1,6 +1,6 @@
 {
 	"name": "@yoshinani/style-guide",
-	"version": "0.1.6",
+	"version": "0.1.7",
 	"description": "Yoshinani's Style Guide",
 	"license": "MIT",
 	"homepage": "https://github.com/yoshinani-dev/style-guide#readme",
@@ -23,7 +23,8 @@
 		"typescript",
 		"eslint",
 		"commitlint",
-		"prettier"
+		"prettier",
+		"cspell"
 	],
 	"dependencies": {
 		"@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
