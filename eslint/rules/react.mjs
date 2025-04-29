@@ -5,6 +5,11 @@ import react from "eslint-plugin-react";
 export default {
   name: "react",
   files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
   plugins: {
     react,
   },
