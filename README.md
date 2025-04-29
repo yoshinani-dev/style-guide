@@ -1,5 +1,7 @@
 # Yoshinani スタイルガイド
 
+[![npm version](https://badge.fury.io/js/@yoshinani%2Fstyle-guide.svg)](https://badge.fury.io/js/@yoshinani%2Fstyle-guide)
+
 ## はじめに
 
 このリポジトリは、Yoshinani のスタイルガイドのホームであり、人気のあるリンティングやスタイリングツール用の設定を含んでいます。
