@@ -2,9 +2,13 @@
 
 import base from "./base.mjs";
 import globals from "globals";
+import react from "./rules/react.mjs";
+import reactHooks from "./rules/react-hooks.mjs";
 
 const eslintConfig = [
   ...base,
+  react,
+  reactHooks,
   {
     languageOptions: {
       globals: {
