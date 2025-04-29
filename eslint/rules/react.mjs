@@ -12,9 +12,9 @@ export default {
     ...react.configs.flat.recommended.rules,
     // コンポーネント名はPascalCaseで記載する
     "react/jsx-pascal-case": "error",
-    // 論理値はtrue/falseで記載する
-    "react/jsx-boolean-value": ["error", "always"],
     // 空のFragmentは記載しない
     "react/jsx-no-useless-fragment": "error",
+    // import React from "react"を記載しない
+    "react/react-in-jsx-scope": "off",
   },
 };
