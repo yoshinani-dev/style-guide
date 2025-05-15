@@ -136,3 +136,17 @@ export default {
   ],
 }
 ```
+
+1. vscode拡張での設定
+
+```json
+{
+  "cSpell.customDictionaries": {
+    "yoshinani": {
+      "name": "yoshinani",
+      "path": "${workspaceFolder}/node_modules/@yoshinani/style-guide/cspell/words.txt",
+      "addWords": false
+    }
+  },
+}
+```
