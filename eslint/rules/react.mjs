@@ -21,5 +21,7 @@ export default {
     "react/jsx-no-useless-fragment": "error",
     // import React from "react"を記載しない
     "react/react-in-jsx-scope": "off",
+    // prop-typesを使用しない
+    "react/prop-types": "off",
   },
 };
