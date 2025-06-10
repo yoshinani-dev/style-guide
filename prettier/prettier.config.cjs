@@ -12,6 +12,6 @@ const config = {
   singleQuote: false,
   semi: false,
   trailingComma: "all",
-};
+}
 
-module.exports = config;
+module.exports = config

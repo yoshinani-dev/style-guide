@@ -1,4 +1,4 @@
-const dictPath = import.meta.dirname + "/cspell/words.txt";
+const dictPath = import.meta.dirname + "/cspell/words.txt"
 
 export default {
   // Enable your dictionary by adding it to the list of `dictionaries`
@@ -15,4 +15,4 @@ export default {
       addWords: true,
     },
   ],
-};
+}

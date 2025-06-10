@@ -1,9 +1,9 @@
 // @ts-check
 
-import base from "./base.mjs";
-import globals from "globals";
-import react from "./rules/react.mjs";
-import reactHooks from "./rules/react-hooks.mjs";
+import base from "./base.mjs"
+import globals from "globals"
+import react from "./rules/react.mjs"
+import reactHooks from "./rules/react-hooks.mjs"
 
 const eslintConfig = [
   ...base,
@@ -19,6 +19,6 @@ const eslintConfig = [
     },
     ignores: ["node_modules/", "dist/"],
   },
-];
+]
 
-export default eslintConfig;
+export default eslintConfig

@@ -1,0 +1,12 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "extensions.ignoreRecommendations": false,
+  "cSpell.customDictionaries": {
+    "yoshinani": {
+      "name": "yoshinani",
+      "path": "${workspaceFolder}/cspell/words.txt",
+      "addWords": false
+    }
+  }
+}

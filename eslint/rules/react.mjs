@@ -1,6 +1,6 @@
 // @ts-check
 
-import react from "eslint-plugin-react";
+import react from "eslint-plugin-react"
 
 export default {
   name: "react",
@@ -24,4 +24,4 @@ export default {
     // prop-typesを使用しない
     "react/prop-types": "off",
   },
-};
+}

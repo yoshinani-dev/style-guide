@@ -66,11 +66,11 @@ export default eslintConfig
 
 このスタイルガイドは複数の TypeScript 設定を提供しています。利用可能な設定は以下の通りです。
 
-| 種類           | 設定パッケージ名                                      |
-| -------------- | --------------------------------------------------- |
-| base           | `@yoshinani/style-guide/typescript/base`            |
-| nextjs         | `@yoshinani/style-guide/typescript/nextjs`          |
-| react-library  | `@yoshinani/style-guide/typescript/react-library`   |
+| 種類          | 設定パッケージ名                                  |
+| ------------- | ------------------------------------------------- |
+| base          | `@yoshinani/style-guide/typescript/base`          |
+| nextjs        | `@yoshinani/style-guide/typescript/nextjs`        |
+| react-library | `@yoshinani/style-guide/typescript/react-library` |
 
 共有 TypeScript 設定を使うには、`tsconfig.json` に以下のように記載します。
 
@@ -147,6 +147,6 @@ export default {
       "path": "${workspaceFolder}/node_modules/@yoshinani/style-guide/cspell/words.txt",
       "addWords": false
     }
-  },
+  }
 }
 ```

@@ -1,6 +1,6 @@
 // @ts-check
 
-import reactHooks from "eslint-plugin-react-hooks";
+import reactHooks from "eslint-plugin-react-hooks"
 
 export default {
   name: "react-hooks",
@@ -10,4 +10,4 @@ export default {
   rules: {
     ...reactHooks.configs["recommended-latest"].rules,
   },
-};
+}

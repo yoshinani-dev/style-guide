@@ -1,61 +1,63 @@
 {
-	"name": "@yoshinani/style-guide",
-	"version": "0.2.4",
-	"description": "Yoshinani's Style Guide",
-	"license": "MIT",
-	"homepage": "https://github.com/yoshinani-dev/style-guide#readme",
-	"bugs": {
-		"url": "https://github.com/yoshinani-dev/style-guide/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/yoshinani-dev/style-guide.git"
-	},
-	"exports": {
-		"./typescript": "./typescript/base.json",
-		"./typescript/nextjs": "./typescript/nextjs.json",
-		"./typescript/react-library": "./typescript/react-library.json",
-		"./eslint/*": "./eslint/*.mjs",
-		"./commitlint": "./commitlint/commitlint.config.mjs",
-		"./prettier": "./prettier/prettier.config.cjs"
-	},
-	"files": [
-		"typescript",
-		"eslint",
-		"commitlint",
-		"prettier",
-		"cspell"
-	],
-	"dependencies": {
-		"@commitlint/config-conventional": "^19",
-		"@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
-		"@eslint/js": "^9.25.1",
-		"eslint-config-prettier": "^10.1.2",
-		"eslint-plugin-functional": "^9.0.1",
-		"eslint-plugin-import": "^2.31.0",
-		"eslint-plugin-react": "^7.37.5",
-		"eslint-plugin-react-hooks": "^5.2.0",
-		"eslint-plugin-tailwindcss": "^3.18.0",
-		"globals": "^16.0.0",
-		"typescript-eslint": "^8.31.0"
-	},
-	"devDependencies": {
-		"@changesets/cli": "^2.29.4",
-		"@commitlint/cli": "^19.8.0",
-		"husky": "^9.1.7"
-	},
-	"peerDependencies": {
-		"@commitlint/cli": "^19",
-		"eslint": "^9",
-		"prettier": "^3",
-		"typescript": "^5"
-	},
-	"scripts": {
-		"prepare": "husky",
-		"release": "changeset publish"
-	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
+  "name": "@yoshinani/style-guide",
+  "version": "0.2.4",
+  "description": "Yoshinani's Style Guide",
+  "license": "MIT",
+  "homepage": "https://github.com/yoshinani-dev/style-guide#readme",
+  "bugs": {
+    "url": "https://github.com/yoshinani-dev/style-guide/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yoshinani-dev/style-guide.git"
+  },
+  "exports": {
+    "./typescript": "./typescript/base.json",
+    "./typescript/nextjs": "./typescript/nextjs.json",
+    "./typescript/react-library": "./typescript/react-library.json",
+    "./eslint/*": "./eslint/*.mjs",
+    "./commitlint": "./commitlint/commitlint.config.mjs",
+    "./prettier": "./prettier/prettier.config.cjs"
+  },
+  "files": [
+    "typescript",
+    "eslint",
+    "commitlint",
+    "prettier",
+    "cspell"
+  ],
+  "dependencies": {
+    "@commitlint/config-conventional": "^19",
+    "@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
+    "@eslint/js": "^9.25.1",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-functional": "^9.0.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-tailwindcss": "^3.18.0",
+    "globals": "^16.0.0",
+    "typescript-eslint": "^8.31.0"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.4",
+    "@commitlint/cli": "^19.8.0",
+    "husky": "^9.1.7"
+  },
+  "peerDependencies": {
+    "@commitlint/cli": "^19",
+    "eslint": "^9",
+    "prettier": "^3",
+    "typescript": "^5"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "release": "changeset publish",
+    "format": "prettier --write ."
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0",
+  "prettier": "./prettier/prettier.config.cjs"
 }
