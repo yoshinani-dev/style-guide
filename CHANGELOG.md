@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.3.0
+
+### Minor Changes
+
+- b271bd0: Cursor Rulesと非推奨ライブラリの追加
+
 ## 0.2.4
 
 ### Patch Changes
