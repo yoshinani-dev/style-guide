@@ -1,11 +1,11 @@
 // @ts-check
 
-import eslint from "@eslint/js";
-import tseslint from "typescript-eslint";
-import * as importPlugin from "eslint-plugin-import";
-import comments from "@eslint-community/eslint-plugin-eslint-comments";
-import functional from "eslint-plugin-functional";
-import eslintConfigPrettier from "eslint-config-prettier/flat";
+import eslint from "@eslint/js"
+import tseslint from "typescript-eslint"
+import * as importPlugin from "eslint-plugin-import"
+import comments from "@eslint-community/eslint-plugin-eslint-comments"
+import functional from "eslint-plugin-functional"
+import eslintConfigPrettier from "eslint-config-prettier/flat"
 
 export default tseslint.config(
   eslint.configs.recommended,
@@ -184,5 +184,5 @@ export default tseslint.config(
     rules: {
       "func-names": "off",
     },
-  }
-);
+  },
+)
