@@ -132,20 +132,100 @@ export default tseslint.config(
         {
           paths: [
             {
-              name: "yup",
+              name: "@material-tailwind/react",
+              message: "shadcn/uiを使用してください。",
+            },
+            {
+              name: "ajv",
               message: "valibotを使用してください。",
             },
             {
-              name: "@material-tailwind/react",
+              name: "axios",
+              message: "Web標準のfetchを使用してください。",
+            },
+            {
+              name: "class-validator",
+              message: "valibotを使用してください。",
+            },
+            {
+              name: "daisyui",
               message: "shadcn/uiを使用してください。",
             },
             {
               name: "dayjs",
               message: "date-fnsを使用してください。",
             },
+            {
+              name: "express",
+              message: "Next.jsのAPI RoutesまたはHonoを使用してください。",
+            },
+            {
+              name: "formik",
+              message: "react-hook-formを使用してください。",
+            },
+            {
+              name: "jest",
+              message: "vitestを使用してください。",
+            },
+            {
+              name: "joi",
+              message: "valibotを使用してください。",
+            },
+            {
+              name: "lodash",
+              message: "remedaを使用してください。",
+            },
+            {
+              name: "moment",
+              message: "date-fnsを使用してください。",
+            },
+            {
+              name: "react-charts",
+              message: "rechartsを使用してください。",
+            },
+            {
+              name: "react-final-form",
+              message: "react-hook-formを使用してください。",
+            },
+            {
+              name: "recoil",
+              message: "zustandまたはjotaiを使用してください。",
+            },
+            {
+              name: "redux",
+              message: "zustandまたはjotaiを使用してください。",
+            },
+            {
+              name: "superstruct",
+              message: "valibotを使用してください。",
+            },
+            {
+              name: "typeorm",
+              message: "Prismaを使用してください。",
+            },
+            {
+              name: "yup",
+              message: "valibotを使用してください。",
+            },
+            {
+              name: "zod",
+              message: "valibotを使用してください。",
+            },
           ],
 
           patterns: [
+            {
+              group: ["@emotion/*"],
+              message: "Tailwind CSSを使用してください。",
+            },
+            {
+              group: ["@mui/*"],
+              message: "shadcn/uiを使用してください。",
+            },
+            {
+              group: ["@nestjs/*"],
+              message: "Next.jsのAPI RoutesまたはHonoを使用してください。",
+            },
             {
               group: ["lodash/*"],
               message: "remedaを使用してください。",
