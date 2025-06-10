@@ -1,0 +1,98 @@
+---
+description: 
+globs: *.tsx,*.ts
+alwaysApply: false
+---
+
+# エラーハンドリングガイドライン
+
+オーナー: 中野 at INFLU
+
+## TaggedErrorの基本
+
+TaggedErrorは、型安全なエラーハンドリングを実現するためのカスタムエラークラスです。エラーを投げる（throw）のではなく、戻り値として返すことで、型安全性を確保し、エラーハンドリングの漏れを防ぎます。
+
+### 基本的な使い方
+
+```tsx
+import { TaggedError } from "@nakanoaas/tagged-error"
+
+// エラーを返す場合
+function validateEmail(email: string) {
+  if (!email) {
+    return new TaggedError("INVALID_EMAIL", {
+      message: "メールアドレスは必須です",
+      cause: { email },
+    })
+  }
+  return email
+}
+
+// エラーハンドリング
+const result = validateEmail(userEmail)
+if (result instanceof TaggedError) {
+  switch (result.tag) {
+    case "INVALID_EMAIL":
+      console.error("バリデーションエラー:", result.message)
+      return
+  }
+}
+
+// resultはstring型として扱える
+console.log("有効なメール:", result)
+```
+
+## エラータグの命名規則
+
+エラータグは以下の規則に従って命名します：
+
+- 大文字のスネークケースを使用（例：`INVALID_EMAIL`、`USER_NOT_FOUND`）
+- 具体的で理解しやすい名前を付ける
+- 同じ種類のエラーには同じタグを使用
+
+❌ 避けるべき例：
+
+- `error` (具体性がない)
+- `invalidEmail` (命名規則が不統一)
+- `SOMETHING_WENT_WRONG` (抽象的すぎる)
+
+## エラーメッセージのベストプラクティス
+
+1. エンドユーザーにも理解できる平易な日本語を使用
+2. 敬体（です・ます調）を使用
+3. 問題の内容と可能な解決方法を明確に説明
+
+例：
+
+```tsx
+return new TaggedError("INVALID_INVITATION_CODE", {
+  message:
+    "招待コードの有効期限が切れています。新しい招待コードを取得してください。",
+  cause: {
+    codeId: code.id,
+    expiresAt: code.expiresAt,
+  },
+})
+```
+
+## デバッグ情報の追加
+
+`cause`オプションを使用して、デバッグに役立つ追加情報を含めることができます：
+
+```tsx
+return new TaggedError("API_ERROR", {
+  message: "データの取得に失敗しました",
+  cause: {
+    statusCode: response.status,
+    endpoint: response.url,
+    timestamp: new Date(),
+  },
+})
+```
+
+## 重要なポイント
+
+1. エラーはスローせず、戻り値として返す
+2. 適切なエラータグを使用して型安全性を確保
+3. 分かりやすいエラーメッセージを日本語で記述
+4. デバッグに役立つ情報は`cause`に含める
