@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.4.0
+
+### Minor Changes
+
+- b1c0a7f: 辞書を追加しソート
+
 ## 0.3.0
 
 ### Minor Changes
