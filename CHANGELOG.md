@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.5.0
+
+### Minor Changes
+
+- 67d7d10: 辞書を追加
+
 ## 0.4.0
 
 ### Minor Changes
