@@ -6,6 +6,7 @@ mypage
 nakanoaas
 neverthrow
 opengraph
+picklist
 postback
 remeda
 replyable
@@ -15,6 +16,7 @@ signups
 sonner
 supabase
 turbopack
+turborepo
 usecase
 valibot
 velona
