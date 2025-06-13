@@ -1,0 +1,57 @@
+---
+description: 
+globs: *.tsx
+alwaysApply: false
+---
+
+# フォームの実装
+
+オーナー: テック司令塔
+
+## 解説
+
+react-hook-formとvalibotとshadcnを利用してください。
+
+## サンプルコード
+
+```tsx
+export function FormComponent() {
+  const form = useForm({
+    resolver: valibotResolver(
+      v.object({
+        name: v.string(),
+      }),
+    ),
+    defaultValues: {
+      name: "",
+    },
+  })
+
+  const onSubmit = form.handleSubmit((values) => {
+    console.log(values)
+  })
+
+  return (
+    <Form {...form}>
+      <form onSubmit={onSubmit}>
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>名前</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" disabled={form.formState.isSubmitting}>
+          {form.formState.isSubmitting ? "更新中..." : "更新"}
+        </Button>
+      </form>
+    </Form>
+  )
+}
+```
