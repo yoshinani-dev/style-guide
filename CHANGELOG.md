@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.6.0
+
+### Minor Changes
+
+- 7413bf0: 辞書を追加
+
 ## 0.5.1
 
 ### Patch Changes
