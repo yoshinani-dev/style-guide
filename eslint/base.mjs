@@ -40,6 +40,8 @@ export default tseslint.config(
       ],
       // [any禁止](https://www.notion.so/yoshinani-note/any-1dff5577f5838174907ae6b2cfaf72ea)
       "@typescript-eslint/no-explicit-any": "error",
+      // [型しか使用しない場合はimport typeでそれを明示する](https://www.notion.so/yoshinani-note/import-type-20df5577f583807d928ec2cdb9dce9bd)
+      "@typescript-eslint/consistent-type-imports": "warn",
       // [混乱を招くvoidの使用禁止](https://www.notion.so/yoshinani-note/void-1dff5577f5838144bf0dc90e4bdffcb3)
       "@typescript-eslint/no-confusing-void-expression": [
         "error",
