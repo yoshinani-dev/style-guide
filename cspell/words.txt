@@ -12,6 +12,9 @@ remeda
 replyable
 sendgrid
 shadcn
+signin
+signins
+signup
 signups
 sonner
 supabase
