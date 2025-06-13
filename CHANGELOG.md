@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.7.0
+
+### Minor Changes
+
+- 6b98adf: feat(eslint): consistent-type-importsを有効化
+
 ## 0.6.0
 
 ### Minor Changes
