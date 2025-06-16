@@ -20,6 +20,7 @@ sonner
 supabase
 turbopack
 turborepo
+uncollectible
 usecase
 valibot
 velona
