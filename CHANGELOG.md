@@ -1,5 +1,12 @@
 # @yoshinani/style-guide
 
+## 0.8.0
+
+### Minor Changes
+
+- b6b13eb: Stripeの用語を追加
+- 87ecb4d: commit type
+
 ## 0.7.0
 
 ### Minor Changes
