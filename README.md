@@ -68,7 +68,7 @@ export default eslintConfig
 
 | 種類          | 設定パッケージ名                                  |
 | ------------- | ------------------------------------------------- |
-| base          | `@yoshinani/style-guide/typescript/base`          |
+| base          | `@yoshinani/style-guide/typescript`               |
 | nextjs        | `@yoshinani/style-guide/typescript/nextjs`        |
 | react-library | `@yoshinani/style-guide/typescript/react-library` |
 
