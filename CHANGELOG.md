@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.9.0
+
+### Minor Changes
+
+- aacf9fb: 辞書を追加
+
 ## 0.8.0
 
 ### Minor Changes
