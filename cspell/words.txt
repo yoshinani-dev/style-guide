@@ -5,6 +5,7 @@ liff
 mypage
 nakanoaas
 neverthrow
+notionhq
 opengraph
 picklist
 postback
