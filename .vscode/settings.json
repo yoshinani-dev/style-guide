@@ -1,6 +1,7 @@
 {
+  "biome.enabled": true,
+  "editor.defaultFormatter": "biomejs.biome",
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "extensions.ignoreRecommendations": false,
   "cSpell.customDictionaries": {
     "yoshinani": {

@@ -43,6 +43,26 @@ yarn add --dev @yoshinani/style-guide
 }
 ```
 
+## Biome
+
+共有のBiome設定を利用するには、`biome.jsonc` を作成して、以下のように `extends` を設定します。
+
+```jsonc
+{
+  "extends": ["@yoshinani/style-guide/biome"]
+}
+```
+
+VSCodeでフォーマッターとしてBiomeを利用する場合は、 `.vscode/settings.json` に以下の設定を追加してください。
+
+```json
+{
+  "biome.enabled": true,
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true
+}
+```
+
 ## ESLint
 
 利用できる設定は以下の通りです。
