@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.10.0
+
+### Minor Changes
+
+- 2109572: Biomeの設定ファイルを追加しprettierだけBiomeに移行
+
 ## 0.9.0
 
 ### Minor Changes
