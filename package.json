@@ -4,7 +4,8 @@
   "description": "Yoshinani's Style Guide",
   "license": "MIT",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "homepage": "https://github.com/yoshinani-dev/style-guide#readme",
   "bugs": {
