@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.10.2
+
+### Patch Changes
+
+- 562584b: pnpmをv10に固定、その微修正
+
 ## 0.10.1
 
 ### Patch Changes
