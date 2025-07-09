@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.10.3
+
+### Patch Changes
+
+- d26a49f: provenanceを有効化
+
 ## 0.10.2
 
 ### Patch Changes
