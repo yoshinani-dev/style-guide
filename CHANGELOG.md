@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.10.1
+
+### Patch Changes
+
+- b93bf42: biome.jsoncがpackage.jsonのfilesから漏れていた問題を修正
+
 ## 0.10.0
 
 ### Minor Changes
