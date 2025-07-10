@@ -8,7 +8,7 @@
 
 以下の設定が利用可能で、組み合わせて使うことを想定しています。
 
-- [Prettier](#prettier)
+- [Prettier](#prettier) または [Biome](#biome)
 - [ESLint](#eslint)
 - [TypeScript](#typescript)
 - [commitlint](#commitlint)
@@ -45,21 +45,45 @@ yarn add --dev @yoshinani/style-guide
 
 ## Biome
 
+現在、この設定ではBiomeのフォーマッター機能のみを有効にしています。リンターとしては、別途 [ESLint](#eslint) を設定してください。
+
+まず、プロジェクトルートにBiomeをインストールします。
+
+```sh
+pnpm add -w -D @biomejs/biome
+```
+
 共有のBiome設定を利用するには、`biome.jsonc` を作成して、以下のように `extends` を設定します。
 
 ```jsonc
 {
-  "extends": ["@yoshinani/style-guide/biome"]
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@yoshinani/style-guide/biome"],
+  "files": {
+    "includes": ["**", "!**/.next", "!**/.turbo"]
+  }
 }
 ```
 
-VSCodeでフォーマッターとしてBiomeを利用する場合は、 `.vscode/settings.json` に以下の設定を追加してください。
+VSCodeでフォーマッターとしてBiomeを利用する場合は、まず[Biomeの拡張機能](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)をインストールしてください。
+
+次に、`.vscode/settings.json` に以下の設定を追加します。
 
 ```json
 {
   "biome.enabled": true,
   "editor.defaultFormatter": "biomejs.biome",
   "editor.formatOnSave": true
+}
+```
+
+プロジェクトの推奨拡張機能として設定するために、`.vscode/extensions.json`を作成し、以下の内容を追加することをお勧めします。
+
+```json
+{
+  "recommendations": [
+    "biomejs.biome"
+  ]
 }
 ```
 
@@ -157,7 +181,7 @@ export default {
 }
 ```
 
-1. vscode拡張での設定
+2. vscode拡張での設定
 
 ```json
 {
