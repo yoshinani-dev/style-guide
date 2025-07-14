@@ -1,4 +1,5 @@
 commitlint
+esbuild
 firestore
 injecfn
 liff
