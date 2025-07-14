@@ -1,5 +1,15 @@
 # @yoshinani/style-guide
 
+## 0.11.0
+
+### Minor Changes
+
+- bc2b824: package.jsonにtype: moduleを指定
+
+### Patch Changes
+
+- c4fdca9: 辞書を追加
+
 ## 0.10.3
 
 ### Patch Changes
