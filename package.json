@@ -3,6 +3,7 @@
   "version": "0.10.3",
   "description": "Yoshinani's Style Guide",
   "license": "MIT",
+  "type": "module",
   "publishConfig": {
     "access": "public",
     "provenance": true
