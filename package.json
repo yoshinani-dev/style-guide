@@ -22,7 +22,7 @@
     "format": "biome format --write ."
   },
   "exports": {
-    "./biome": "./biome.jsonc",
+    "./biome": "./biome/base.jsonc",
     "./commitlint": "./commitlint/commitlint.config.mjs",
     "./eslint/*": "./eslint/*.mjs",
     "./prettier": "./prettier/prettier.config.cjs",
@@ -31,7 +31,7 @@
     "./typescript/react-library": "./typescript/react-library.json"
   },
   "files": [
-    "biome.jsonc",
+    "biome",
     "commitlint",
     "cspell",
     "eslint",
