@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.12.0
+
+### Minor Changes
+
+- a868bd1: biomeのorganizeImportsの推奨設定を追加
+
 ## 0.11.0
 
 ### Minor Changes
