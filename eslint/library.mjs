@@ -1,7 +1,8 @@
 // @ts-check
 
-import base from "./base.mjs"
 import globals from "globals"
+
+import base from "./base.mjs"
 
 const eslintConfig = [
   ...base,

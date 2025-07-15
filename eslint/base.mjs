@@ -1,11 +1,11 @@
 // @ts-check
 
 import eslint from "@eslint/js"
-import tseslint from "typescript-eslint"
-import * as importPlugin from "eslint-plugin-import"
 import comments from "@eslint-community/eslint-plugin-eslint-comments"
-import functional from "eslint-plugin-functional"
 import eslintConfigPrettier from "eslint-config-prettier/flat"
+import functional from "eslint-plugin-functional"
+import * as importPlugin from "eslint-plugin-import"
+import tseslint from "typescript-eslint"
 
 export default tseslint.config(
   eslint.configs.recommended,

@@ -19,10 +19,11 @@
   "scripts": {
     "prepare": "husky",
     "release": "changeset publish",
-    "format": "biome format --write ."
+    "check": "biome check .",
+    "check:fix": "biome check --write ."
   },
   "exports": {
-    "./biome": "./biome.jsonc",
+    "./biome": "./biome/base.jsonc",
     "./commitlint": "./commitlint/commitlint.config.mjs",
     "./eslint/*": "./eslint/*.mjs",
     "./prettier": "./prettier/prettier.config.cjs",
@@ -31,7 +32,7 @@
     "./typescript/react-library": "./typescript/react-library.json"
   },
   "files": [
-    "biome.jsonc",
+    "biome",
     "commitlint",
     "cspell",
     "eslint",

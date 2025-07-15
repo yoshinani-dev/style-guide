@@ -1,21 +1,7 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "formatter": {
-    "enabled": true,
-    "indentStyle": "space"
-  },
-  "javascript": {
-    "formatter": {
-      "semicolons": "asNeeded",
-      "quoteStyle": "double"
-    }
-  },
-  "linter": {
-    "enabled": false
-  },
-  "html": { "formatter": { "selfCloseVoidElements": "always" } },
+  "extends": ["./biome/base.jsonc"],
   "assist": {
-    "enabled": true,
-    "actions": { "source": { "organizeImports": "off" } }
+    "enabled": true
   }
 }
