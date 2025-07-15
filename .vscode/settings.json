@@ -2,6 +2,9 @@
   "biome.enabled": true,
   "editor.defaultFormatter": "biomejs.biome",
   "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports.biome": "explicit"
+  },
   "extensions.ignoreRecommendations": false,
   "cSpell.customDictionaries": {
     "yoshinani": {
