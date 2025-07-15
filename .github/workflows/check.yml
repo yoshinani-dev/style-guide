@@ -2,9 +2,7 @@ name: Check
 
 on:
   pull_request:
-  push:
-    branches:
-      - 'changeset-release/*'
+  pull_request_target:
 
 jobs:
   check:
