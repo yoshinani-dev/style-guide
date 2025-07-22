@@ -4,6 +4,10 @@
   "description": "Yoshinani's Style Guide",
   "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=10"
+  },
   "publishConfig": {
     "access": "public",
     "provenance": true
@@ -53,12 +57,13 @@
     "typescript-eslint": "^8.34.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.1.1",
+    "@biomejs/biome": "^2.1.2",
     "@changesets/cli": "^2.29.4",
     "@commitlint/cli": "^19.8.1",
     "husky": "^9.1.7"
   },
   "peerDependencies": {
+    "@biomejs/biome": "^2",
     "@commitlint/cli": "^19",
     "eslint": "^9",
     "prettier": "^3",
