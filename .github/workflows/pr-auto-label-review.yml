@@ -5,12 +5,14 @@ on:
     types:
       - submitted
 
+permissions:
+  pull-requests: write
+
 jobs:
   remove:
     if: github.event.review.state == 'approved' || github.event.review.state == 'changes_requested'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - uses: actions-ecosystem/action-remove-labels@v1
         with:
           labels: "Waiting for review"
@@ -19,7 +21,6 @@ jobs:
     if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: "LGTM"
@@ -28,7 +29,6 @@ jobs:
     if: github.event.review.state == 'changes_requested'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: "DO NOT MERGE"
