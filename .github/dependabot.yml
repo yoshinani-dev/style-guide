@@ -1,0 +1,83 @@
+version: 2
+updates:
+  # npmの更新設定
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      timezone: "Asia/Tokyo"
+    versioning-strategy: "auto"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    groups:
+      # ESLintプラグイン・設定関連
+      eslint-dependencies:
+        patterns:
+          - "@eslint/*"
+          - "eslint-*"
+          - "typescript-eslint"
+        update-types:
+          - "minor"
+          - "patch"
+      # Commitlint関連
+      commitlint-dependencies:
+        patterns:
+          - "@commitlint/*"
+        update-types:
+          - "minor"
+          - "patch"
+      # Biome関連
+      biome-dependencies:
+        patterns:
+          - "@biomejs/*"
+        update-types:
+          - "minor"
+          - "patch"
+      # その他の依存関係
+      other-dependencies:
+        patterns:
+          - "globals"
+        update-types:
+          - "minor"
+          - "patch"
+      # 開発依存関係
+      dev-dependencies:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      # メジャーバージョンアップは手動で対応
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+      # peerDependenciesは慎重に扱う
+      - dependency-name: "eslint"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "prettier"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "@biomejs/biome"
+        update-types: ["version-update:semver-major"]
+
+  # GitHub Actionsの更新設定
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      timezone: "Asia/Tokyo"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    groups:
+      github-actions:
+        patterns:
+          - "*"

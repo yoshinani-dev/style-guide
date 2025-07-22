@@ -1,3 +1,4 @@
+biomejs
 commitlint
 esbuild
 firestore
