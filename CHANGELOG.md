@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.12.1
+
+### Patch Changes
+
+- c96c5ab: 辞書を追加
+
 ## 0.12.0
 
 ### Minor Changes
