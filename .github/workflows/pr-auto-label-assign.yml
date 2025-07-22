@@ -5,11 +5,13 @@ on:
     types:
       - review_requested
 
+permissions:
+  pull-requests: write
+
 jobs:
   waiting_for_review:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: "Waiting for review"
@@ -18,7 +20,6 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'DO NOT MERGE')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - uses: actions-ecosystem/action-remove-labels@v1
         with:
           labels: "DO NOT MERGE"
