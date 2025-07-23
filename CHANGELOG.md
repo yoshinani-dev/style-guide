@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.12.2
+
+### Patch Changes
+
+- e935d06: update dependency and fix engines
+
 ## 0.12.1
 
 ### Patch Changes
