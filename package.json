@@ -5,8 +5,8 @@
   "license": "MIT",
   "type": "module",
   "engines": {
-    "node": ">=20",
-    "pnpm": ">=10"
+    "node": "20",
+    "pnpm": "10"
   },
   "publishConfig": {
     "access": "public",
