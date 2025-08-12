@@ -1,10 +1,10 @@
-# Yoshinani スタイルガイド
+# YOSHINANI スタイルガイド
 
 [![npm version](https://badge.fury.io/js/@yoshinani%2Fstyle-guide.svg)](https://badge.fury.io/js/@yoshinani%2Fstyle-guide)
 
 ## はじめに
 
-このリポジトリは、Yoshinani のスタイルガイドのホームであり、人気のあるリンティングやスタイリングツール用の設定を含んでいます。
+このリポジトリは、株式会社YOSHINANI のスタイルガイドのホームであり、人気のあるリンティングやスタイリングツール用の設定を含んでいます。
 
 以下の設定が利用可能で、組み合わせて使うことを想定しています。
 
