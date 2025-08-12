@@ -1,5 +1,13 @@
 # @yoshinani/style-guide
 
+## 0.12.3
+
+### Patch Changes
+
+- ccf9135: 辞書を追加
+- 44edbf1: chore(deps-dev): bump @biomejs/biome from 2.1.2 to 2.1.4 in the biome-dependencies group
+- 511d32c: YOSHINANIを大文字に統一
+
 ## 0.12.2
 
 ### Patch Changes
