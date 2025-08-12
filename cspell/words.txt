@@ -1,5 +1,6 @@
 biomejs
 commitlint
+dify
 esbuild
 firestore
 injecfn
