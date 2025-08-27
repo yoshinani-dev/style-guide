@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.13.0
+
+### Minor Changes
+
+- d7ae54f: biome.jsoncにvcs設定を追加
+
 ## 0.12.3
 
 ### Patch Changes
