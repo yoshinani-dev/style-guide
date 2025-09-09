@@ -1,5 +1,13 @@
 # @yoshinani/style-guide
 
+## 0.13.1
+
+### Patch Changes
+
+- 03ef393: chore(deps): bump the eslint-dependencies group across 1 directory with 2 updates
+- aba6fa0: chore(deps): bump actions/setup-node from 4 to 5 in the github-actions group
+- 69591bf: chore(deps-dev): bump @biomejs/biome from 2.2.2 to 2.2.3 in the biome-dependencies group
+
 ## 0.13.0
 
 ### Minor Changes
