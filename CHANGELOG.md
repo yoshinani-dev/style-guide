@@ -1,5 +1,12 @@
 # @yoshinani/style-guide
 
+## 0.13.2
+
+### Patch Changes
+
+- a8e9f25: chore(deps-dev): bump the dev-dependencies group across 1 directory with 2 updates
+- 264e05f: chore(deps): bump globals from 16.3.0 to 16.4.0 in the other-dependencies group
+
 ## 0.13.1
 
 ### Patch Changes
