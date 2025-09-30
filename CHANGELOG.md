@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.13.3
+
+### Patch Changes
+
+- a7646b5: chore(deps): bump the eslint-dependencies group with 2 updates
+
 ## 0.13.2
 
 ### Patch Changes
