@@ -1,5 +1,15 @@
 # @yoshinani/style-guide
 
+## 0.14.0
+
+### Minor Changes
+
+- 1dd6a01: eslint-plugin-tailwindcssを削除しeslint-plugin-better-tailwindcssに移行
+
+### Patch Changes
+
+- 3e5d1dd: ドキュメントを微修正
+
 ## 0.13.3
 
 ### Patch Changes
