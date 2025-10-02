@@ -30,9 +30,7 @@ type: メッセージ
 Resolves #1
 ```
 
-許可されている type の一覧は以下に記載されています:
-
-- https://github.com/yoshinani-dev/style-guide/blob/main/.commitlintrc.js
+許可されている type の一覧は[こちらに記載されています](./commitlint/commitlint.config.mjs)
 
 ### リリース管理
 
