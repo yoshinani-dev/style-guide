@@ -16,7 +16,7 @@
 
 ## コントリビュートについて
 
-プルリクエストを作成する前に、[コントリビュートガイド](https://github.com/yoshinani-dev/style-guide/blob/main/CONTRIBUTING.md)をお読みください。
+プルリクエストを作成する前に、[コントリビュートガイド](./CONTRIBUTING.md)をお読みください。
 
 ## インストール
 
