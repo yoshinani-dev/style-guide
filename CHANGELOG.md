@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.14.1
+
+### Patch Changes
+
+- 54842cb: chore(deps-dev): bump @biomejs/biome from 2.2.4 to 2.2.5 in the dev-dependencies group
+
 ## 0.14.0
 
 ### Minor Changes
