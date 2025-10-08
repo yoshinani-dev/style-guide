@@ -163,34 +163,18 @@ pnpm commitlint --edit "$1"
 
 ## cspell
 
-1. `cspell.config.mjs`を作成し以下のように記載します。
-
-```js
-const dictPath =
-  import.meta.dirname + "/node_modules/@yoshinani/style-guide/cspell/words.txt"
-
-export default {
-  dictionaries: ["yoshinani-style-guide"],
-  dictionaryDefinitions: [
-    {
-      name: "yoshinani-style-guide",
-      path: dictPath,
-      addWords: true,
-    },
-  ],
-}
-```
-
-2. vscode拡張での設定
+`.vscode/cspell.json`を作成し以下のように記載します。
 
 ```json
 {
-  "cSpell.customDictionaries": {
-    "yoshinani": {
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "dictionaries": ["yoshinani"],
+  "dictionaryDefinitions": [
+    {
       "name": "yoshinani",
-      "path": "${workspaceFolder}/node_modules/@yoshinani/style-guide/cspell/words.txt",
+      "path": "../node_modules/@yoshinani/style-guide/cspell/words.txt",
       "addWords": false
     }
-  }
+  ]
 }
 ```

@@ -5,12 +5,5 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports.biome": "explicit"
   },
-  "extensions.ignoreRecommendations": false,
-  "cSpell.customDictionaries": {
-    "yoshinani": {
-      "name": "yoshinani",
-      "path": "${workspaceFolder}/cspell/words.txt",
-      "addWords": false
-    }
-  }
+  "extensions.ignoreRecommendations": false
 }
