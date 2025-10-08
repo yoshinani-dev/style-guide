@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.14.2
+
+### Patch Changes
+
+- 8ef00b7: cspell設定を.vscode/配下に移動しvscodeの設定と共通化
+
 ## 0.14.1
 
 ### Patch Changes
