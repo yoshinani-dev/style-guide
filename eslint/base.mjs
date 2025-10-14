@@ -198,7 +198,7 @@ export default tseslint.config(
               message: "zustandまたはjotaiを使用してください。",
             },
             {
-              name: "superstruct",
+              name: "superstruct", // cspell: disable-line
               message: "valibotを使用してください。",
             },
             {

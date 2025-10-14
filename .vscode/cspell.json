@@ -7,5 +7,7 @@
       "path": "../cspell/words.txt",
       "addWords": false
     }
-  ]
+  ],
+  "ignorePaths": ["pnpm-lock.yaml"],
+  "words": ["dbaeumer"]
 }
