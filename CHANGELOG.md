@@ -1,5 +1,12 @@
 # @yoshinani/style-guide
 
+## 0.14.2
+
+### Patch Changes
+
+- 8ef00b7: cspell設定を.vscode/配下に移動しvscodeの設定と共通化
+- 4bd3b6d: chore(deps-dev): bump @biomejs/biome from 2.2.5 to 2.2.6 in the dev-dependencies group
+
 ## 0.14.1
 
 ### Patch Changes
