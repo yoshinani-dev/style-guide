@@ -12,7 +12,7 @@
 - [ESLint](#eslint)
 - [TypeScript](#typescript)
 - [commitlint](#commitlint)
-- [cspell](#cspell)
+- [CSpell](#CSpell)
 
 ## コントリビュートについて
 
@@ -69,7 +69,7 @@ VSCodeでフォーマッターとしてBiomeを利用する場合は、まず[Bi
 
 次に、`.vscode/settings.json` に以下の設定を追加します。
 
-```json
+```jsonc
 {
   "biome.enabled": true,
   "editor.defaultFormatter": "biomejs.biome",
@@ -79,7 +79,7 @@ VSCodeでフォーマッターとしてBiomeを利用する場合は、まず[Bi
 
 プロジェクトの推奨拡張機能として設定するために、`.vscode/extensions.json`を作成し、以下の内容を追加することをお勧めします。
 
-```json
+```jsonc
 {
   "recommendations": [
     "biomejs.biome"
@@ -106,6 +106,16 @@ const eslintConfig = [...next]
 export default eslintConfig
 ```
 
+プロジェクトの推奨拡張機能として設定するために、`.vscode/extensions.json`を作成し、以下の内容を追加することをお勧めします。
+
+```json
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint"
+  ]
+}
+```
+
 ## TypeScript
 
 このスタイルガイドは複数の TypeScript 設定を提供しています。利用可能な設定は以下の通りです。
@@ -128,7 +138,7 @@ export default eslintConfig
 
 1. commitlintのインストール
 
-```bash
+```sh
 pnpm add -D @commitlint/cli
 ```
 
@@ -140,13 +150,13 @@ export { default } from "@yoshinani/style-guide/commitlint"
 
 3. コミット時のリントをする場合、huskyの設定をしてください。
 
-```bash
+```sh
 pnpm add -D husky
 ```
 
 `package.json`へスクリプトの追加。
 
-```json:package.json
+```json
 "scripts": {
   "prepare": "husky",
 }
@@ -154,16 +164,16 @@ pnpm add -D husky
 
 `.husky/commit-msg`を作成。
 
-```bash:.husky/commit-msg
+```bash
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
 pnpm commitlint --edit "$1"
 ```
 
-## cspell
+## CSpell
 
-`.vscode/cspell.json`を作成し以下のように記載します。
+`.vscode/cspell.json`を作成し以下のように記載します。こうすることでVSCodeからCSpellの設定が読み込まれます。
 
 ```json
 {
@@ -178,3 +188,58 @@ pnpm commitlint --edit "$1"
   ]
 }
 ```
+
+プロジェクトの推奨拡張機能として設定するために、`.vscode/extensions.json`を作成し、以下の内容を追加することをお勧めします。
+
+```jsonc
+{
+  "recommendations": [
+    "biomejs.biome",
+    "streetsidesoftware.code-spell-checker"
+  ]
+}
+```
+
+## 例外的なスペルチェックの無効化方法
+
+固有名詞やランダムな文字列を書き込む際に、例外的にスペルチェックを無効化できます。
+
+```js
+// 指定した行のチェックを無効化
+const EXAMPLE_ID = "klfhasdflhadfasfa"  // cspell: disable-line
+
+// 直下の行のチェックを無効化
+// cspell: disable-next-line
+const LONG_ID = "klajdsjffadsfafkdafjajlmmxrklermanwafwncocmoc4ezdxcasf"
+
+// 指定範囲のチェックを無効化
+// cspell: disable
+const MULTI_LINE_TXT = `
+a;kfjas;dklfjads
+aklfdj;adsjf;lka
+;kajkls;dfjal;f
+`
+// cspell: enable
+```
+
+[詳細なドキュメント](https://cspell.org/docs/Configuration/document-settings)
+
+## CI上の設定
+
+CSpellをCI上で実行する際は、GitHub Actionsに以下のような設定を追加します。
+
+```yaml
+name: 'Check spelling'
+on:
+  pull_request:
+  push:
+
+jobs:
+  spellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: streetsidesoftware/cspell-action@v7
+```
+
+このときの設定は`.vscode/cspell.json`から暗黙的に読み込まれます。

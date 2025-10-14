@@ -7,7 +7,7 @@
 まず、以下を実行してください:
 
 ```sh
-corepack enable
+mise install
 ```
 
 次に、以下を実行します:
