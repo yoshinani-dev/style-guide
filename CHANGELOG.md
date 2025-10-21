@@ -1,5 +1,14 @@
 # @yoshinani/style-guide
 
+## 0.14.3
+
+### Patch Changes
+
+- 4fee094: npm publish時にoidcを用いるようにした
+- e0a36af: chore(deps): bump actions/setup-node from 5 to 6 in the github-actions group
+- 708ecef: chore(deps): bump the eslint-dependencies group with 3 updates
+- e4888a8: 辞書を追加
+
 ## 0.14.2
 
 ### Patch Changes
