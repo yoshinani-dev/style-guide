@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.15.0
+
+### Minor Changes
+
+- 28d6471: tailwindDirectivesを有効化
+
 ## 0.14.4
 
 ### Patch Changes
