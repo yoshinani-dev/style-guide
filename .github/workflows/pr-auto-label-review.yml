@@ -11,7 +11,7 @@ permissions:
 jobs:
   remove:
     if: github.event.review.state == 'approved' || github.event.review.state == 'changes_requested'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - uses: actions-ecosystem/action-remove-labels@v1
         with:
@@ -19,7 +19,7 @@ jobs:
 
   approved:
     if: github.event.review.state == 'approved'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - uses: actions-ecosystem/action-add-labels@v1
         with:
@@ -27,7 +27,7 @@ jobs:
 
   ChangesRequested:
     if: github.event.review.state == 'changes_requested'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - uses: actions-ecosystem/action-add-labels@v1
         with:
