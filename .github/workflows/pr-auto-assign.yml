@@ -9,7 +9,7 @@ jobs:
   assign:
     name: Auto Assign
     if: endsWith(github.actor, '[bot]') == false && (github.event.pull_request.assignees == null || github.event.pull_request.assignees.length == 0)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     permissions:
       pull-requests: write
       repository-projects: read

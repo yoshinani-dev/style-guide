@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   waiting_for_review:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - uses: actions-ecosystem/action-add-labels@v1
         with:
@@ -18,7 +18,7 @@ jobs:
 
   remove:
     if: contains(github.event.pull_request.labels.*.name, 'DO NOT MERGE')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - uses: actions-ecosystem/action-remove-labels@v1
         with:
