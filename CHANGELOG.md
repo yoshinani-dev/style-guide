@@ -1,5 +1,12 @@
 # @yoshinani/style-guide
 
+## 0.15.1
+
+### Patch Changes
+
+- fb71ec1: chore(deps): bump the eslint-dependencies group across 1 directory with 2 updates
+- ce793e5: chore(deps): bump globals from 16.4.0 to 16.5.0 in the other-dependencies group
+
 ## 0.15.0
 
 ### Minor Changes
