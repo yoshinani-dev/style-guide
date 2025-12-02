@@ -1,5 +1,13 @@
 # @yoshinani/style-guide
 
+## 0.15.2
+
+### Patch Changes
+
+- 6a4a73a: chore(deps): bump the eslint-dependencies group with 2 updates
+- 3bb4907: chore(deps-dev): bump @biomejs/biome from 2.3.4 to 2.3.7 in the dev-dependencies group
+- 05e16c2: chore(deps): bump typescript-eslint from 8.47.0 to 8.48.0 in the eslint-dependencies group
+
 ## 0.15.1
 
 ### Patch Changes
