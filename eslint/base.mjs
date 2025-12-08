@@ -213,6 +213,10 @@ export default tseslint.config(
               name: "zod",
               message: "valibotを使用してください。",
             },
+            {
+              name: "tsup",
+              message: "tsdownを使用してください。",
+            },
           ],
 
           patterns: [
