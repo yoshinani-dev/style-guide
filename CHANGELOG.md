@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.16.0
+
+### Minor Changes
+
+- 0af699e: tsupを非推奨にしtsdownを推奨
+
 ## 0.15.2
 
 ### Patch Changes
