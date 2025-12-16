@@ -1,5 +1,13 @@
 # @yoshinani/style-guide
 
+## 0.16.1
+
+### Patch Changes
+
+- ab02571: fix repository url
+- bafd659: chore(deps): bump the eslint-dependencies group with 2 updates
+- 656a79e: chore(deps): bump the eslint-dependencies group with 2 updates
+
 ## 0.16.0
 
 ### Minor Changes
