@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.16.2
+
+### Patch Changes
+
+- fd01948: eslint-import-resolver-typescriptの不足を修正
+
 ## 0.16.1
 
 ### Patch Changes
