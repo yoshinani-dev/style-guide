@@ -1,5 +1,17 @@
 # @yoshinani/style-guide
 
+## 0.17.0
+
+### Minor Changes
+
+- 68319ba: upgrade @commitlint/cli 20
+
+### Patch Changes
+
+- 9c5c98e: chore(deps-dev): bump @biomejs/biome from 2.3.8 to 2.3.10 in the dev-dependencies group
+- 20ae3c7: chore(deps): bump typescript-eslint from 8.51.0 to 8.52.0 in the eslint-dependencies group
+- 8ec260d: chore(deps): bump typescript-eslint from 8.50.1 to 8.51.0 in the eslint-dependencies group
+
 ## 0.16.2
 
 ### Patch Changes
