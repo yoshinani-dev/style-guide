@@ -1,6 +1,7 @@
 name: Check
 
 on:
+  workflow_dispatch:
   pull_request:
 
 permissions:
@@ -21,10 +22,10 @@ jobs:
           version: 10
           run_install: false
 
-      - name: Setup Node.js 22.x
+      - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 22.x
+          node-version: 24
           cache: pnpm
 
       - name: Install Dependencies

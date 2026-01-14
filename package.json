@@ -48,10 +48,10 @@
     "@eslint-community/eslint-plugin-eslint-comments": "^4.5.0",
     "@eslint/js": "^9.31.0",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-better-tailwindcss": "^3.7.9",
     "eslint-plugin-functional": "^9.0.2",
     "eslint-plugin-import": "^2.32.0",
-    "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "globals": "^16.3.0",
@@ -60,12 +60,12 @@
   "devDependencies": {
     "@biomejs/biome": "^2.3.2",
     "@changesets/cli": "^2.29.5",
-    "@commitlint/cli": "^19.8.1",
+    "@commitlint/cli": "^20.3.1",
     "husky": "^9.1.7"
   },
   "peerDependencies": {
     "@biomejs/biome": "^2",
-    "@commitlint/cli": "^19",
+    "@commitlint/cli": "^20",
     "eslint": "^9",
     "prettier": "^3",
     "typescript": "^5"
