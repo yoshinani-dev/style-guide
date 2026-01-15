@@ -31,4 +31,5 @@ uncollectible
 usecase
 valibot
 velona
+vercel
 yoshinani
