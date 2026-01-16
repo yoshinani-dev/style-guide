@@ -1,16 +1,19 @@
 name: Check
 
 on:
-  workflow_dispatch:
   pull_request:
+    types: [opened, synchronize, reopened, labeled]
 
 permissions:
   contents: read
 
 jobs:
   check:
-    name: Biome Check
     runs-on: ubuntu-latest
+
+    if: |
+      github.event.action == 'labeled' && github.event.label.name == 'run-ci' ||
+      github.event.pull_request.user.login != 'github-actions[bot]'
 
     steps:
       - name: Checkout Repo
