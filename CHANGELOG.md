@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.17.1
+
+### Patch Changes
+
+- bcb407f: 辞書にvercelを追加
+
 ## 0.17.0
 
 ### Minor Changes
