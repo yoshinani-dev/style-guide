@@ -1,5 +1,12 @@
 # @yoshinani/style-guide
 
+## 0.17.2
+
+### Patch Changes
+
+- cd41913: chore(deps): bump @eslint-community/eslint-plugin-eslint-comments from 4.5.0 to 4.6.0
+- cac07cb: autoincrement、fkey、pkeyを辞書に追加
+
 ## 0.17.1
 
 ### Patch Changes
