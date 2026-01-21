@@ -1,8 +1,10 @@
+autoincrement
 biomejs
 commitlint
 dify
 esbuild
 firestore
+fkey
 injecfn
 liff
 mjsx
@@ -13,6 +15,7 @@ neverthrow
 notionhq
 opengraph
 picklist
+pkey
 postback
 remeda
 replyable
