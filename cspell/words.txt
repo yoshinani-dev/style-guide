@@ -5,8 +5,10 @@ dify
 esbuild
 firestore
 fkey
+futsu
 injecfn
 liff
+lstep
 mjsx
 mtsx
 mypage
@@ -28,6 +30,7 @@ signup
 signups
 sonner
 supabase
+toza
 turbopack
 turborepo
 uncollectible
@@ -35,4 +38,6 @@ usecase
 valibot
 velona
 vercel
+whsec
 yoshinani
+zengin
