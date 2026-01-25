@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.17.4
+
+### Patch Changes
+
+- c4d088c: commitlint/config-conventionalのアップグレード漏れを修正
+
 ## 0.17.3
 
 ### Patch Changes
