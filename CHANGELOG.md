@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.17.5
+
+### Patch Changes
+
+- 61c1d7a: 辞書を追加
+
 ## 0.17.4
 
 ### Patch Changes
