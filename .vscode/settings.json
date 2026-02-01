@@ -4,6 +4,5 @@
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.organizeImports.biome": "explicit"
-  },
-  "extensions.ignoreRecommendations": false
+  }
 }
