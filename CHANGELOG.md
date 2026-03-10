@@ -1,5 +1,12 @@
 # @yoshinani/style-guide
 
+## 0.17.8
+
+### Patch Changes
+
+- 9b3e716: chore(deps): bump the eslint-dependencies group across 1 directory with 3 updates
+- 24b9dd6: chore(deps): bump @eslint-community/eslint-plugin-eslint-comments from 4.6.0 to 4.7.1
+
 ## 0.17.7
 
 ### Patch Changes
