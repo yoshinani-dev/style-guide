@@ -1,5 +1,15 @@
 # @yoshinani/style-guide
 
+## 0.17.9
+
+### Patch Changes
+
+- a3c6394: chore(deps): bump typescript-eslint from 8.57.0 to 8.57.1 in the eslint-dependencies group
+- 87e2e72: chore(deps-dev): bump the dev-dependencies group with 2 updates
+- 6296669: chore(deps): bump @commitlint/config-conventional from 20.4.2 to 20.4.3 in the commitlint-dependencies group
+- 475e364: chore(deps): bump @commitlint/config-conventional from 20.4.3 to 20.5.0 in the commitlint-dependencies group
+- 96c9b30: chore(deps): bump the eslint-dependencies group across 1 directory with 2 updates
+
 ## 0.17.8
 
 ### Patch Changes
