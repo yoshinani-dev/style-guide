@@ -1,5 +1,12 @@
 # @yoshinani/style-guide
 
+## 0.17.10
+
+### Patch Changes
+
+- 0e4a972: chore(deps): bump typescript-eslint from 8.58.1 to 8.58.2 in the eslint-dependencies group
+- e2eeec4: chore(deps): bump typescript-eslint from 8.58.0 to 8.58.1 in the eslint-dependencies group
+
 ## 0.17.9
 
 ### Patch Changes
