@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.17.11
+
+### Patch Changes
+
+- 16ae37a: Add eslint-plugin-no-barrel-files to prohibit barrel exports
+
 ## 0.17.10
 
 ### Patch Changes
