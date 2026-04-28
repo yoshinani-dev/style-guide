@@ -5,6 +5,7 @@ import comments from "@eslint-community/eslint-plugin-eslint-comments"
 import eslintConfigPrettier from "eslint-config-prettier/flat"
 import functional from "eslint-plugin-functional"
 import * as importPlugin from "eslint-plugin-import"
+import noBarrelFiles from "eslint-plugin-no-barrel-files"
 import tseslint from "typescript-eslint"
 
 export default tseslint.config(
@@ -21,6 +22,7 @@ export default tseslint.config(
       import: importPlugin,
       functional,
       "@eslint-community/eslint-comments": comments,
+      "no-barrel-files": noBarrelFiles,
     },
     languageOptions: {
       parserOptions: {
@@ -30,6 +32,8 @@ export default tseslint.config(
     },
     rules: {
       "functional/immutable-data": "error",
+      // [barrel exportを禁止](https://github.com/art0rz/eslint-plugin-no-barrel-files)
+      "no-barrel-files/no-barrel-files": "error",
       // [比較演算子禁止](https://www.notion.so/yoshinani-note/1dff5577f5838145acfcca9176913b79)
       eqeqeq: [
         "error",
