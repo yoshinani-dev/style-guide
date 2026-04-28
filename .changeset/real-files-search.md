@@ -1,5 +1,5 @@
 ---
-"@fake-scope/fake-pkg": patch
+"@yoshinani/style-guide": patch
 ---
 
-[WIP] Add eslint-plugin-no-barrel-files to prohibit barrel exports
+Add eslint-plugin-no-barrel-files to prohibit barrel exports
