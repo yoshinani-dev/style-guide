@@ -1,5 +1,13 @@
 # @yoshinani/style-guide
 
+## 0.17.12
+
+### Patch Changes
+
+- 578a1ed: chore(deps): bump the eslint-dependencies group across 1 directory with 2 updates
+- 10f645a: chore(deps-dev): bump the dev-dependencies group across 1 directory with 2 updates
+- 263d64d: chore(deps): bump @commitlint/config-conventional from 20.5.0 to 20.5.3 in the commitlint-dependencies group across 1 directory
+
 ## 0.17.11
 
 ### Patch Changes
