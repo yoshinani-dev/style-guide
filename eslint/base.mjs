@@ -110,16 +110,6 @@ export default tseslint.config(
             "TSのenumには様々な問題があります。enum as constを使用してください。",
         },
         {
-          selector: "ForInStatement",
-          message:
-            "for文は使わず、forEach、map、filterなどを使用してください。",
-        },
-        {
-          selector: "ForOfStatement",
-          message:
-            "for文は使わず、forEach、map、filterなどを使用してください。",
-        },
-        {
           selector: "LabeledStatement",
           message:
             "Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand.",
