@@ -83,24 +83,6 @@ export default tseslint.config(
         "error",
         { ignore: [] },
       ],
-      // sort import statements
-      "import/order": [
-        "warn",
-        {
-          groups: [
-            "builtin",
-            "external",
-            "internal",
-            "parent",
-            "sibling",
-            "index",
-          ],
-          "newlines-between": "always",
-          alphabetize: { order: "asc" },
-        },
-      ],
-      // sort named imports within an import statement
-      "sort-imports": ["warn", { ignoreDeclarationSort: true }],
       "no-restricted-syntax": [
         "error",
         {
