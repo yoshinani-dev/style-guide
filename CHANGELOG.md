@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 0.18.0
+
+### Minor Changes
+
+- 0c57d14: remove for statement rule
+
 ## 0.17.12
 
 ### Patch Changes
