@@ -1,5 +1,12 @@
 # @yoshinani/style-guide
 
+## 0.18.1
+
+### Patch Changes
+
+- 91e6a60: chore(deps): bump @eslint-community/eslint-plugin-eslint-comments from 4.7.1 to 4.7.2
+- 9ec6311: chore(deps): bump typescript-eslint from 8.60.0 to 8.60.1 in the eslint-dependencies group
+
 ## 0.18.0
 
 ### Minor Changes
