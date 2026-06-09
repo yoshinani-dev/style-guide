@@ -8,7 +8,7 @@
 
 以下の設定が利用可能で、組み合わせて使うことを想定しています。
 
-- [Prettier](#prettier) または [Biome](#biome)
+- [Biome](#biome)
 - [ESLint](#eslint)
 - [TypeScript](#typescript)
 - [commitlint](#commitlint)
@@ -31,16 +31,6 @@ pnpm i --save-dev @yoshinani/style-guide
 
 # Yarn を使う場合
 yarn add --dev @yoshinani/style-guide
-```
-
-## Prettier
-
-共有 Prettier 設定を使うには、`package.json` に以下を追加してください。
-
-```json
-{
-  "prettier": "@yoshinani/style-guide/prettier"
-}
 ```
 
 ## Biome

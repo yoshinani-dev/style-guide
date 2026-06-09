@@ -30,7 +30,6 @@
     "./biome": "./biome/base.jsonc",
     "./commitlint": "./commitlint/commitlint.config.mjs",
     "./eslint/*": "./eslint/*.mjs",
-    "./prettier": "./prettier/prettier.config.cjs",
     "./typescript": "./typescript/base.json",
     "./typescript/nextjs": "./typescript/nextjs.json",
     "./typescript/react-library": "./typescript/react-library.json"
@@ -40,7 +39,6 @@
     "commitlint",
     "cspell",
     "eslint",
-    "prettier",
     "typescript"
   ],
   "dependencies": {
@@ -68,7 +66,6 @@
     "@biomejs/biome": "^2",
     "@commitlint/cli": "^20",
     "eslint": "^9",
-    "prettier": "^3",
     "typescript": "^5"
   }
 }
