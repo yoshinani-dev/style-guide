@@ -1,5 +1,12 @@
 # @yoshinani/style-guide
 
+## 1.0.0
+
+### Major Changes
+
+- 530be8f: import sort を Biome に一任。ESLint から `import/order` と `sort-imports` を削除し、Biome の organizeImports を有効化した。
+- c98f617: Prettier 設定を削除。フォーマッタは Biome に一本化したため、`@yoshinani/style-guide/prettier` の export と `prettier` の peerDependency を廃止した。利用側は Biome のフォーマッタへ移行が必要な破壊的変更。
+
 ## 0.18.1
 
 ### Patch Changes
@@ -75,7 +82,7 @@
 
 ### Patch Changes
 
-- c4d088c: commitlint/config-conventionalのアップグレード漏れを修正
+- c4d088c: commitlint/config-conventional のアップグレード漏れを修正
 
 ## 0.17.3
 
@@ -88,13 +95,13 @@
 ### Patch Changes
 
 - cd41913: chore(deps): bump @eslint-community/eslint-plugin-eslint-comments from 4.5.0 to 4.6.0
-- cac07cb: autoincrement、fkey、pkeyを辞書に追加
+- cac07cb: autoincrement、fkey、pkey を辞書に追加
 
 ## 0.17.1
 
 ### Patch Changes
 
-- bcb407f: 辞書にvercelを追加
+- bcb407f: 辞書に vercel を追加
 
 ## 0.17.0
 
@@ -112,7 +119,7 @@
 
 ### Patch Changes
 
-- fd01948: eslint-import-resolver-typescriptの不足を修正
+- fd01948: eslint-import-resolver-typescript の不足を修正
 
 ## 0.16.1
 
@@ -126,7 +133,7 @@
 
 ### Minor Changes
 
-- 0af699e: tsupを非推奨にしtsdownを推奨
+- 0af699e: tsup を非推奨にし tsdown を推奨
 
 ## 0.15.2
 
@@ -147,7 +154,7 @@
 
 ### Minor Changes
 
-- 28d6471: tailwindDirectivesを有効化
+- 28d6471: tailwindDirectives を有効化
 
 ## 0.14.4
 
@@ -160,7 +167,7 @@
 
 ### Patch Changes
 
-- 4fee094: npm publish時にoidcを用いるようにした
+- 4fee094: npm publish 時に oidc を用いるようにした
 - e0a36af: chore(deps): bump actions/setup-node from 5 to 6 in the github-actions group
 - 708ecef: chore(deps): bump the eslint-dependencies group with 3 updates
 - e4888a8: 辞書を追加
@@ -169,7 +176,7 @@
 
 ### Patch Changes
 
-- 8ef00b7: cspell設定を.vscode/配下に移動しvscodeの設定と共通化
+- 8ef00b7: cspell 設定を.vscode/配下に移動し vscode の設定と共通化
 - 4bd3b6d: chore(deps-dev): bump @biomejs/biome from 2.2.5 to 2.2.6 in the dev-dependencies group
 
 ## 0.14.1
@@ -182,7 +189,7 @@
 
 ### Minor Changes
 
-- 1dd6a01: eslint-plugin-tailwindcssを削除しeslint-plugin-better-tailwindcssに移行
+- 1dd6a01: eslint-plugin-tailwindcss を削除し eslint-plugin-better-tailwindcss に移行
 
 ### Patch Changes
 
@@ -213,7 +220,7 @@
 
 ### Minor Changes
 
-- d7ae54f: biome.jsoncにvcs設定を追加
+- d7ae54f: biome.jsonc に vcs 設定を追加
 
 ## 0.12.3
 
@@ -221,7 +228,7 @@
 
 - ccf9135: 辞書を追加
 - 44edbf1: chore(deps-dev): bump @biomejs/biome from 2.1.2 to 2.1.4 in the biome-dependencies group
-- 511d32c: YOSHINANIを大文字に統一
+- 511d32c: YOSHINANI を大文字に統一
 
 ## 0.12.2
 
@@ -239,13 +246,13 @@
 
 ### Minor Changes
 
-- a868bd1: biomeのorganizeImportsの推奨設定を追加
+- a868bd1: biome の organizeImports の推奨設定を追加
 
 ## 0.11.0
 
 ### Minor Changes
 
-- bc2b824: package.jsonにtype: moduleを指定
+- bc2b824: package.json に type: module を指定
 
 ### Patch Changes
 
@@ -255,25 +262,25 @@
 
 ### Patch Changes
 
-- d26a49f: provenanceを有効化
+- d26a49f: provenance を有効化
 
 ## 0.10.2
 
 ### Patch Changes
 
-- 562584b: pnpmをv10に固定、その微修正
+- 562584b: pnpm を v10 に固定、その微修正
 
 ## 0.10.1
 
 ### Patch Changes
 
-- b93bf42: biome.jsoncがpackage.jsonのfilesから漏れていた問題を修正
+- b93bf42: biome.jsonc が package.json の files から漏れていた問題を修正
 
 ## 0.10.0
 
 ### Minor Changes
 
-- 2109572: Biomeの設定ファイルを追加しprettierだけBiomeに移行
+- 2109572: Biome の設定ファイルを追加し prettier だけ Biome に移行
 
 ## 0.9.0
 
@@ -285,14 +292,14 @@
 
 ### Minor Changes
 
-- b6b13eb: Stripeの用語を追加
+- b6b13eb: Stripe の用語を追加
 - 87ecb4d: commit type
 
 ## 0.7.0
 
 ### Minor Changes
 
-- 6b98adf: feat(eslint): consistent-type-importsを有効化
+- 6b98adf: feat(eslint): consistent-type-imports を有効化
 
 ## 0.6.0
 
@@ -322,7 +329,7 @@
 
 ### Minor Changes
 
-- b271bd0: Cursor Rulesと非推奨ライブラリの追加
+- b271bd0: Cursor Rules と非推奨ライブラリの追加
 
 ## 0.2.4
 
