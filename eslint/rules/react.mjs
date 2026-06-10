@@ -2,7 +2,7 @@
 
 import react from "eslint-plugin-react"
 
-export default {
+export default /** @type {import("eslint").Linter.Config} */ ({
   name: "react",
   files: ["**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"],
   settings: {
@@ -24,4 +24,4 @@ export default {
     // prop-typesを使用しない
     "react/prop-types": "off",
   },
-}
+})

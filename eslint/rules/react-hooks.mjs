@@ -2,7 +2,7 @@
 
 import reactHooks from "eslint-plugin-react-hooks"
 
-export default {
+export default /** @type {import("eslint").Linter.Config} */ ({
   name: "react-hooks",
   plugins: {
     "react-hooks": reactHooks,
@@ -10,4 +10,4 @@ export default {
   rules: {
     ...reactHooks.configs["recommended-latest"].rules,
   },
-}
+})

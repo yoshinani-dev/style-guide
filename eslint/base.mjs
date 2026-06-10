@@ -23,7 +23,9 @@ export default defineConfig(
       import: importPlugin,
       functional,
       "@eslint-community/eslint-comments": comments,
-      "no-barrel-files": noBarrelFiles,
+      "no-barrel-files": /** @type {import("eslint").ESLint.Plugin} */ (
+        noBarrelFiles
+      ),
     },
     languageOptions: {
       parserOptions: {
@@ -33,8 +35,6 @@ export default defineConfig(
     },
     rules: {
       "functional/immutable-data": "error",
-      // [barrel exportを禁止](https://github.com/art0rz/eslint-plugin-no-barrel-files)
-      "no-barrel-files/no-barrel-files": "error",
       // [比較演算子禁止](https://www.notion.so/yoshinani-note/1dff5577f5838145acfcca9176913b79)
       eqeqeq: [
         "error",

@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "allowJs": true
+  },
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.mjs"]
+}
