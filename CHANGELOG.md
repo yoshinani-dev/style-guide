@@ -1,5 +1,13 @@
 # @yoshinani/style-guide
 
+## 1.0.1
+
+### Patch Changes
+
+- 96c09d4: ESLint config の`tseslint.config()`を`defineConfig()`（`eslint/config`）に移行
+- 96c09d4: - `eslint-plugin-no-barrel-files`を`configs.recommended`スプレッドに変更
+  - `eslint/rules/react.mjs`・`react-hooks.mjs`に JSDoc 型アノテーションを追加
+
 ## 1.0.0
 
 ### Major Changes
