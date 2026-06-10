@@ -2,13 +2,14 @@
 
 import eslint from "@eslint/js"
 import comments from "@eslint-community/eslint-plugin-eslint-comments"
+import { defineConfig } from "eslint/config"
 import eslintConfigPrettier from "eslint-config-prettier/flat"
 import functional from "eslint-plugin-functional"
 import * as importPlugin from "eslint-plugin-import"
 import noBarrelFiles from "eslint-plugin-no-barrel-files"
 import tseslint from "typescript-eslint"
 
-export default tseslint.config(
+export default defineConfig(
   eslint.configs.recommended,
   tseslint.configs.recommendedTypeChecked,
   eslintConfigPrettier,
