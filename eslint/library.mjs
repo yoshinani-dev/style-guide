@@ -1,10 +1,11 @@
 // @ts-check
 
+import { defineConfig } from "eslint/config"
 import globals from "globals"
 
 import base from "./base.mjs"
 
-const eslintConfig = [
+export default defineConfig([
   ...base,
   {
     languageOptions: {
@@ -15,6 +16,4 @@ const eslintConfig = [
     },
     ignores: ["node_modules/", "dist/", "*.js"],
   },
-]
-
-export default eslintConfig
+])
