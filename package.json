@@ -26,6 +26,7 @@
     "check": "biome check .",
     "check:fix": "biome check --write .",
     "test": "vitest run",
+    "test:tsconfig": "tsc -p tests/fixtures/typescript/base && tsc -p tests/fixtures/typescript/nextjs && tsc -p tests/fixtures/typescript/react-library",
     "typecheck": "tsc --noEmit"
   },
   "exports": {
@@ -64,13 +65,13 @@
     "@commitlint/cli": "^20.5.3",
     "eslint": "9.31.0",
     "husky": "^9.1.7",
-    "typescript": "5.9.3",
+    "typescript": "6.0.3",
     "vitest": "3.2.6"
   },
   "peerDependencies": {
     "@biomejs/biome": "^2",
     "@commitlint/cli": "^20",
     "eslint": "^9",
-    "typescript": "^5"
+    "typescript": "^5 || ^6"
   }
 }
