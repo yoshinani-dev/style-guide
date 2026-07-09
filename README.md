@@ -124,6 +124,23 @@ export default eslintConfig
 }
 ```
 
+> [!NOTE]
+> base 設定は `"types": []` を明示しています(TypeScript 7 のデフォルト値を先取り)。そのため `@types/node` などのグローバル型定義は自動で読み込まれません。必要な場合は利用側の `tsconfig.json` で明示的に指定してください。
+
+```json
+{
+  "extends": "@yoshinani/style-guide/typescript",
+  "compilerOptions": {
+    "types": ["node"]
+  }
+}
+```
+
+### TypeScript のバージョンについて
+
+- `tsc` としては TypeScript 5 / 6 をサポートしています(`peerDependencies`)。TypeScript 7(ネイティブ実装)でも各共有設定が動作することを CI で検証しています。
+- ただし、ESLint の型情報ルール(typescript-eslint)は TypeScript `<6.1` までの対応です。TypeScript 7 を使う場合は、lint 用に TypeScript 6 系(または [`@typescript/typescript6`](https://www.npmjs.com/package/@typescript/typescript6))を併用してください。typescript-eslint が TypeScript 7 の API(7.1 で提供予定)に対応した時点で、`peerDependencies` を `^7` まで拡大する予定です。
+
 ## commitlint
 
 1. commitlintのインストール

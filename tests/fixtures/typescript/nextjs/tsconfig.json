@@ -1,0 +1,4 @@
+{
+  "extends": "../../../../typescript/nextjs.json",
+  "include": ["index.ts"]
+}
