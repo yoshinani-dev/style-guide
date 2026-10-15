@@ -1,5 +1,11 @@
 # @yoshinani/style-guide
 
+## 1.0.8
+
+### Patch Changes
+
+- fcb2084: chore(deps-dev): bump the dev-dependencies group across 1 directory with 2 updates
+
 ## 1.0.7
 
 ### Patch Changes
