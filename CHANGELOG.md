@@ -1,5 +1,12 @@
 # @yoshinani/style-guide
 
+## 1.0.8
+
+### Patch Changes
+
+- fcb2084: chore(deps-dev): bump the dev-dependencies group across 1 directory with 2 updates
+- f2297b3: chore(deps): bump @eslint-community/eslint-plugin-eslint-comments from 4.7.2 to 4.8.1
+
 ## 1.0.7
 
 ### Patch Changes
