@@ -22,7 +22,7 @@
   },
   "scripts": {
     "prepare": "husky",
-    "release": "changeset publish",
+    "release": "changeset publish --tag v1",
     "check": "biome check .",
     "check:fix": "biome check --write .",
     "test": "vitest run",
