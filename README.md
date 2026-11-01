@@ -8,6 +8,7 @@
 
 以下の設定が利用可能で、組み合わせて使うことを想定しています。
 
+- [Vite+ で使う場合](#vite-で使う場合)
 - [oxfmt](#oxfmt)
 - [oxlint](#oxlint)
 - [TypeScript](#typescript)
@@ -38,9 +39,45 @@ yarn add --dev @yoshinani/style-guide
 
 Node.js 22.18 以上が必要です。oxfmt と oxlint の設定ファイル（`oxfmt.config.ts` / `oxlint.config.ts`）を、Node.js の型の除去機能で読み込むためです。
 
+oxfmt / oxlint の設定は、次の 2 通りの使い方ができます。
+
+- **[Vite+](https://viteplus.dev/) を使う**：`vite.config.ts` の `fmt` / `lint` ブロックで共有設定を読み込みます。oxfmt・oxlint・oxlint-tsgolint は Vite+ に同梱されているため、個別のインストールは不要です。
+- **oxfmt / oxlint を単体で使う**：`oxfmt.config.ts` / `oxlint.config.ts` で共有設定を読み込みます（[oxfmt](#oxfmt)、[oxlint](#oxlint) の節を参照）。
+
+## Vite+ で使う場合
+
+```sh
+pnpm add -D vite-plus @yoshinani/style-guide
+```
+
+`vite.config.ts` の `fmt` ブロックに oxfmt の共有設定を展開し、`lint` ブロックで oxlint の共有設定を `extends` します。
+
+```ts
+import { defineConfig } from "vite-plus"
+import fmt from "@yoshinani/style-guide/oxfmt"
+import next from "@yoshinani/style-guide/oxlint/next"
+
+export default defineConfig({
+  fmt: {
+    ...fmt,
+    // 除外したいファイルを追加する場合は、共有設定の ignorePatterns を残したうえで追加します
+    ignorePatterns: [...(fmt.ignorePatterns ?? []), "pnpm-lock.yaml"],
+  },
+  lint: {
+    extends: [next],
+    options: { typeAware: true, typeCheck: true },
+  },
+})
+```
+
+- `vp check` で、フォーマット・lint・型チェックをまとめて実行できます（`typeCheck: true` のとき）。
+- 利用できる oxlint の設定は [oxlint](#oxlint) の節と同じです。Effect あり版を使う場合は [Effect-TS](#effect-ts) の節も参照してください。
+- Vite+ 1.4.0 以上に対応しています。Vite+ が同梱する oxlint / oxfmt のバージョンで動作を確認しています。
+- Vite+ は `oxlint.config.ts` / `oxfmt.config.ts` との併用を推奨していません。Vite+ を使う場合は `vite.config.ts` にまとめてください。
+
 ## oxfmt
 
-フォーマッターには [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) を使います。
+フォーマッターには [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) を使います。ここでは oxfmt を単体で使う方法を説明します（Vite+ を使う場合は [Vite+ で使う場合](#vite-で使う場合) を参照してください）。
 
 まず、プロジェクトルートにoxfmtをインストールします。
 
@@ -108,7 +145,7 @@ VSCodeでフォーマッターとしてoxfmtを利用する場合は、まず[Ox
 
 ## oxlint
 
-リンターには [oxlint](https://oxc.rs/docs/guide/usage/linter.html) を使います。型情報を使うルールのために `oxlint-tsgolint` も必要です。
+リンターには [oxlint](https://oxc.rs/docs/guide/usage/linter.html) を使います。型情報を使うルールのために `oxlint-tsgolint` も必要です。ここでは oxlint を単体で使う方法を説明します（Vite+ を使う場合は [Vite+ で使う場合](#vite-で使う場合) を参照してください）。
 
 ```sh
 pnpm add -w -D oxlint oxlint-tsgolint
@@ -225,7 +262,7 @@ export default defineConfig({
 
 Effect のルール（`effecttsgo` プラグイン）は oxlint 標準ではなく、Effect 版の oxlint でしか動きません。次のどちらかで実行してください。通常の oxlint のまま実行すると `Unknown plugin: 'effecttsgo'` で設定の読み込みに失敗します。
 
-- `prepare` スクリプトで oxlint にパッチを当てる（エディターの拡張機能も Effect 版で動きます）
+- `prepare` スクリプトで oxlint にパッチを当てる（エディターの拡張機能も Effect 版で動きます）。Vite+ を使っている場合は、Vite+ が同梱する oxlint にパッチが当たり、`vp check` / `vp lint` でも Effect のルールが動きます
 
   ```json
   "scripts": {

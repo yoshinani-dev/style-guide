@@ -1,6 +1,5 @@
-// @ts-check
-
 import { recommended } from "@effect/tsgo/oxlint-presets"
+import type { OxlintConfig, OxlintOverride } from "oxlint"
 
 /**
  * Effect-TS（v4）向けのルール。-effect の各設定で共有する。
@@ -10,7 +9,11 @@ import { recommended } from "@effect/tsgo/oxlint-presets"
  * `effect-tsgo patch --oxlint --no-typescript` を実行するか、
  * `effect-tsgo oxlint` 経由で oxlint を実行する必要がある。
  */
-export default {
+const effect: {
+  plugins: NonNullable<OxlintConfig["plugins"]>
+  rules: NonNullable<OxlintConfig["rules"]>
+  overrides: OxlintOverride[]
+} = {
   plugins: recommended.plugins ?? [],
   rules: recommended.rules ?? {},
   overrides: [
@@ -23,3 +26,5 @@ export default {
     },
   ],
 }
+
+export default effect

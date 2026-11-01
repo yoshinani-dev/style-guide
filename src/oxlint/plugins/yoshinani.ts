@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * oxlint 本体にないルールを補う JS プラグイン。
  *
@@ -8,7 +6,7 @@
  * - no-enum: TypeScript の enum を禁止する。
  */
 
-/** @import { Plugin } from "@oxlint/plugins" */
+import type { Plugin } from "@oxlint/plugins"
 
 const DIRECTIVE_PATTERN =
   /^\s*((?:eslint|oxlint)-(?:disable|enable|disable-line|disable-next-line))(?:\s|$)/u
@@ -16,8 +14,7 @@ const DIRECTIVE_PATTERN =
 // ESLint と同じく、2 つ以上のハイフンを空白で挟んだ後ろを理由とみなす
 const DESCRIPTION_PATTERN = /\s-{2,}\s+\S/u
 
-/** @type {Plugin} */
-const plugin = {
+const plugin: Plugin = {
   meta: { name: "yoshinani" },
   rules: {
     "require-description": {

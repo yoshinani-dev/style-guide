@@ -1,12 +1,10 @@
-// @ts-check
-
 /**
  * 共有 tsconfig を、PATH 上の tsc で検証する。
  * fixture には `@ts-expect-error` を置き、設定が効いていること（types: [] や
  * exactOptionalPropertyTypes）も確かめる。
  *
  * - `pnpm test:tsconfig`: devDependencies の TypeScript で検証する
- * - `pnpm --package=typescript@7 dlx node tests/tsconfig.mjs`: 指定したバージョンで検証する
+ * - `pnpm --package=typescript@7 dlx node tests/tsconfig.ts`: 指定したバージョンで検証する
  */
 
 import { execFileSync } from "node:child_process"

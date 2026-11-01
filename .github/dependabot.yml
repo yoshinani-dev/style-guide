@@ -22,7 +22,8 @@ updates:
           - "minor"
           - "patch"
       # Oxc（oxfmt / oxlint）関連
-      # @effect/tsgo は対応する oxlint / oxlint-tsgolint のバージョンが決まっているため、同じグループで更新する
+      # vite-plus は oxlint / oxfmt / oxlint-tsgolint を固定バージョンで同梱し、@effect/tsgo は対応する oxlint の
+      # バージョンが決まっているため、すべて同じグループで更新する
       oxc-dependencies:
         patterns:
           - "oxfmt"
@@ -31,6 +32,7 @@ updates:
           - "@oxlint/*"
           - "@effect/tsgo"
           - "effect"
+          - "vite-plus"
         update-types:
           - "minor"
           - "patch"

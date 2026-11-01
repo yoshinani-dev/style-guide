@@ -1,10 +1,13 @@
-// @ts-check
+import type { OxlintConfig } from "oxlint"
 
 /**
  * React 向けのルール。react-library と next で共有する。
  * oxlint の react プラグインには react-hooks のルールも含まれる。
  */
-export default /** @type {const} */ ({
+const react: {
+  plugins: NonNullable<OxlintConfig["plugins"]>
+  rules: NonNullable<OxlintConfig["rules"]>
+} = {
   plugins: ["react"],
   rules: {
     // v1 の eslint-plugin-react の recommended から引き継いだルール
@@ -34,4 +37,6 @@ export default /** @type {const} */ ({
     // import React from "react"を記載しない
     "react/react-in-jsx-scope": "off",
   },
-})
+}
+
+export default react

@@ -1,10 +1,9 @@
-// @ts-check
+import type { OxlintConfig } from "oxlint"
 
-import base from "./base.mjs"
-import react from "./rules/react.mjs"
+import base from "./base"
+import react from "./rules/react"
 
-/** @type {import("oxlint").OxlintConfig} */
-export default {
+const config: OxlintConfig = {
   ...base,
   plugins: [...(base.plugins ?? []), ...react.plugins],
   rules: {
@@ -17,3 +16,5 @@ export default {
     { files: ["**/*"], env: { browser: true, serviceworker: true } },
   ],
 }
+
+export default config

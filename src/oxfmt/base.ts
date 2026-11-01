@@ -1,7 +1,6 @@
-// @ts-check
+import type { OxfmtConfig } from "oxfmt"
 
-/** @type {import("oxfmt").OxfmtConfig} */
-export default {
+const config: OxfmtConfig = {
   // oxfmt の既定値は 100。v1（Biome）と同じ 80 に揃える
   printWidth: 80,
   semi: false,
@@ -32,3 +31,5 @@ export default {
   // Markdown はフォーマットしない
   ignorePatterns: ["**/*.md"],
 }
+
+export default config

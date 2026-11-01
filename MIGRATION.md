@@ -30,8 +30,15 @@ Effect-TS（v4）を使うプロジェクトでは、oxlint と TypeScript の�
 
 ```sh
 pnpm remove @biomejs/biome eslint
+
+# oxfmt / oxlint を単体で使う場合
 pnpm add -D @yoshinani/style-guide@beta oxfmt oxlint oxlint-tsgolint
+
+# Vite+ を使う場合（oxfmt / oxlint / oxlint-tsgolint は Vite+ に同梱されています）
+pnpm add -D @yoshinani/style-guide@beta vite-plus
 ```
+
+Vite+ を使う場合は、手順 2・3 の `oxfmt.config.ts` / `oxlint.config.ts` の代わりに、`vite.config.ts` の `fmt` / `lint` ブロックで共有設定を読み込みます。書き方は [README の「Vite+ で使う場合」](./README.md#vite-で使う場合) を参照してください。
 
 v1 のために ESLint のプラグインを個別に入れていた場合は、それも削除してください。
 

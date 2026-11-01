@@ -1,14 +1,17 @@
-// @ts-check
-
+import path from "node:path"
 import { fileURLToPath } from "node:url"
+
+import type { OxlintConfig } from "oxlint"
 
 import {
   restrictedImportPaths,
   restrictedImportPatterns,
-} from "./rules/restricted-imports.mjs"
+} from "./rules/restricted-imports"
 
-/** @type {import("oxlint").OxlintConfig} */
-export default {
+// ソース（.ts）とビルド後（.mjs）のどちらから読み込まれても、同じ拡張子のプラグインを指す
+const extension = path.extname(fileURLToPath(import.meta.url))
+
+const config: OxlintConfig = {
   plugins: ["eslint", "typescript", "unicorn", "oxc", "import", "node"],
   jsPlugins: [
     // oxlint 本体にないルールを補う自前のプラグイン。
@@ -16,7 +19,7 @@ export default {
     {
       name: "yoshinani",
       specifier: fileURLToPath(
-        new URL("./plugins/yoshinani.mjs", import.meta.url),
+        new URL(`./plugins/yoshinani${extension}`, import.meta.url),
       ),
     },
   ],
@@ -182,3 +185,5 @@ export default {
     typeAware: true,
   },
 }
+
+export default config

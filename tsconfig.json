@@ -1,21 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "strict": true,
+    "noUncheckedIndexedAccess": true,
     "noEmit": true,
-    "allowJs": true,
-    "checkJs": true,
-    // TypeScript 7 では node_modules 内の型定義（vitest と chai）が重複定義のエラーになるため
-    "skipLibCheck": true
+    "allowImportingTsExtensions": true,
+    "skipLibCheck": true,
+    "types": ["node"]
   },
-  "include": [
-    "commitlint/**/*.mjs",
-    "oxfmt/**/*.mjs",
-    "oxlint/**/*.mjs",
-    "tests/**/*.mjs",
-    "oxfmt.config.ts",
-    "oxlint.config.ts"
-  ]
+  "include": ["src", "tests", "vite.config.ts"],
+  "exclude": ["tests/fixtures"]
 }

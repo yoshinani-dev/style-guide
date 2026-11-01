@@ -1,5 +1,5 @@
 import { defineConfig } from "oxlint"
 
-import config from "../../../oxlint/next.mjs"
+import config from "../../../dist/oxlint/next.mjs"
 
 export default defineConfig({ extends: [config] })

@@ -21,18 +21,20 @@ pnpm i
 設定ファイルを変更したら、以下で CI と同じ検証ができます。
 
 ```sh
-pnpm check      # oxfmt でのフォーマットと oxlint での lint（自リポジトリも配布する設定で検査する）
-pnpm typecheck  # 設定ファイルの型チェック
-pnpm test       # tests/fixtures/ に oxlint を実行し、期待どおりのルールが検出されるか確かめる
+pnpm check      # vp check：フォーマット・lint・型チェック（自リポジトリも配布する設定で検査する）
+pnpm build      # vp pack：src/ をビルドして dist/ に出力する
+pnpm test       # dist/ をビルドしてから、tests/fixtures/ に oxlint を実行し、期待どおりのルールが検出されるか確かめる
 pnpm test:tsconfig  # 共有 tsconfig で tests/fixtures/typescript/ をコンパイルする
 ```
 
-- CI では、共有 tsconfig を TypeScript 6 / 7 でも検証します。手元で試す場合は `pnpm --package=typescript@7 dlx node tests/tsconfig.mjs` を実行してください。
+- CI では、共有 tsconfig を TypeScript 6 / 7 でも検証します。手元で試す場合は `pnpm --package=typescript@7 dlx node tests/tsconfig.ts` を実行してください。
 
 - `pnpm check:fix` でフォーマットと lint の自動修正ができます。
-- ルールを追加・変更したときは、`tests/fixtures/<設定名>/src/` に違反するコードと正常なコードを置き、`tests/oxlint.test.mjs` に期待する検出結果を書いてください。
+- ルールを追加・変更したときは、`tests/fixtures/<設定名>/src/` に違反するコードと正常なコードを置き、`tests/oxlint.test.ts` に期待する検出結果を書いてください。
 - Effect あり版の fixture は、`effect-tsgo oxlint` 経由で実行されます（`node_modules` の oxlint は書き換えません）。
-- 公開する `.mjs` を追加したときは、同じ名前の `.d.mts`（型定義）も追加してください。
+- 設定は `src/` に TypeScript で書きます。`vp pack` で `dist/` に `.mjs` と型定義（`.d.mts`）が出力されます。`src/oxlint/` に追加したファイルは `@yoshinani/style-guide/oxlint/<ファイル名>` で公開されます。
+- フォーマット・lint・ビルド・テストの設定は、すべて `vite.config.ts` にまとまっています。
+- devDependencies の `oxlint` / `oxlint-tsgolint` / `@oxlint/plugins` は、`vite-plus` が同梱しているバージョン（`vp toolchain` で確認できます）と揃えてください。揃っていないとテストが失敗します。
 
 ## コミットとリリースバージョン管理
 
@@ -48,7 +50,7 @@ type: メッセージ
 Resolves #1
 ```
 
-許可されている type の一覧は[こちらに記載されています](./commitlint/commitlint.config.mjs)
+許可されている type の一覧は[こちらに記載されています](./src/commitlint/commitlint.config.ts)
 
 ### リリース管理
 

@@ -1,7 +1,7 @@
-// @ts-check
+import type { OxlintConfig } from "oxlint"
 
-import base from "./base.mjs"
-import react from "./rules/react.mjs"
+import base from "./base"
+import react from "./rules/react"
 
 /**
  * oxlint の nextjs プラグインのルールは原則すべて有効にする。
@@ -9,14 +9,12 @@ import react from "./rules/react.mjs"
  * oxlint にはプラグインごとのプリセットがなく、カテゴリで有効にする。nextjs のルールは
  * すべて correctness カテゴリに属しており、base の `categories.correctness: "error"` で
  * プラグインを追加するだけで error になる。correctness 以外のカテゴリでルールが増えた場合は
- * tests/oxlint.test.mjs が失敗するので、ここの rules に追加する。
+ * tests/oxlint.test.ts が失敗するので、ここの rules に追加する。
  *
  * 無効化や warn への引き下げは、理由をコメントで残した場合に限る。
  * Pages Router 専用のルールも有効のままにする（App Router では反応しないだけで害はない）。
- *
- * @type {import("oxlint").OxlintConfig}
  */
-export default {
+const config: OxlintConfig = {
   ...base,
   plugins: [...(base.plugins ?? []), ...react.plugins, "nextjs"],
   rules: {
@@ -49,3 +47,5 @@ export default {
     { files: ["**/*"], env: { browser: true, node: true, es2021: true } },
   ],
 }
+
+export default config

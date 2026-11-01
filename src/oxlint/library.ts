@@ -1,9 +1,8 @@
-// @ts-check
+import type { OxlintConfig } from "oxlint"
 
-import base from "./base.mjs"
+import base from "./base"
 
-/** @type {import("oxlint").OxlintConfig} */
-export default {
+const config: OxlintConfig = {
   ...base,
   overrides: [
     ...(base.overrides ?? []),
@@ -11,3 +10,5 @@ export default {
     { files: ["**/*"], env: { node: true, es2021: true } },
   ],
 }
+
+export default config

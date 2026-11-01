@@ -265,6 +265,23 @@ Effect v4 の公式ドキュメントで、oxlint 向けの連携（`@effect/tsg
   - `changeset publish --tag v1` で公開する。v2 の正式版を出したあと、v1 のパッチが `latest` タグを奪わないようにするため。
 - main 側では、dependabot に `v1` 向けの設定（パッチアップデートのみ）を追加し、CONTRIBUTING.md に v1 の保守方針を書いた。
 
+## TypeScript 化と Vite+ への移行（Phase 6 の後に追加）
+
+### 決定事項
+
+- 設定を `src/` に TypeScript で書き、Vite+ でチェック（`vp check`）・ビルド（`vp pack`）・テスト（`vp test`）する。
+- 利用者には、Vite+（`vite.config.ts` の `fmt` / `lint` ブロック）と、oxfmt / oxlint の単体利用（`oxfmt.config.ts` / `oxlint.config.ts`）の両方を案内する。
+- oxlint / oxfmt / oxlint-tsgolint のバージョンは vite-plus の同梱版に合わせる（vite-plus 1.4.0 では oxlint 1.89.0、oxfmt 0.74.0、oxlint-tsgolint 7.0.2004）。
+
+### 実施結果
+
+- `oxlint/`、`oxfmt/`、`commitlint/` の `.mjs` を `src/` の `.ts` に移した。手書きの `.d.mts` は削除し、`vp pack`（tsdown、バンドルなし）が生成する型定義に置き換えた。出力先は `dist/` で、`exports` は `dist/` を指す。`typescript/*.json` と `cspell/` は従来どおりそのまま公開する。
+- `vite.config.ts` に `fmt` / `lint` / `pack` / `test` の設定をまとめ、`oxlint.config.ts` / `oxfmt.config.ts`（ルート）を削除した。自リポジトリは `src/` の設定でフォーマット・lint し、`typeCheck: true` で型チェックも `vp check` で行う（`tsc` による `typecheck` スクリプトは廃止）。
+- 自前プラグインの絶対パスは、読み込み元のモジュールの拡張子を引き継ぐようにした（`src/` では `.ts`、`dist/` では `.mjs`）。
+- テストは `vp pack` でビルドした `dist/` を使う。`vp test` の中では `VP_VERSION` が設定され、子プロセスの oxlint が `vite.config.ts` の `lint` ブロックを探すモードになるため、テストから oxlint を起動するときは外して渡す。
+- devDependencies の `oxlint` / `oxlint-tsgolint` / `@oxlint/plugins` を vite-plus の同梱版に固定し、ずれたら失敗するテストを追加した。peer の下限も同梱版に下げ、`oxfmt` / `oxlint` / `oxlint-tsgolint` / `vite-plus` を optional peer にした。
+- `npm pack` したパッケージで、Vite+ の利用者（通常版と、`effect-tsgo patch` を当てた Effect あり版）と単体利用者（oxlint 1.89 / oxfmt 0.74）の両方で動くことを確認した。
+
 ## 進め方
 
 - PR はフェーズごとに 1 本ずつに分ける。

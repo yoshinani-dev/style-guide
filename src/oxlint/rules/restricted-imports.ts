@@ -1,5 +1,3 @@
-// @ts-check
-
 // [インポートを制限](https://www.notion.so/yoshinani-note/1dff5577f58381a7bd81ef0805696e2b)
 //
 // oxlint のルールオプションはマージされず置き換わるため、利用者が禁止ライブラリを
@@ -7,7 +5,17 @@
 
 const VALIDATION_MESSAGE = "Effect Schema または valibot を使用してください。"
 
-export const restrictedImportPaths = [
+export interface RestrictedImportPath {
+  name: string
+  message: string
+}
+
+export interface RestrictedImportPattern {
+  group: string[]
+  message: string
+}
+
+export const restrictedImportPaths: RestrictedImportPath[] = [
   {
     name: "@material-tailwind/react",
     message: "shadcn/uiを使用してください。",
@@ -94,7 +102,7 @@ export const restrictedImportPaths = [
   },
 ]
 
-export const restrictedImportPatterns = [
+export const restrictedImportPatterns: RestrictedImportPattern[] = [
   {
     group: ["@emotion/*"],
     message: "Tailwind CSSを使用してください。",
