@@ -5,45 +5,23 @@ import react from "./rules/react.mjs"
 
 /**
  * oxlint の nextjs プラグインのルールは原則すべて有効にする。
+ *
+ * oxlint にはプラグインごとのプリセットがなく、カテゴリで有効にする。nextjs のルールは
+ * すべて correctness カテゴリに属しており、base の `categories.correctness: "error"` で
+ * プラグインを追加するだけで error になる。correctness 以外のカテゴリでルールが増えた場合は
+ * tests/oxlint.test.mjs が失敗するので、ここの rules に追加する。
+ *
  * 無効化や warn への引き下げは、理由をコメントで残した場合に限る。
- * Pages Router 専用のルールも有効にしておく（App Router では反応しないだけで害はない）。
+ * Pages Router 専用のルールも有効のままにする（App Router では反応しないだけで害はない）。
  *
- * oxlint の更新でルールが増えた場合は tests/oxlint.test.mjs が失敗するので、ここに追加する。
- *
- * @type {import("oxlint").OxlintConfig["rules"]}
+ * @type {import("oxlint").OxlintConfig}
  */
-const nextjsRules = {
-  "nextjs/google-font-display": "error",
-  "nextjs/google-font-preconnect": "error",
-  "nextjs/inline-script-id": "error",
-  "nextjs/next-script-for-ga": "error",
-  "nextjs/no-assign-module-variable": "error",
-  "nextjs/no-async-client-component": "error",
-  "nextjs/no-before-interactive-script-outside-document": "error",
-  "nextjs/no-css-tags": "error",
-  "nextjs/no-document-import-in-page": "error",
-  "nextjs/no-duplicate-head": "error",
-  "nextjs/no-head-element": "error",
-  "nextjs/no-head-import-in-document": "error",
-  "nextjs/no-html-link-for-pages": "error",
-  "nextjs/no-img-element": "error",
-  "nextjs/no-page-custom-font": "error",
-  "nextjs/no-script-component-in-head": "error",
-  "nextjs/no-styled-jsx-in-document": "error",
-  "nextjs/no-sync-scripts": "error",
-  "nextjs/no-title-in-document-head": "error",
-  "nextjs/no-typos": "error",
-  "nextjs/no-unwanted-polyfillio": "error",
-}
-
-/** @type {import("oxlint").OxlintConfig} */
 export default {
   ...base,
   plugins: [...(base.plugins ?? []), ...react.plugins, "nextjs"],
   rules: {
     ...base.rules,
     ...react.rules,
-    ...nextjsRules,
   },
   overrides: [
     ...(base.overrides ?? []),

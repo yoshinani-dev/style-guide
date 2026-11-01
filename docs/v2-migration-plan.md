@@ -186,7 +186,7 @@ Effect v4 の公式ドキュメントで、oxlint 向けの連携（`@effect/tsg
 
 ### 方針：oxlint の `nextjs` プラグインのルールは原則すべて有効にする
 
-- **すべてのルールを `rules` に明示的に列挙し、`error` にする。** カテゴリ（`correctness` など）で有効にするとほかのプラグインにも影響が出るため、ルール単位で指定する。
+- ~~すべてのルールを `rules` に明示的に列挙し、`error` にする。~~ → base で `correctness` カテゴリをすでに `error` にしており、`nextjs` のルールもすべて `correctness` だったため、カテゴリ任せに変更した（実施結果を参照）。
 - **無効化や `warn` への引き下げは、理由をコメントで残した場合に限る。** 除外するのは、App Router の正しいコードで誤検知が出るものだけにする。
 - **Pages Router 専用のルール**（`_document` まわりなど）も有効にしておく。App Router のプロジェクトでは単に反応しないだけで害はなく、Pages Router のプロジェクトでは役に立つ。
 - **ファイル単位の例外は `overrides` で最小限にする。** 現時点での候補：
@@ -195,7 +195,7 @@ Effect v4 の公式ドキュメントで、oxlint 向けの連携（`@effect/tsg
 
 ### 新しいルールの追従
 
-- ルールを明示的に列挙するため、oxlint の更新で `nextjs` プラグインに増えたルールは自動では有効にならない。
+- `correctness` カテゴリで増えたルールは自動で有効になる。それ以外のカテゴリで増えたルールは自動では有効にならないため、テストで検出する。
 - `oxlint --rules` の出力にある `nextjs/*` のルールが、すべて設定で有効または理由付きで除外されていることを確かめるテストを置く。dependabot で oxlint を上げたときに新しいルールがあればテストが落ち、検討の機会になる。
 
 ### Phase 0 で確認すること
@@ -205,8 +205,9 @@ Effect v4 の公式ドキュメントで、oxlint 向けの連携（`@effect/tsg
 
 ### 実施結果
 
-- `oxlint/next.mjs` を追加した。`nextjs` プラグインの 21 ルールをすべて `error` で列挙し、除外したルールはない。
-- `oxlint --rules` に出る `nextjs/*` がすべて設定されていることを確かめるテストを追加した（1 ルールを外すと失敗することを確認済み）。
+- `oxlint/next.mjs` を追加した。`nextjs` プラグインの 21 ルールをすべて `error` にしており、除外したルールはない。
+- oxlint にはプラグインごとのプリセットがない。`nextjs` の 21 ルールはすべて `correctness` カテゴリなので、当初は明示的に列挙していたが、base の `categories.correctness: "error"` に任せる形に変えた。
+- `oxlint --rules` に出る `nextjs/*` が、`oxlint --print-config` で展開した設定ですべて `deny`（error）になっていることを確かめるテストを置いた。`correctness` 以外のカテゴリでルールが増えた場合はこのテストが失敗するので、そのときは `next.mjs` の `rules` に追加する（1 ルールを `warn` に下げると失敗することを確認済み）。
 - App Router の特殊ファイル（`page` / `layout` / `template` / `loading` / `default` / `not-found` / `*error` / 画像生成ファイル / `sitemap` / `robots` / `manifest`）では default export を必須にした（v1 の override を引き継ぎ、対象を広げた）。`route.ts` や `middleware.ts` は名前付き export を使うので対象外。
 - 画像生成ファイル（`opengraph-image` / `twitter-image` / `icon` / `apple-icon`）では `nextjs/no-img-element` を無効にした。
 - `typescript/nextjs` を `typescript/next` に改名した。

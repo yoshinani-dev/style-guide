@@ -258,20 +258,41 @@ describe("next", () => {
     results = await lintFixtures("next")
   })
 
-  it("oxlint の nextjs プラグインのルールをすべて設定している", async () => {
-    const { stdout } = await execFileAsync(
+  it("oxlint の nextjs プラグインのルールがすべて error になる", async () => {
+    // nextjs のルールはカテゴリ（correctness）で有効にしているため、
+    // 展開後の設定（--print-config）で全ルールが error になっているかを確かめる
+    const { stdout: rulesJson } = await execFileAsync(
       oxlintBin,
       ["--rules", "-f", "json"],
       { cwd: root },
     )
     const nextjsRules = /** @type {{ scope: string, value: string }[]} */ (
-      JSON.parse(stdout)
+      JSON.parse(rulesJson)
     )
       .filter((rule) => rule.scope === "nextjs")
       .map((rule) => `nextjs/${rule.value}`)
     expect(nextjsRules.length).toBeGreaterThan(0)
-    expect(Object.keys(next.rules ?? {})).toEqual(
-      expect.arrayContaining(nextjsRules),
+
+    const { stdout: configJson } = await execFileAsync(
+      oxlintBin,
+      [
+        "-c",
+        path.join("tests", "fixtures", "next", "oxlint.config.ts"),
+        "--print-config",
+      ],
+      { cwd: root },
+    )
+    const { rules } = /** @type {{ rules: Record<string, unknown> }} */ (
+      JSON.parse(configJson)
+    )
+    const severities = Object.fromEntries(
+      nextjsRules.map((rule) => {
+        const value = rules[rule]
+        return [rule, Array.isArray(value) ? value[0] : value]
+      }),
+    )
+    expect(severities).toEqual(
+      Object.fromEntries(nextjsRules.map((rule) => [rule, "deny"])),
     )
   })
 
