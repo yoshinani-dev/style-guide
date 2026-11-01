@@ -49,6 +49,33 @@ updates:
         update-types:
           ["version-update:semver-major", "version-update:semver-minor"]
 
+  # v1（保守用ブランチ）の npm の更新設定
+  # セキュリティ修正やパッチを取り込むため、パッチアップデートだけを v1 に向けて作る
+  - package-ecosystem: "npm"
+    directory: "/"
+    target-branch: "v1"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      timezone: "Asia/Tokyo"
+    versioning-strategy: "auto"
+    labels:
+      - "dependencies"
+      - "v1"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    groups:
+      v1-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          ["version-update:semver-major", "version-update:semver-minor"]
+
   # GitHub Actionsの更新設定
   - package-ecosystem: "github-actions"
     directory: "/"

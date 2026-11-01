@@ -258,7 +258,11 @@ Effect v4 の公式ドキュメントで、oxlint 向けの連携（`@effect/tsg
 - `MIGRATION.md` を追加した。設定の対応表、移行手順（パッケージの入れ替え、oxfmt / oxlint / tsconfig / スクリプト・CI・エディターの更新、フォーマットのコミットと `.git-blame-ignore-revs`）、挙動の違い、Effect を使う場合をまとめた。
 - v1 のルール名で書いた無効化コメント（`@typescript-eslint/no-explicit-any`、`react-hooks/exhaustive-deps`、`no-process-env`）が oxlint でもそのまま効くことを確認し、移行ガイドに書いた。
 - 正式版にするには、ベータ版を実プロジェクトで使ったあと `changeset pre exit` を実行し、リリース PR をマージする。
-- 未対応：v1 の保守用ブランチ（`v1`）はまだ作っていない。リリースのワークフローは main への push でしか動かないため、v1 のパッチを公開するにはワークフローの変更も必要になる。
+- v1 の保守用ブランチ `v1` を、v1.0.8 をリリースした時点の main（58ecc78）から作った。`v1` ブランチでは次のように設定している。
+  - リリースのワークフローは `v1` への push で動く。
+  - Changesets の `baseBranch` は `v1`。リリース用のプルリクエストも `v1` に向けて作られる。
+  - `changeset publish --tag v1` で公開する。v2 の正式版を出したあと、v1 のパッチが `latest` タグを奪わないようにするため。
+- main 側では、dependabot に `v1` 向けの設定（パッチアップデートのみ）を追加し、CONTRIBUTING.md に v1 の保守方針を書いた。
 
 ## 進め方
 
