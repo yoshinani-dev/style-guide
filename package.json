@@ -31,24 +31,23 @@
     "test:tsconfig": "node tests/tsconfig.ts"
   },
   "exports": {
-    "./commitlint": {
-      "types": "./dist/commitlint/commitlint.config.d.mts",
-      "default": "./dist/commitlint/commitlint.config.mjs"
-    },
-    "./oxfmt": {
-      "types": "./dist/oxfmt/base.d.mts",
-      "default": "./dist/oxfmt/base.mjs"
-    },
-    "./oxlint/*": {
-      "types": "./dist/oxlint/*.d.mts",
-      "default": "./dist/oxlint/*.mjs"
-    },
+    "./commitlint": "./dist/commitlint/index.mjs",
+    "./oxfmt": "./dist/oxfmt/index.mjs",
+    "./oxlint/base": "./dist/oxlint/base.mjs",
+    "./oxlint/base-effect": "./dist/oxlint/base-effect.mjs",
+    "./oxlint/library": "./dist/oxlint/library.mjs",
+    "./oxlint/library-effect": "./dist/oxlint/library-effect.mjs",
+    "./oxlint/next": "./dist/oxlint/next.mjs",
+    "./oxlint/next-effect": "./dist/oxlint/next-effect.mjs",
+    "./oxlint/plugins/yoshinani": "./dist/oxlint/plugins/yoshinani.mjs",
+    "./oxlint/react-library": "./dist/oxlint/react-library.mjs",
+    "./oxlint/react-library-effect": "./dist/oxlint/react-library-effect.mjs",
+    "./oxlint/rules/effect": "./dist/oxlint/rules/effect.mjs",
+    "./oxlint/rules/react": "./dist/oxlint/rules/react.mjs",
+    "./oxlint/rules/restricted-imports": "./dist/oxlint/rules/restricted-imports.mjs",
+    "./package.json": "./package.json",
     "./typescript": "./typescript/base.json",
-    "./typescript/effect": "./typescript/effect.json",
-    "./typescript/next": "./typescript/next.json",
-    "./typescript/next-effect": "./typescript/next-effect.json",
-    "./typescript/react-library": "./typescript/react-library.json",
-    "./typescript/react-library-effect": "./typescript/react-library-effect.json"
+    "./typescript/*": "./typescript/*.json"
   },
   "files": [
     "cspell",

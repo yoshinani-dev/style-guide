@@ -48,3 +48,7 @@ jobs:
 
       - name: Run Tests
         run: pnpm run test
+
+      # vp pack が package.json の exports を生成するため、生成結果がコミットされているか確かめる
+      - name: Check generated exports are committed
+        run: git diff --exit-code package.json

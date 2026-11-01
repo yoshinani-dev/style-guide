@@ -32,7 +32,7 @@ pnpm test:tsconfig  # 共有 tsconfig で tests/fixtures/typescript/ をコン�
 - `pnpm check:fix` でフォーマットと lint の自動修正ができます。
 - ルールを追加・変更したときは、`tests/fixtures/<設定名>/src/` に違反するコードと正常なコードを置き、`tests/oxlint.test.ts` に期待する検出結果を書いてください。
 - Effect あり版の fixture は、`effect-tsgo oxlint` 経由で実行されます（`node_modules` の oxlint は書き換えません）。
-- 設定は `src/` に TypeScript で書きます。`vp pack` で `dist/` に `.mjs` と型定義（`.d.mts`）が出力されます。`src/oxlint/` に追加したファイルは `@yoshinani/style-guide/oxlint/<ファイル名>` で公開されます。
+- 設定は `src/` に TypeScript で書きます。`vp pack` で `dist/` に `.mjs` と型定義（`.d.mts`）が出力されます。`package.json` の `exports` は `vp pack` が自動で生成します（`src/oxlint/next.ts` は `@yoshinani/style-guide/oxlint/next`、`src/oxfmt/index.ts` は `@yoshinani/style-guide/oxfmt` になります）。生成された `package.json` の変更もコミットしてください。
 - フォーマット・lint・ビルド・テストの設定は、すべて `vite.config.ts` にまとまっています。
 - devDependencies の `oxlint` / `oxlint-tsgolint` / `@oxlint/plugins` は、`vite-plus` が同梱しているバージョン（`vp toolchain` で確認できます）と揃えてください。揃っていないとテストが失敗します。
 
@@ -50,7 +50,7 @@ type: メッセージ
 Resolves #1
 ```
 
-許可されている type の一覧は[こちらに記載されています](./src/commitlint/commitlint.config.ts)
+許可されている type の一覧は[こちらに記載されています](./src/commitlint/index.ts)
 
 ### リリース管理
 
