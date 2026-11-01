@@ -87,6 +87,8 @@ v1 で `no-restricted-imports` の禁止ライブラリを追加していた場�
 
 v2 の base 設定は `"types": []` を明示しています（TypeScript 7 の既定値に合わせるため）。`@types/node` などのグローバルな型定義を使っている場合は、`types` で指定してください。
 
+v1 の `typescript/nextjs` は `types` に `vitest/importMeta` を指定していましたが、v2 の `typescript/next` では外しました（vitest を入れていないプロジェクトで型エラーになるため）。vitest の in-source testing（`import.meta.vitest`）を使っている場合は、`types` に `vitest/importMeta`（Vite+ を使う場合は `vite-plus/test/importMeta`）を追加してください。
+
 ```json
 {
   "extends": "@yoshinani/style-guide/typescript",

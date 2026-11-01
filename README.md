@@ -330,7 +330,7 @@ Effect あり版の違いは[Effect-TS](#effect-ts)を参照してください�
 ```
 
 > [!NOTE]
-> base 設定は `"types": []` を明示しています（TypeScript 7 の既定値に合わせ、TypeScript 5 / 6 / 7 で挙動を揃えるため）。そのため `@types/node` などのグローバルな型定義は自動では読み込まれません。必要な場合は利用側の `tsconfig.json` で指定してください。`next` 設定は `types` に `vitest/importMeta` を指定しています。
+> base 設定は `"types": []` を明示しています（TypeScript 7 の既定値に合わせ、TypeScript 5 / 6 / 7 で挙動を揃えるため）。そのため `@types/node` などのグローバルな型定義は自動では読み込まれません。必要な場合は利用側の `tsconfig.json` で指定してください。`next` などのほかの設定も同じです。
 
 ```json
 {
@@ -340,6 +340,8 @@ Effect あり版の違いは[Effect-TS](#effect-ts)を参照してください�
   }
 }
 ```
+
+vitest の in-source testing（`import.meta.vitest`）を使う場合は、`types` に `vitest/importMeta`（Vite+ を使う場合は `vite-plus/test/importMeta`）を追加してください。
 
 ### TypeScript のバージョンについて
 
