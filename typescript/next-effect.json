@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./next.json",
+  "compilerOptions": {
+    "plugins": [
+      { "name": "next" },
+      { "name": "@effect/language-service", "diagnostics": false }
+    ],
+    "exactOptionalPropertyTypes": true
+  }
+}

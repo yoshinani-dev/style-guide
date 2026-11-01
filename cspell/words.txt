@@ -2,6 +2,7 @@ autoincrement
 biomejs
 commitlint
 dify
+effecttsgo
 esbuild
 firestore
 fkey
@@ -18,6 +19,8 @@ neverthrow
 notionhq
 nuqs
 opengraph
+oxfmt
+oxlint
 picklist
 pkey
 postback
@@ -34,6 +37,8 @@ signups
 sonner
 supabase
 toza
+tsgo
+tsgolint
 turbopack
 turborepo
 uncollectible

@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "engines": {
-    "node": ">=22",
+    "node": ">=22.18",
     "pnpm": "10"
   },
   "publishConfig": {
@@ -22,55 +22,80 @@
   },
   "scripts": {
     "prepare": "husky",
+    "prepack": "vp pack",
     "release": "changeset publish",
-    "check": "biome check .",
-    "check:fix": "biome check --write .",
-    "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "build": "vp pack",
+    "check": "vp check",
+    "check:fix": "vp check --fix",
+    "test": "vp pack && vp test",
+    "test:tsconfig": "node tests/tsconfig.ts"
   },
   "exports": {
-    "./biome": "./biome/base.jsonc",
-    "./commitlint": "./commitlint/commitlint.config.mjs",
-    "./eslint/*": "./eslint/*.mjs",
+    "./commitlint": "./dist/commitlint/index.mjs",
+    "./oxfmt": "./dist/oxfmt/index.mjs",
+    "./oxlint/base": "./dist/oxlint/base.mjs",
+    "./oxlint/base-effect": "./dist/oxlint/base-effect.mjs",
+    "./oxlint/library": "./dist/oxlint/library.mjs",
+    "./oxlint/library-effect": "./dist/oxlint/library-effect.mjs",
+    "./oxlint/next": "./dist/oxlint/next.mjs",
+    "./oxlint/next-effect": "./dist/oxlint/next-effect.mjs",
+    "./oxlint/plugins/yoshinani": "./dist/oxlint/plugins/yoshinani.mjs",
+    "./oxlint/react-library": "./dist/oxlint/react-library.mjs",
+    "./oxlint/react-library-effect": "./dist/oxlint/react-library-effect.mjs",
+    "./oxlint/rules/effect": "./dist/oxlint/rules/effect.mjs",
+    "./oxlint/rules/react": "./dist/oxlint/rules/react.mjs",
+    "./oxlint/rules/restricted-imports": "./dist/oxlint/rules/restricted-imports.mjs",
+    "./package.json": "./package.json",
     "./typescript": "./typescript/base.json",
-    "./typescript/nextjs": "./typescript/nextjs.json",
-    "./typescript/react-library": "./typescript/react-library.json"
+    "./typescript/*": "./typescript/*.json"
   },
   "files": [
-    "biome",
-    "commitlint",
     "cspell",
-    "eslint",
+    "dist",
     "typescript"
   ],
   "dependencies": {
-    "@commitlint/config-conventional": "^20.5.3",
-    "@eslint-community/eslint-plugin-eslint-comments": "^4.7.2",
-    "@eslint/js": "^9.39.4",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-import-resolver-typescript": "^3.10.1",
-    "eslint-plugin-better-tailwindcss": "^3.8.0",
-    "eslint-plugin-functional": "^9.0.5",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-no-barrel-files": "^1.3.1",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "globals": "^16.5.0",
-    "typescript-eslint": "^8.61.0"
+    "@commitlint/config-conventional": "^20.5.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.16",
     "@changesets/cli": "^3.0.0",
     "@commitlint/cli": "^20.5.3",
-    "eslint": "9.31.0",
+    "@commitlint/types": "^20.5.0",
+    "@effect/tsgo": "^0.63.0",
+    "@oxlint/plugins": "1.89.0",
+    "@types/node": "^24.19.2",
+    "@types/react": "^19.3.0",
+    "effect": "^4.1.1",
     "husky": "^9.1.7",
+    "oxlint": "1.89.0",
+    "oxlint-tsgolint": "7.0.2004",
     "typescript": "5.9.3",
-    "vitest": "3.2.7"
+    "vite-plus": "1.4.0"
   },
   "peerDependencies": {
-    "@biomejs/biome": "^2",
     "@commitlint/cli": "^20",
-    "eslint": "^9",
-    "typescript": "^5"
+    "@effect/tsgo": ">=0.63.0",
+    "oxfmt": ">=0.74.0",
+    "oxlint": ">=1.89.0",
+    "oxlint-tsgolint": ">=7.0.2004",
+    "typescript": "^5 || ^6 || ^7",
+    "vite-plus": ">=1.4.0"
+  },
+  "peerDependenciesMeta": {
+    "@effect/tsgo": {
+      "optional": true
+    },
+    "oxfmt": {
+      "optional": true
+    },
+    "oxlint": {
+      "optional": true
+    },
+    "oxlint-tsgolint": {
+      "optional": true
+    },
+    "vite-plus": {
+      "optional": true
+    }
   }
 }

@@ -1,1 +1,1 @@
-pnpm commitlint --config ./commitlint/commitlint.config.mjs --edit "$1"
+pnpm commitlint --config ./src/commitlint/index.ts --edit "$1"

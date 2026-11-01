@@ -8,6 +8,5 @@
       "addWords": false
     }
   ],
-  "ignorePaths": ["pnpm-lock.yaml"],
-  "words": ["dbaeumer"]
+  "ignorePaths": ["pnpm-lock.yaml"]
 }

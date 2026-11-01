@@ -17,3 +17,6 @@ lerna-debug.log*
 
 # Keys
 .env
+
+# Build output
+dist/

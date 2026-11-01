@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "strict": true,
+    "noUncheckedIndexedAccess": true,
     "noEmit": true,
-    "allowJs": true,
-    "checkJs": true
+    "allowImportingTsExtensions": true,
+    "skipLibCheck": true,
+    "types": ["node"]
   },
-  "include": ["eslint/**/*.mjs", "tests/**/*.mjs", "commitlint/**/*.mjs"]
+  "include": ["src", "tests", "vite.config.ts"],
+  "exclude": ["tests/fixtures"]
 }

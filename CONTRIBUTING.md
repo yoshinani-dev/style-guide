@@ -16,6 +16,26 @@ mise install
 pnpm i
 ```
 
+## 開発
+
+設定ファイルを変更したら、以下で CI と同じ検証ができます。
+
+```sh
+pnpm check      # vp check：フォーマット・lint・型チェック（自リポジトリも配布する設定で検査する）
+pnpm build      # vp pack：src/ をビルドして dist/ に出力する
+pnpm test       # dist/ をビルドしてから、tests/fixtures/ に oxlint を実行し、期待どおりのルールが検出されるか確かめる
+pnpm test:tsconfig  # 共有 tsconfig で tests/fixtures/typescript/ をコンパイルする
+```
+
+- CI では、共有 tsconfig を TypeScript 6 / 7 でも検証します。手元で試す場合は `pnpm --package=typescript@7 dlx node tests/tsconfig.ts` を実行してください。
+
+- `pnpm check:fix` でフォーマットと lint の自動修正ができます。
+- ルールを追加・変更したときは、`tests/fixtures/<設定名>/src/` に違反するコードと正常なコードを置き、`tests/oxlint.test.ts` に期待する検出結果を書いてください。
+- Effect あり版の fixture は、`effect-tsgo oxlint` 経由で実行されます（`node_modules` の oxlint は書き換えません）。
+- 設定は `src/` に TypeScript で書きます。`vp pack` で `dist/` に `.mjs` と型定義（`.d.mts`）が出力されます。`package.json` の `exports` は `vp pack` が自動で生成します（`src/oxlint/next.ts` は `@yoshinani/style-guide/oxlint/next`、`src/oxfmt/index.ts` は `@yoshinani/style-guide/oxfmt` になります）。生成された `package.json` の変更もコミットしてください。
+- フォーマット・lint・ビルド・テストの設定は、すべて `vite.config.ts` にまとまっています。
+- devDependencies の `oxlint` / `oxlint-tsgolint` / `@oxlint/plugins` は、`vite-plus` が同梱しているバージョン（`vp toolchain` で確認できます）と揃えてください。揃っていないとテストが失敗します。
+
 ## コミットとリリースバージョン管理
 
 コミット規約は [`@commitlint/config-conventional`](https://github.com/conventional-changelog/commitlint/blob/master/%40commitlint/config-conventional) に基づいています。
@@ -30,11 +50,14 @@ type: メッセージ
 Resolves #1
 ```
 
-許可されている type の一覧は[こちらに記載されています](./commitlint/commitlint.config.mjs)
+許可されている type の一覧は[こちらに記載されています](./src/commitlint/index.ts)
 
 ### リリース管理
 
 このプロジェクトは [Changesets](https://github.com/changesets/changesets) を使用してリリースを管理しています。
+
+> [!NOTE]
+> `main` は v2 の開発用です。v1 系の保守は `v1` ブランチで行います。v1 へのパッチは `v1` ブランチに向けてプルリクエストを作成してください。`v1` で公開したバージョンには npm の `v1` タグが付きます。
 
 #### 変更の記録
 

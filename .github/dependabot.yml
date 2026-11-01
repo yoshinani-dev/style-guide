@@ -14,15 +14,6 @@ updates:
       prefix: "chore"
       include: "scope"
     groups:
-      # ESLintプラグイン・設定関連
-      eslint-dependencies:
-        patterns:
-          - "@eslint/*"
-          - "eslint-*"
-          - "typescript-eslint"
-        update-types:
-          - "minor"
-          - "patch"
       # Commitlint関連
       commitlint-dependencies:
         patterns:
@@ -30,17 +21,18 @@ updates:
         update-types:
           - "minor"
           - "patch"
-      # Biome関連
-      biome-dependencies:
+      # Oxc（oxfmt / oxlint）関連
+      # vite-plus は oxlint / oxfmt / oxlint-tsgolint を固定バージョンで同梱し、@effect/tsgo は対応する oxlint の
+      # バージョンが決まっているため、すべて同じグループで更新する
+      oxc-dependencies:
         patterns:
-          - "@biomejs/*"
-        update-types:
-          - "minor"
-          - "patch"
-      # その他の依存関係
-      other-dependencies:
-        patterns:
-          - "globals"
+          - "oxfmt"
+          - "oxlint"
+          - "oxlint-*"
+          - "@oxlint/*"
+          - "@effect/tsgo"
+          - "effect"
+          - "vite-plus"
         update-types:
           - "minor"
           - "patch"
@@ -55,12 +47,36 @@ updates:
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
       # peerDependenciesは慎重に扱う
-      - dependency-name: "eslint"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
       - dependency-name: "typescript"
-        update-types: ["version-update:semver-major", "version-update:semver-minor"]
-      - dependency-name: "@biomejs/biome"
-        update-types: ["version-update:semver-major"]
+        update-types:
+          ["version-update:semver-major", "version-update:semver-minor"]
+
+  # v1（保守用ブランチ）の npm の更新設定
+  # セキュリティ修正やパッチを取り込むため、パッチアップデートだけを v1 に向けて作る
+  - package-ecosystem: "npm"
+    directory: "/"
+    target-branch: "v1"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      timezone: "Asia/Tokyo"
+    versioning-strategy: "auto"
+    labels:
+      - "dependencies"
+      - "v1"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    groups:
+      v1-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          ["version-update:semver-major", "version-update:semver-minor"]
 
   # GitHub Actionsの更新設定
   - package-ecosystem: "github-actions"

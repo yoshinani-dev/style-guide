@@ -8,11 +8,15 @@
 
 以下の設定が利用可能で、組み合わせて使うことを想定しています。
 
-- [Biome](#biome)
-- [ESLint](#eslint)
+- [Vite+ で使う場合](#vite-で使う場合)
+- [oxfmt](#oxfmt)
+- [oxlint](#oxlint)
 - [TypeScript](#typescript)
 - [commitlint](#commitlint)
 - [CSpell](#CSpell)
+
+> [!NOTE]
+> v2 では Biome / ESLint から oxfmt / oxlint に移行しました。v1 から移行する場合は [移行ガイド](./MIGRATION.md) を参照してください。v2 は現在ベータ版として公開しています（`pnpm add -D @yoshinani/style-guide@beta`）。
 
 ## コントリビュートについて
 
@@ -33,36 +37,98 @@ pnpm i --save-dev @yoshinani/style-guide
 yarn add --dev @yoshinani/style-guide
 ```
 
-## Biome
+Node.js 22.18 以上が必要です。oxfmt と oxlint の設定ファイル（`oxfmt.config.ts` / `oxlint.config.ts`）を、Node.js の型の除去機能で読み込むためです。
 
-現在、この設定ではBiomeのフォーマッター機能のみを有効にしています。リンターとしては、別途 [ESLint](#eslint) を設定してください。
+oxfmt / oxlint の設定は、次の 2 通りの使い方ができます。
 
-まず、プロジェクトルートにBiomeをインストールします。
+- **[Vite+](https://viteplus.dev/) を使う**：`vite.config.ts` の `fmt` / `lint` ブロックで共有設定を読み込みます。oxfmt・oxlint・oxlint-tsgolint は Vite+ に同梱されているため、個別のインストールは不要です。
+- **oxfmt / oxlint を単体で使う**：`oxfmt.config.ts` / `oxlint.config.ts` で共有設定を読み込みます（[oxfmt](#oxfmt)、[oxlint](#oxlint) の節を参照）。
+
+## Vite+ で使う場合
 
 ```sh
-pnpm add -w -D @biomejs/biome
+pnpm add -D vite-plus @yoshinani/style-guide
 ```
 
-共有のBiome設定を利用するには、`biome.jsonc` を作成して、以下のように `extends` を設定します。
+`vite.config.ts` の `fmt` ブロックに oxfmt の共有設定を展開し、`lint` ブロックで oxlint の共有設定を `extends` します。
 
-```jsonc
-{
-  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "extends": ["@yoshinani/style-guide/biome"],
-  "files": {
-    "includes": ["**", "!**/.next", "!**/.turbo"]
-  }
+```ts
+import { defineConfig } from "vite-plus"
+import fmt from "@yoshinani/style-guide/oxfmt"
+import next from "@yoshinani/style-guide/oxlint/next"
+
+export default defineConfig({
+  fmt: {
+    ...fmt,
+    // 除外したいファイルを追加する場合は、共有設定の ignorePatterns を残したうえで追加します
+    ignorePatterns: [...(fmt.ignorePatterns ?? []), "pnpm-lock.yaml"],
+  },
+  lint: {
+    extends: [next],
+    options: { typeAware: true, typeCheck: true },
+  },
+})
+```
+
+- `vp check` で、フォーマット・lint・型チェックをまとめて実行できます（`typeCheck: true` のとき）。
+- 利用できる oxlint の設定は [oxlint](#oxlint) の節と同じです。Effect あり版を使う場合は [Effect-TS](#effect-ts) の節も参照してください。
+- Vite+ 1.4.0 以上に対応しています。Vite+ が同梱する oxlint / oxfmt のバージョンで動作を確認しています。
+- Vite+ は `oxlint.config.ts` / `oxfmt.config.ts` との併用を推奨していません。Vite+ を使う場合は `vite.config.ts` にまとめてください。
+
+## oxfmt
+
+フォーマッターには [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) を使います。ここでは oxfmt を単体で使う方法を説明します（Vite+ を使う場合は [Vite+ で使う場合](#vite-で使う場合) を参照してください）。
+
+まず、プロジェクトルートにoxfmtをインストールします。
+
+```sh
+pnpm add -w -D oxfmt
+```
+
+共有のoxfmt設定を利用するには、`oxfmt.config.ts` を作成して、以下のように共有設定を展開します。oxfmtには `extends` がないため、展開して使います。
+
+```ts
+import { defineConfig } from "oxfmt"
+import base from "@yoshinani/style-guide/oxfmt"
+
+export default defineConfig({
+  ...base,
+  // 除外したいファイルを追加する場合は、共有設定の ignorePatterns を残したうえで追加します
+  ignorePatterns: [...(base.ignorePatterns ?? []), "pnpm-lock.yaml"],
+})
+```
+
+- 設定ファイルは `oxfmt.config.ts` という名前にしてください。`oxfmt.config.mjs` は自動では読み込まれません。
+- Markdown はフォーマットの対象外です（共有設定の `ignorePatterns` で除外しています）。
+- `.gitignore` に書かれたファイルは自動で除外されます。
+- Tailwind CSS のクラスは自動で並び替えられます。独自のテーマを使っている場合は、`sortTailwindcss.stylesheet` にスタイルシートのパスを指定してください。
+
+```ts
+export default defineConfig({
+  ...base,
+  sortTailwindcss: {
+    ...base.sortTailwindcss,
+    stylesheet: "./app/globals.css",
+  },
+})
+```
+
+`package.json` には以下のスクリプトを追加します。
+
+```json
+"scripts": {
+  "format": "oxfmt .",
+  "format:check": "oxfmt --check ."
 }
 ```
 
-VSCodeでフォーマッターとしてBiomeを利用する場合は、まず[Biomeの拡張機能](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)をインストールしてください。
+VSCodeでフォーマッターとしてoxfmtを利用する場合は、まず[Oxcの拡張機能](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode)をインストールしてください。
 
-次に、`.vscode/settings.json` に以下の設定を追加します。
+次に、`.vscode/settings.json` に以下の設定を追加します。importの並び替えもフォーマットの一部として行われるため、`editor.codeActionsOnSave` の設定は不要です。
 
 ```jsonc
 {
-  "biome.enabled": true,
-  "editor.defaultFormatter": "biomejs.biome",
+  "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.formatOnSave": true
 }
 ```
@@ -72,37 +138,174 @@ VSCodeでフォーマッターとしてBiomeを利用する場合は、まず[Bi
 ```jsonc
 {
   "recommendations": [
-    "biomejs.biome"
+    "oxc.oxc-vscode"
   ]
 }
 ```
 
-## ESLint
+## oxlint
+
+リンターには [oxlint](https://oxc.rs/docs/guide/usage/linter.html) を使います。型情報を使うルールのために `oxlint-tsgolint` も必要です。ここでは oxlint を単体で使う方法を説明します（Vite+ を使う場合は [Vite+ で使う場合](#vite-で使う場合) を参照してください）。
+
+```sh
+pnpm add -w -D oxlint oxlint-tsgolint
+```
 
 利用できる設定は以下の通りです。
 
-- `@yoshinani/style-guide/eslint/base`
-- `@yoshinani/style-guide/eslint/next`
-- `@yoshinani/style-guide/eslint/library`
-- `@yoshinani/style-guide/eslint/react-internal`
+| 用途                             | 設定                                         |
+| -------------------------------- | -------------------------------------------- |
+| 汎用 TypeScript                  | `@yoshinani/style-guide/oxlint/base`          |
+| Node（サーバー・CLI・ライブラリ） | `@yoshinani/style-guide/oxlint/library`       |
+| React ライブラリ                 | `@yoshinani/style-guide/oxlint/react-library` |
+| Next.js アプリ                   | `@yoshinani/style-guide/oxlint/next`          |
 
-例として、Next.js プロジェクトで共有 ESLint 設定を使う場合、`eslint.config.mjs` に以下のように記載します。
+プロジェクトルートに `oxlint.config.ts` を作成し、`extends` で共有設定を読み込みます。
 
-```js
-import next from "@yoshinani/style-guide/eslint/next"
+```ts
+import { defineConfig } from "oxlint"
+import library from "@yoshinani/style-guide/oxlint/library"
 
-const eslintConfig = [...next]
-
-export default eslintConfig
+export default defineConfig({
+  extends: [library],
+  options: { typeAware: true },
+})
 ```
 
-プロジェクトの推奨拡張機能として設定するために、`.vscode/extensions.json`を作成し、以下の内容を追加することをお勧めします。
+- 共有設定にも `options.typeAware: true` を入れていますが、oxlint のドキュメント上はルート設定でのみ有効とされているため、ルート設定にも書いてください。
+- 型情報を使うルールは、依存パッケージをインストールし、`tsconfig.json` が解決できる状態で動きます。
+- `oxlint-tsgolint` は oxlint を実行するディレクトリの `node_modules` から探されます。モノレポではルートにインストールしてください。
+
+Next.js アプリでは `oxlint/next` を使います。React のルールに加えて、oxlint の `nextjs` プラグインのルールをすべて有効にしています。App Router の特殊ファイル（`page` / `layout` など）は default export が必須で、画像生成ファイル（`opengraph-image` など）では `<img>` を使えます。
+
+```ts
+import { defineConfig } from "oxlint"
+import next from "@yoshinani/style-guide/oxlint/next"
+
+export default defineConfig({
+  extends: [next],
+  options: { typeAware: true },
+})
+```
+
+`package.json` には以下のスクリプトを追加します。
+
+```json
+"scripts": {
+  "lint": "oxlint",
+  "lint:fix": "oxlint --fix"
+}
+```
+
+### ルールの無効化
+
+ルールを無効化するときは、`--` の後ろに理由を書いてください。理由のない無効化コメントはエラーになります（`eslint-disable` と `oxlint-disable` のどちらも対象です）。
+
+```ts
+// eslint-disable-next-line no-console -- CLI の出力のため
+console.log(result)
+```
+
+### 禁止ライブラリを追加する
+
+oxlint のルールオプションはマージされず置き換わります。`no-restricted-imports` に禁止ライブラリを追加するときは、共有の一覧を展開してから追加してください。
+
+```ts
+import { defineConfig } from "oxlint"
+import library from "@yoshinani/style-guide/oxlint/library"
+import {
+  restrictedImportPaths,
+  restrictedImportPatterns,
+} from "@yoshinani/style-guide/oxlint/rules/restricted-imports"
+
+export default defineConfig({
+  extends: [library],
+  rules: {
+    "no-restricted-imports": [
+      "warn",
+      {
+        paths: [
+          ...restrictedImportPaths,
+          { name: "pino", message: "Effect の Logger を使ってください。" },
+        ],
+        patterns: restrictedImportPatterns,
+      },
+    ],
+  },
+})
+```
+
+### Effect-TS
+
+[Effect](https://effect.website/)（v4）を使うプロジェクトでは、各設定の Effect あり版を使います。Effect 公式の oxlint 連携（`@effect/tsgo`）の recommended プリセットが追加されます。Effect v3 は対象外です。
+
+| Effect なし                   | Effect あり                          |
+| ----------------------------- | ------------------------------------ |
+| `oxlint/base`                 | `oxlint/base-effect`                 |
+| `oxlint/library`              | `oxlint/library-effect`              |
+| `oxlint/react-library`        | `oxlint/react-library-effect`        |
+| `oxlint/next`                 | `oxlint/next-effect`                 |
+
+```sh
+pnpm add -w -D @effect/tsgo
+```
+
+```ts
+import { defineConfig } from "oxlint"
+import nextEffect from "@yoshinani/style-guide/oxlint/next-effect"
+
+export default defineConfig({
+  extends: [nextEffect],
+  options: { typeAware: true },
+})
+```
+
+Effect のルール（`effecttsgo` プラグイン）は oxlint 標準ではなく、Effect 版の oxlint でしか動きません。次のどちらかで実行してください。通常の oxlint のまま実行すると `Unknown plugin: 'effecttsgo'` で設定の読み込みに失敗します。
+
+- `prepare` スクリプトで oxlint にパッチを当てる（エディターの拡張機能も Effect 版で動きます）。Vite+ を使っている場合は、Vite+ が同梱する oxlint にパッチが当たり、`vp check` / `vp lint` でも Effect のルールが動きます
+
+  ```json
+  "scripts": {
+    "prepare": "effect-tsgo patch --oxlint --no-typescript"
+  }
+  ```
+
+- `node_modules` を書き換えずに、ラッパー経由で実行する
+
+  ```json
+  "scripts": {
+    "lint": "effect-tsgo oxlint --type-aware"
+  }
+  ```
+
+注意点：
+
+- `@effect/tsgo` が対応している oxlint / oxlint-tsgolint のバージョンは決まっています（`@effect/tsgo` 0.63.0 では oxlint 1.88.0〜1.90.0、oxlint-tsgolint 7.0.2004〜7.0.2005）。oxlint だけを先に上げず、`@effect/tsgo` と揃えて更新してください。
+- `@effect/vitest` の `it` などに対する `effecttsgo/unstable-api-usage` は、テストファイル（`*.test.*` / `*.spec.*`）では無効にしています。
+- Promise の await し忘れは引き続き `no-floating-promises` が、Effect の実行し忘れは `effecttsgo/floating-effect` が検出します。
+
+TypeScript の Effect あり版（`typescript/effect` など）では、次の 2 点が追加されます。
+
+- `compilerOptions.plugins` に `{ "name": "@effect/language-service", "diagnostics": false }` を追加します。診断は oxlint 側で出すため、エディターで二重に表示されないよう LSP 側の診断は切っています。
+- エディターで Effect の LSP を TypeScript 7 と一緒に使う場合は、`effect-tsgo patch --typescript` で TypeScript 本体にパッチを当てる必要があります。対応している TypeScript のバージョンは `@effect/tsgo` によって決まっています（0.63.0 では 7.1 系のみ）。oxlint の Effect ルールは TypeScript のバージョンに関係なく動きます。
+- `exactOptionalPropertyTypes: true` を有効にします。Effect Schema の型が正確になります。ライブラリの型と相性が悪い場合は、プロジェクト側の `tsconfig.json` で `false` に上書きしてください。
 
 ```json
 {
-  "recommendations": [
-    "dbaeumer.vscode-eslint"
-  ]
+  "extends": "@yoshinani/style-guide/typescript/next-effect",
+  "compilerOptions": {
+    "exactOptionalPropertyTypes": false
+  }
+}
+```
+
+VSCodeでは、[Oxcの拡張機能](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode)（oxfmtと同じ拡張機能）で lint の結果が表示されます。保存時に自動修正する場合は、`.vscode/settings.json` に以下を追加します。
+
+```jsonc
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.oxc": "explicit"
+  }
 }
 ```
 
@@ -110,11 +313,13 @@ export default eslintConfig
 
 このスタイルガイドは複数の TypeScript 設定を提供しています。利用可能な設定は以下の通りです。
 
-| 種類          | 設定パッケージ名                                  |
-| ------------- | ------------------------------------------------- |
-| base          | `@yoshinani/style-guide/typescript`               |
-| nextjs        | `@yoshinani/style-guide/typescript/nextjs`        |
-| react-library | `@yoshinani/style-guide/typescript/react-library` |
+| 種類          | 設定パッケージ名                                  | Effect あり版                                            |
+| ------------- | ------------------------------------------------- | -------------------------------------------------------- |
+| base          | `@yoshinani/style-guide/typescript`               | `@yoshinani/style-guide/typescript/effect`               |
+| next          | `@yoshinani/style-guide/typescript/next`          | `@yoshinani/style-guide/typescript/next-effect`          |
+| react-library | `@yoshinani/style-guide/typescript/react-library` | `@yoshinani/style-guide/typescript/react-library-effect` |
+
+Effect あり版の違いは[Effect-TS](#effect-ts)を参照してください。
 
 共有 TypeScript 設定を使うには、`tsconfig.json` に以下のように記載します。
 
@@ -123,6 +328,25 @@ export default eslintConfig
   "extends": "@yoshinani/style-guide/typescript"
 }
 ```
+
+> [!NOTE]
+> base 設定は `"types": []` を明示しています（TypeScript 7 の既定値に合わせ、TypeScript 5 / 6 / 7 で挙動を揃えるため）。そのため `@types/node` などのグローバルな型定義は自動では読み込まれません。必要な場合は利用側の `tsconfig.json` で指定してください。`next` などのほかの設定も同じです。
+
+```json
+{
+  "extends": "@yoshinani/style-guide/typescript",
+  "compilerOptions": {
+    "types": ["node"]
+  }
+}
+```
+
+vitest の in-source testing（`import.meta.vitest`）を使う場合は、`types` に `vitest/importMeta`（Vite+ を使う場合は `vite-plus/test/importMeta`）を追加してください。
+
+### TypeScript のバージョンについて
+
+- TypeScript 5 / 6 / 7（ネイティブ実装）をサポートしています。各共有設定がすべてのバージョンで有効であることを CI で検証しています。
+- 型情報を使う lint は `oxlint-tsgolint`（typescript-go を内蔵）で動くため、プロジェクトに入れた TypeScript のバージョンには依存しません。
 
 ## commitlint
 
@@ -184,7 +408,7 @@ pnpm commitlint --edit "$1"
 ```jsonc
 {
   "recommendations": [
-    "biomejs.biome",
+    "oxc.oxc-vscode",
     "streetsidesoftware.code-spell-checker"
   ]
 }
