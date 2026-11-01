@@ -22,6 +22,8 @@
 - **`exactOptionalPropertyTypes` は Effect あり版の tsconfig だけで有効にする。**
   - Effect Schema の型が正確になる。Effect あり版を使うのは v4 の新規プロジェクトだけなので、既存コードに大量の型エラーが出ることもない。
   - Effect 無し版では、v1 から移行するプロジェクトの障壁になるため有効にしない。
+- **Markdown はフォーマットの対象外、YAML は対象にする。** 共有の oxfmt 設定の `ignorePatterns` に `**/*.md` を入れる。
+- **Effect のプリセットの `effecttsgo/unstable-api-usage` はテストファイルでだけ無効にする。**
 - **このリポジトリ自身も、配布する oxfmt 設定でフォーマットする。** ルートの設定は `./oxfmt/base.mjs` を読み込むだけにし、独自の上書きはしない。配布物と自リポジトリで方針がずれないようにするため。
 
 ## 全体方針
@@ -75,6 +77,8 @@ v2 は破壊的変更を含むので、ESLint と TypeScript でばらばらだ�
 - `typescript/nextjs` → `typescript/next`（oxlint 側の `next` に合わせる）
 
 ## Phase 0：調査と試行
+
+> **実施済み。** 結果は [v2 Phase 0 調査結果](./v2-phase0-findings.md) を参照。以下は実施前に立てた確認項目。
 
 ここで実現可否を確定させる。
 
@@ -154,16 +158,17 @@ Effect v4 の公式ドキュメントで、oxlint 向けの連携（`@effect/tsg
 
     export default defineConfig({
       ...base,
-      ignorePatterns: ["CHANGELOG.md", "pnpm-lock.yaml"],
+      // 共有設定の ignorePatterns（`**/*.md` など）を消さないよう、展開してから追加する
+      ignorePatterns: [...base.ignorePatterns, "pnpm-lock.yaml"],
     })
     ```
 
   - 配布する設定を変えると、同じ PR の中で自リポジトリのファイルにもその変更が反映される。その結果を見れば、設定変更の影響を確かめられる。
-  - 対象は `.mjs` / `.ts` / `.json` / `.jsonc` に加え、oxfmt が対応していれば `.md` / `.yml` も含める（Phase 0 で対応範囲を確認する）。
+  - 対象は `.mjs` / `.ts` / `.json` / `.jsonc` / `.yml`。`.md` は共有設定で除外される（決定事項を参照）。
 
 ## Phase 2：oxlint base / library / react-library
 
-- `oxlint/base.mjs` を作る。`options.typeAware` はルート設定でしか指定できないため、README で利用者側に指定してもらうよう案内する。
+- `oxlint/base.mjs` を作る。`options.typeAware: true` は共有設定に入れる（Phase 0 で `extends` 経由でも効くことを確認）。ドキュメント上は「ルート設定のみ」とされているため、README ではルート設定にも書くよう案内する。
 - React 系は oxlint 標準の `react` プラグインに移す（react-hooks と React Compiler のルールも含まれる）。`jsx-pascal-case` と `jsx-no-useless-fragment` が使えるかは要確認。
 
 ## Phase 3：Next.js ルール
