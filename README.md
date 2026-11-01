@@ -33,6 +33,8 @@ pnpm i --save-dev @yoshinani/style-guide
 yarn add --dev @yoshinani/style-guide
 ```
 
+Node.js 22.18 以上が必要です。oxfmt と oxlint の設定ファイル（`oxfmt.config.ts` / `oxlint.config.ts`）を、Node.js の型の除去機能で読み込むためです。
+
 ## oxfmt
 
 フォーマッターには [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) を使います。

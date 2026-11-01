@@ -16,6 +16,21 @@ mise install
 pnpm i
 ```
 
+## 開発
+
+設定ファイルを変更したら、以下で CI と同じ検証ができます。
+
+```sh
+pnpm check      # oxfmt でのフォーマットと oxlint での lint（自リポジトリも配布する設定で検査する）
+pnpm typecheck  # 設定ファイルの型チェック
+pnpm test       # tests/fixtures/ に oxlint を実行し、期待どおりのルールが検出されるか確かめる
+```
+
+- `pnpm check:fix` でフォーマットと lint の自動修正ができます。
+- ルールを追加・変更したときは、`tests/fixtures/<設定名>/src/` に違反するコードと正常なコードを置き、`tests/oxlint.test.mjs` に期待する検出結果を書いてください。
+- Effect あり版の fixture は、`effect-tsgo oxlint` 経由で実行されます（`node_modules` の oxlint は書き換えません）。
+- 公開する `.mjs` を追加したときは、同じ名前の `.d.mts`（型定義）も追加してください。
+
 ## コミットとリリースバージョン管理
 
 コミット規約は [`@commitlint/config-conventional`](https://github.com/conventional-changelog/commitlint/blob/master/%40commitlint/config-conventional) に基づいています。

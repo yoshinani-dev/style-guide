@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repository is
 
-`@yoshinani/style-guide` is a **shared linting/formatting configuration package**, not an application. There is no source to compile, no test suite, and no build step — each directory ships its config files verbatim to npm. Changes here are config edits that downstream consumers `extends`. The package documentation (README.md, CONTRIBUTING.md) is written in Japanese; rule rationales link to an internal Notion.
+`@yoshinani/style-guide` is a **shared linting/formatting configuration package**, not an application. There is no source to compile and no build step — each directory ships its config files (plus hand-written `.d.mts` type declarations) verbatim to npm. The test suite runs oxlint against fixtures to check the shipped configs. Changes here are config edits that downstream consumers `extends`. The package documentation (README.md, CONTRIBUTING.md) is written in Japanese; rule rationales link to an internal Notion.
 
 ## Commands
 

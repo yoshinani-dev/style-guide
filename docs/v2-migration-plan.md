@@ -236,6 +236,14 @@ Effect v4 の公式ドキュメントで、oxlint 向けの連携（`@effect/tsg
 - `tests/eslint.test.mjs` は、fixtures に対して `oxlint --format json` を実行して確かめるテストに書き直す。全バリエーション（oxlint 8 種）が読み込めること、Effect あり版でだけ Effect のルールが効くことを確かめる。
 - `README.md`、`CONTRIBUTING.md`、`CLAUDE.md`、`.vscode/extensions.json`（`oxc.oxc-vscode`）、`dependabot.yml` を更新する。
 
+### 実施結果
+
+- CI、`pnpm check` / `check:fix`、テストの書き直し、`.vscode`、`dependabot.yml`、README、CLAUDE.md の更新は Phase 1〜4 の中で済ませた。
+- 8 種の oxlint 設定すべてを実際に oxlint で読み込み、正常なコードで何も検出されないことを確かめるテストを追加した（存在しないルールを混ぜると失敗することを確認済み）。Effect 無し版に Effect のルールが入っていないことも確かめる。
+- `CONTRIBUTING.md` に開発時の検証方法（`pnpm check` / `typecheck` / `test`、fixture の追加方法、`.d.mts` の追加）を書いた。
+- `engines.node` を `>=22.18` に上げた（`oxlint.config.ts` / `oxfmt.config.ts` の読み込みに Node.js の型の除去機能が必要なため）。
+- CI（GitHub Actions）での実行はまだ確認していない。push 後に確かめる。
+
 ## Phase 6：リリース
 
 - `changeset pre enter beta` で v2 のベータ版を公開し、Phase 0 で使ったプロジェクトで実際に使ってから正式版にする。

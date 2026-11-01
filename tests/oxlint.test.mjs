@@ -1,10 +1,12 @@
 // @ts-check
 import { execFile } from "node:child_process"
+import { mkdtemp, rm, writeFile } from "node:fs/promises"
+import { tmpdir } from "node:os"
 import path from "node:path"
-import { fileURLToPath } from "node:url"
+import { fileURLToPath, pathToFileURL } from "node:url"
 import { promisify } from "node:util"
 
-import { beforeAll, describe, expect, it } from "vitest"
+import { afterAll, beforeAll, describe, expect, it } from "vitest"
 
 import baseEffect from "../oxlint/base-effect.mjs"
 import base from "../oxlint/base.mjs"
@@ -110,6 +112,75 @@ describe("config shape", () => {
       files: ["**/*.{test,spec}.{ts,tsx,mts,cts}"],
       rules: { "effecttsgo/unstable-api-usage": "off" },
     })
+  })
+
+  it.each([
+    ["base", base],
+    ["library", library],
+    ["react-library", reactLibrary],
+    ["next", next],
+  ])("%s には Effect のルールが入っていない", (_name, config) => {
+    expect(config.plugins).not.toContain("effecttsgo")
+    expect(
+      Object.keys(config.rules ?? {}).filter((rule) =>
+        rule.startsWith("effecttsgo/"),
+      ),
+    ).toEqual([])
+  })
+})
+
+// -----------------------------------------------------------------------
+// Load tests
+// -----------------------------------------------------------------------
+
+describe("oxlint で読み込める", () => {
+  /** @type {string} */
+  let tmp
+
+  beforeAll(async () => {
+    tmp = await mkdtemp(path.join(tmpdir(), "style-guide-oxlint-"))
+  })
+
+  afterAll(async () => {
+    await rm(tmp, { recursive: true, force: true })
+  })
+
+  it.each([
+    "base",
+    "library",
+    "react-library",
+    "next",
+    "base-effect",
+    "library-effect",
+    "react-library-effect",
+    "next-effect",
+  ])("%s を extends した設定で正常なコードを検査できる", async (variant) => {
+    const configUrl = pathToFileURL(path.join(root, "oxlint", `${variant}.mjs`))
+    const configFile = path.join(tmp, `${variant}.config.ts`)
+    await writeFile(
+      configFile,
+      `import config from ${JSON.stringify(configUrl.href)}\nexport default { extends: [config] }\n`,
+    )
+    const [bin, ...prefix] = variant.endsWith("-effect")
+      ? [effectTsgoBin, "oxlint", "--type-aware"]
+      : [oxlintBin]
+    // 違反や設定の読み込み失敗があると終了コードが 0 以外になり、reject される
+    const { stdout } = await execFileAsync(
+      bin,
+      [
+        ...prefix,
+        "-c",
+        configFile,
+        "-f",
+        "json",
+        path.join("tests", "fixtures", "base", "src", "clean.ts"),
+      ],
+      { cwd: root },
+    )
+    const report = /** @type {{ diagnostics: Diagnostic[] }} */ (
+      JSON.parse(stdout)
+    )
+    expect(report.diagnostics).toEqual([])
   })
 })
 

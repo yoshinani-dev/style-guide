@@ -2,6 +2,7 @@ autoincrement
 biomejs
 commitlint
 dify
+effecttsgo
 esbuild
 firestore
 fkey
@@ -36,6 +37,7 @@ signups
 sonner
 supabase
 toza
+tsgo
 tsgolint
 turbopack
 turborepo
