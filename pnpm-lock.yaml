@@ -11,9 +11,6 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^20.5.3
         version: 20.5.3
-      '@commitlint/types':
-        specifier: ^20.5.0
-        version: 20.5.0
       oxfmt:
         specifier: '>=0.74.0'
         version: 0.75.0(vite-plus@1.4.0(@types/node@24.19.2)(@vitest/ui@5.0.5(vitest@5.0.5))(esbuild@0.28.1)(jiti@2.7.0)(typescript@5.9.3)(yaml@2.9.0))
@@ -24,6 +21,9 @@ importers:
       '@commitlint/cli':
         specifier: ^20.5.3
         version: 20.5.3(@types/node@24.19.2)(conventional-commits-parser@6.4.0)(typescript@5.9.3)
+      '@commitlint/types':
+        specifier: ^20.5.0
+        version: 20.5.0
       '@effect/tsgo':
         specifier: ^0.63.0
         version: 0.63.0

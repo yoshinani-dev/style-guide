@@ -1,6 +1,8 @@
 import type { UserConfig } from "@commitlint/types"
 
-const config: UserConfig = {
+// satisfies で型だけ確かめる。型注釈にすると、生成される型定義が @commitlint/types を
+// import するため、利用者側で解決できるよう dependencies に入れる必要が出てしまう
+export default {
   extends: ["@commitlint/config-conventional"],
   rules: {
     "type-enum": [
@@ -31,6 +33,4 @@ const config: UserConfig = {
       ],
     ],
   },
-}
-
-export default config
+} satisfies UserConfig
