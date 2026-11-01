@@ -78,6 +78,17 @@ v1 で `no-restricted-imports` の禁止ライブラリを追加していた場�
 }
 ```
 
+v2 の base 設定は `"types": []` を明示しています（TypeScript 7 の既定値に合わせるため）。`@types/node` などのグローバルな型定義を使っている場合は、`types` で指定してください。
+
+```json
+{
+  "extends": "@yoshinani/style-guide/typescript",
+  "compilerOptions": {
+    "types": ["node"]
+  }
+}
+```
+
 ### 5. スクリプト・CI・エディターの設定を更新する
 
 `package.json` のスクリプトを書き換えます。
@@ -163,6 +174,11 @@ v1 で検出されなかったものが新たに検出されることがあり�
 
 - **v1 のルール名で書いた無効化コメントはそのまま使えます。** `@typescript-eslint/no-explicit-any`、`react-hooks/exhaustive-deps`、`no-process-env` などは、oxlint の対応するルールにも効きます。
 - 型情報を使うルールは、依存パッケージをインストールし、`tsconfig.json` が解決できる状態で動きます。`oxlint-tsgolint` はモノレポのルートにインストールしてください。
+
+### TypeScript
+
+- **TypeScript 7 に対応しました。** TypeScript 5 / 6 / 7 をサポートしています。v1 では typescript-eslint が TypeScript 7 に未対応だったため使えませんでしたが、v2 の型情報を使う lint は `oxlint-tsgolint` で動くため、TypeScript のバージョンに依存しません。
+- **base 設定で `"types": []` を明示しました。** `@types/node` などのグローバルな型定義が自動で読み込まれなくなるため、必要な場合は `types` で指定してください（[手順 4](#4-tsconfig-を更新する)）。
 
 ## Effect を使う場合
 

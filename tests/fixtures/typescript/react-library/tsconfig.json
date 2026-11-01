@@ -1,0 +1,5 @@
+{
+  "extends": "../../../../typescript/react-library.json",
+  "compilerOptions": { "noEmit": true },
+  "include": ["*.ts", "*.tsx"]
+}

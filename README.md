@@ -250,6 +250,7 @@ Effect のルール（`effecttsgo` プラグイン）は oxlint 標準ではな�
 TypeScript の Effect あり版（`typescript/effect` など）では、次の 2 点が追加されます。
 
 - `compilerOptions.plugins` に `{ "name": "@effect/language-service", "diagnostics": false }` を追加します。診断は oxlint 側で出すため、エディターで二重に表示されないよう LSP 側の診断は切っています。
+- エディターで Effect の LSP を TypeScript 7 と一緒に使う場合は、`effect-tsgo patch --typescript` で TypeScript 本体にパッチを当てる必要があります。対応している TypeScript のバージョンは `@effect/tsgo` によって決まっています（0.63.0 では 7.1 系のみ）。oxlint の Effect ルールは TypeScript のバージョンに関係なく動きます。
 - `exactOptionalPropertyTypes: true` を有効にします。Effect Schema の型が正確になります。ライブラリの型と相性が悪い場合は、プロジェクト側の `tsconfig.json` で `false` に上書きしてください。
 
 ```json
@@ -290,6 +291,23 @@ Effect あり版の違いは[Effect-TS](#effect-ts)を参照してください�
   "extends": "@yoshinani/style-guide/typescript"
 }
 ```
+
+> [!NOTE]
+> base 設定は `"types": []` を明示しています（TypeScript 7 の既定値に合わせ、TypeScript 5 / 6 / 7 で挙動を揃えるため）。そのため `@types/node` などのグローバルな型定義は自動では読み込まれません。必要な場合は利用側の `tsconfig.json` で指定してください。`next` 設定は `types` に `vitest/importMeta` を指定しています。
+
+```json
+{
+  "extends": "@yoshinani/style-guide/typescript",
+  "compilerOptions": {
+    "types": ["node"]
+  }
+}
+```
+
+### TypeScript のバージョンについて
+
+- TypeScript 5 / 6 / 7（ネイティブ実装）をサポートしています。各共有設定がすべてのバージョンで有効であることを CI で検証しています。
+- 型情報を使う lint は `oxlint-tsgolint`（typescript-go を内蔵）で動くため、プロジェクトに入れた TypeScript のバージョンには依存しません。
 
 ## commitlint
 

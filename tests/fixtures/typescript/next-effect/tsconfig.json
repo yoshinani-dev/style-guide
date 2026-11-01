@@ -1,0 +1,5 @@
+{
+  "extends": "../../../../typescript/next-effect.json",
+  "compilerOptions": { "noEmit": true },
+  "include": ["*.ts", "*.tsx"]
+}

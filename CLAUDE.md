@@ -15,6 +15,7 @@ pnpm check          # oxfmt --check . && oxlint — format + lint check (CI)
 pnpm check:fix      # oxfmt . && oxlint --fix
 pnpm typecheck      # tsc --noEmit over the config sources (CI)
 pnpm test           # vitest — runs oxlint against tests/fixtures/* and checks the diagnostics (CI)
+pnpm test:tsconfig  # compile tests/fixtures/typescript/* with the shared tsconfigs (CI also runs it on TS 6 and 7)
 pnpm changeset      # record a version bump; required for any user-facing change
 ```
 
@@ -46,7 +47,7 @@ Type-aware rules run through `oxlint-tsgolint` (typescript-go), so consumers nee
 ## Other configs
 
 - **oxfmt** (`oxfmt/base.mjs`) — formatter config object: no semicolons, double quotes, printWidth 80, import sorting (`sortImports` groups: builtin → external → `@repo/**` → alias → relative), Tailwind class sorting, Markdown excluded. oxfmt has no `extends`, so consumers spread it into their own `oxfmt.config.ts` (only `.ts` / `.oxfmtrc.json` are auto-discovered). The repo's own root `oxfmt.config.ts` spreads this file unchanged except for repo-specific `ignorePatterns`, so the repo is always formatted by the config it ships.
-- **TypeScript** (`typescript/base.json` + `next.json`, `react-library.json`, and `effect.json` / `next-effect.json` / `react-library-effect.json`) — strict, `noUncheckedIndexedAccess`, NodeNext base; variants override module/jsx. The `-effect` variants add the `@effect/language-service` plugin (diagnostics off; oxlint reports them) and `exactOptionalPropertyTypes`. `compilerOptions.plugins` is replaced, not merged, on `extends`, so `next-effect.json` re-lists the `next` plugin.
+- **TypeScript** (`typescript/base.json` + `next.json`, `react-library.json`, and `effect.json` / `next-effect.json` / `react-library-effect.json`) — strict, `noUncheckedIndexedAccess`, NodeNext base, `"types": []` (TypeScript 7's default, made explicit so TS 5 / 6 / 7 behave the same; `next.json` sets its own `types`); variants override module/jsx. Supported on TypeScript 5 / 6 / 7: `tests/tsconfig.mjs` compiles `tests/fixtures/typescript/*` (with `@ts-expect-error` lines proving `types: []` and `exactOptionalPropertyTypes` take effect) and CI runs it on each major via `pnpm --package=typescript@N dlx node tests/tsconfig.mjs`. The `-effect` variants add the `@effect/language-service` plugin (diagnostics off; oxlint reports them) and `exactOptionalPropertyTypes`. `compilerOptions.plugins` is replaced, not merged, on `extends`, so `next-effect.json` re-lists the `next` plugin.
 - **commitlint** (`commitlint/commitlint.config.mjs`) — conventional commits with a **restricted** `type-enum`: only `build`, `docs`, `feat`, `fix`, `refactor`, `test`, `release` (`release` is reserved for automated releases).
 
 ## Release flow

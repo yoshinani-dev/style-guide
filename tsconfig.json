@@ -6,7 +6,9 @@
     "strict": true,
     "noEmit": true,
     "allowJs": true,
-    "checkJs": true
+    "checkJs": true,
+    // TypeScript 7 では node_modules 内の型定義（vitest と chai）が重複定義のエラーになるため
+    "skipLibCheck": true
   },
   "include": [
     "commitlint/**/*.mjs",

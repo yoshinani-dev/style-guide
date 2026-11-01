@@ -24,7 +24,10 @@ pnpm i
 pnpm check      # oxfmt でのフォーマットと oxlint での lint（自リポジトリも配布する設定で検査する）
 pnpm typecheck  # 設定ファイルの型チェック
 pnpm test       # tests/fixtures/ に oxlint を実行し、期待どおりのルールが検出されるか確かめる
+pnpm test:tsconfig  # 共有 tsconfig で tests/fixtures/typescript/ をコンパイルする
 ```
+
+- CI では、共有 tsconfig を TypeScript 6 / 7 でも検証します。手元で試す場合は `pnpm --package=typescript@7 dlx node tests/tsconfig.mjs` を実行してください。
 
 - `pnpm check:fix` でフォーマットと lint の自動修正ができます。
 - ルールを追加・変更したときは、`tests/fixtures/<設定名>/src/` に違反するコードと正常なコードを置き、`tests/oxlint.test.mjs` に期待する検出結果を書いてください。

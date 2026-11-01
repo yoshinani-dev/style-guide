@@ -26,6 +26,7 @@
     "check": "oxfmt --check . && oxlint --disable-nested-config",
     "check:fix": "oxfmt . && oxlint --disable-nested-config --fix",
     "test": "vitest run",
+    "test:tsconfig": "node tests/tsconfig.mjs",
     "typecheck": "tsc --noEmit"
   },
   "exports": {
@@ -70,7 +71,7 @@
     "oxfmt": ">=0.75.0",
     "oxlint": ">=1.90.0",
     "oxlint-tsgolint": ">=7.0.2005",
-    "typescript": "^5"
+    "typescript": "^5 || ^6 || ^7"
   },
   "peerDependenciesMeta": {
     "@effect/tsgo": {
