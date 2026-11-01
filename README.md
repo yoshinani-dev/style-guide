@@ -116,6 +116,7 @@ pnpm add -w -D oxlint oxlint-tsgolint
 | 汎用 TypeScript                  | `@yoshinani/style-guide/oxlint/base`          |
 | Node（サーバー・CLI・ライブラリ） | `@yoshinani/style-guide/oxlint/library`       |
 | React ライブラリ                 | `@yoshinani/style-guide/oxlint/react-library` |
+| Next.js アプリ                   | `@yoshinani/style-guide/oxlint/next`          |
 
 プロジェクトルートに `oxlint.config.ts` を作成し、`extends` で共有設定を読み込みます。
 
@@ -132,6 +133,18 @@ export default defineConfig({
 - 共有設定にも `options.typeAware: true` を入れていますが、oxlint のドキュメント上はルート設定でのみ有効とされているため、ルート設定にも書いてください。
 - 型情報を使うルールは、依存パッケージをインストールし、`tsconfig.json` が解決できる状態で動きます。
 - `oxlint-tsgolint` は oxlint を実行するディレクトリの `node_modules` から探されます。モノレポではルートにインストールしてください。
+
+Next.js アプリでは `oxlint/next` を使います。React のルールに加えて、oxlint の `nextjs` プラグインのルールをすべて有効にしています。App Router の特殊ファイル（`page` / `layout` など）は default export が必須で、画像生成ファイル（`opengraph-image` など）では `<img>` を使えます。
+
+```ts
+import { defineConfig } from "oxlint"
+import next from "@yoshinani/style-guide/oxlint/next"
+
+export default defineConfig({
+  extends: [next],
+  options: { typeAware: true },
+})
+```
 
 `package.json` には以下のスクリプトを追加します。
 
@@ -197,7 +210,7 @@ VSCodeでは、[Oxcの拡張機能](https://marketplace.visualstudio.com/items?i
 | 種類          | 設定パッケージ名                                  |
 | ------------- | ------------------------------------------------- |
 | base          | `@yoshinani/style-guide/typescript`               |
-| nextjs        | `@yoshinani/style-guide/typescript/nextjs`        |
+| next          | `@yoshinani/style-guide/typescript/next`          |
 | react-library | `@yoshinani/style-guide/typescript/react-library` |
 
 共有 TypeScript 設定を使うには、`tsconfig.json` に以下のように記載します。

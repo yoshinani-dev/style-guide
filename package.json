@@ -33,7 +33,7 @@
     "./oxfmt": "./oxfmt/base.mjs",
     "./oxlint/*": "./oxlint/*.mjs",
     "./typescript": "./typescript/base.json",
-    "./typescript/nextjs": "./typescript/nextjs.json",
+    "./typescript/next": "./typescript/next.json",
     "./typescript/react-library": "./typescript/react-library.json"
   },
   "files": [

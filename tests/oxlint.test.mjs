@@ -8,6 +8,7 @@ import { beforeAll, describe, expect, it } from "vitest"
 
 import base from "../oxlint/base.mjs"
 import library from "../oxlint/library.mjs"
+import next from "../oxlint/next.mjs"
 import reactLibrary from "../oxlint/react-library.mjs"
 
 const execFileAsync = promisify(execFile)
@@ -65,12 +66,13 @@ describe("config shape", () => {
     ["base", base],
     ["library", library],
     ["react-library", reactLibrary],
+    ["next", next],
   ])("%s は rules を持つ設定オブジェクト", (_name, config) => {
     expect(Object.keys(config.rules ?? {}).length).toBeGreaterThan(0)
   })
 
-  it("library と react-library は base のルールを引き継ぐ", () => {
-    for (const config of [library, reactLibrary]) {
+  it("library / react-library / next は base のルールを引き継ぐ", () => {
+    for (const config of [library, reactLibrary, next]) {
       expect(config.rules).toMatchObject(base.rules ?? {})
     }
   })
@@ -140,4 +142,47 @@ describe("react-library", () => {
   it("clean.tsx では何も検出されない", () => {
     expect(results.get("clean.tsx") ?? []).toEqual([])
   })
+})
+
+describe("next", () => {
+  /** @type {Map<string, Diagnostic[]>} */
+  let results
+
+  beforeAll(async () => {
+    results = await lintFixtures("next")
+  })
+
+  it("oxlint の nextjs プラグインのルールをすべて設定している", async () => {
+    const { stdout } = await execFileAsync(
+      oxlintBin,
+      ["--rules", "-f", "json"],
+      { cwd: root },
+    )
+    const nextjsRules = /** @type {{ scope: string, value: string }[]} */ (
+      JSON.parse(stdout)
+    )
+      .filter((rule) => rule.scope === "nextjs")
+      .map((rule) => `nextjs/${rule.value}`)
+    expect(nextjsRules.length).toBeGreaterThan(0)
+    expect(Object.keys(next.rules ?? {})).toEqual(
+      expect.arrayContaining(nextjsRules),
+    )
+  })
+
+  it.each([
+    ["avatar.tsx", "next(no-img-element)"],
+    ["client-async.tsx", "next(no-async-client-component)"],
+    ["layout.tsx", "import(prefer-default-export)"],
+  ])("%s で %s が error になる", (file, code) => {
+    expect(results.get(file) ?? []).toContainEqual(
+      expect.objectContaining({ code, severity: "error" }),
+    )
+  })
+
+  it.each(["page.tsx", "opengraph-image.tsx"])(
+    "%s では何も検出されない",
+    (file) => {
+      expect(results.get(file) ?? []).toEqual([])
+    },
+  )
 })

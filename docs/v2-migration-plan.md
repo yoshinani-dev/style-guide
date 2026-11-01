@@ -207,6 +207,15 @@ Effect v4 の公式ドキュメントで、oxlint 向けの連携（`@effect/tsg
 
 - `jsx-a11y` と `react-perf` は Next.js 専用ではないので、`react-library` にも関わる。有効にするかは Phase 2 で React まわりと合わせて決める。
 
+### 実施結果
+
+- `oxlint/next.mjs` を追加した。`nextjs` プラグインの 21 ルールをすべて `error` で列挙し、除外したルールはない。
+- `oxlint --rules` に出る `nextjs/*` がすべて設定されていることを確かめるテストを追加した（1 ルールを外すと失敗することを確認済み）。
+- App Router の特殊ファイル（`page` / `layout` / `template` / `loading` / `default` / `not-found` / `*error` / 画像生成ファイル / `sitemap` / `robots` / `manifest`）では default export を必須にした（v1 の override を引き継ぎ、対象を広げた）。`route.ts` や `middleware.ts` は名前付き export を使うので対象外。
+- 画像生成ファイル（`opengraph-image` / `twitter-image` / `icon` / `apple-icon`）では `nextjs/no-img-element` を無効にした。
+- `typescript/nextjs` を `typescript/next` に改名した。
+- `jsx-a11y` と `react-perf` は v1 になかったため、Phase 2 / 3 では有効にしていない。
+
 ## Phase 4：Effect-TS ルール（`-effect` バリエーション）
 
 - `oxlint/rules/effect.mjs` に Effect 公式プリセットの取り込みと社内向けの調整をまとめ、`base-effect` / `library-effect` / `react-library-effect` / `next-effect` を薄いラッパーとして作る。

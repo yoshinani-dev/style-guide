@@ -22,7 +22,7 @@ There is no separate `lint` or `build` script — `pnpm check`, `pnpm typecheck`
 
 ## How configs are exposed
 
-`package.json` `exports` maps subpaths to raw config files; `files` whitelists which directories get published. Adding a new config means: create the file, add an `exports` entry, and (if a new top-level dir) add it to `files`. Consumers reference them as e.g. `@yoshinani/style-guide/oxlint/library`, `@yoshinani/style-guide/oxfmt`, `@yoshinani/style-guide/typescript/nextjs`.
+`package.json` `exports` maps subpaths to raw config files; `files` whitelists which directories get published. Adding a new config means: create the file, add an `exports` entry, and (if a new top-level dir) add it to `files`. Consumers reference them as e.g. `@yoshinani/style-guide/oxlint/library`, `@yoshinani/style-guide/oxfmt`, `@yoshinani/style-guide/typescript/next`.
 
 ## oxlint architecture (the core of this package)
 
@@ -31,7 +31,8 @@ There is no separate `lint` or `build` script — `pnpm check`, `pnpm typecheck`
 - `base.mjs` — `categories.correctness: "error"` plus the rules carried over from v1 (eslint:recommended, typescript-eslint recommendedTypeChecked, org rules), `options.typeAware: true`, `no-process-env`, enum ban, `no-restricted-imports`, `import/no-duplicates`.
 - `library.mjs` — `base` + node globals.
 - `react-library.mjs` — `base` + `rules/react.mjs` + browser/service-worker globals.
-- `rules/react.mjs` — React rule block (oxlint's `react` plugin includes the react-hooks rules), shared with future React-aware entry points.
+- `next.mjs` — `base` + `rules/react.mjs` + every rule of oxlint's `nextjs` plugin as `error` (a test fails when oxlint adds a `nextjs` rule that isn't listed), App Router overrides (special files need a default export; image-generation files may use `<img>`), browser + node globals.
+- `rules/react.mjs` — React rule block (oxlint's `react` plugin includes the react-hooks rules), shared by `react-library.mjs` and `next.mjs`.
 - `rules/restricted-imports.mjs` — the banned-library lists, exported so consumers can extend them (oxlint replaces rule options instead of merging).
 - `plugins/yoshinani.mjs` — a local JS plugin for rules oxlint lacks: `yoshinani/require-description` (covers both `eslint-disable` and `oxlint-disable`) and `yoshinani/no-enum`. `base.mjs` references it by absolute path so it resolves when extended from a consumer's config.
 
@@ -44,7 +45,7 @@ Type-aware rules run through `oxlint-tsgolint` (typescript-go), so consumers nee
 ## Other configs
 
 - **oxfmt** (`oxfmt/base.mjs`) — formatter config object: no semicolons, double quotes, printWidth 80, import sorting (`sortImports` groups: builtin → external → `@repo/**` → alias → relative), Tailwind class sorting, Markdown excluded. oxfmt has no `extends`, so consumers spread it into their own `oxfmt.config.ts` (only `.ts` / `.oxfmtrc.json` are auto-discovered). The repo's own root `oxfmt.config.ts` spreads this file unchanged except for repo-specific `ignorePatterns`, so the repo is always formatted by the config it ships.
-- **TypeScript** (`typescript/base.json` + `nextjs.json`, `react-library.json`) — strict, `noUncheckedIndexedAccess`, NodeNext base; variants override module/jsx.
+- **TypeScript** (`typescript/base.json` + `next.json`, `react-library.json`) — strict, `noUncheckedIndexedAccess`, NodeNext base; variants override module/jsx.
 - **commitlint** (`commitlint/commitlint.config.mjs`) — conventional commits with a **restricted** `type-enum`: only `build`, `docs`, `feat`, `fix`, `refactor`, `test`, `release` (`release` is reserved for automated releases).
 
 ## Release flow
