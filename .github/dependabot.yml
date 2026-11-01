@@ -14,15 +14,6 @@ updates:
       prefix: "chore"
       include: "scope"
     groups:
-      # ESLintプラグイン・設定関連
-      eslint-dependencies:
-        patterns:
-          - "@eslint/*"
-          - "eslint-*"
-          - "typescript-eslint"
-        update-types:
-          - "minor"
-          - "patch"
       # Commitlint関連
       commitlint-dependencies:
         patterns:
@@ -30,17 +21,13 @@ updates:
         update-types:
           - "minor"
           - "patch"
-      # Oxc（oxfmt）関連
+      # Oxc（oxfmt / oxlint）関連
       oxc-dependencies:
         patterns:
           - "oxfmt"
-        update-types:
-          - "minor"
-          - "patch"
-      # その他の依存関係
-      other-dependencies:
-        patterns:
-          - "globals"
+          - "oxlint"
+          - "oxlint-*"
+          - "@oxlint/*"
         update-types:
           - "minor"
           - "patch"
@@ -55,9 +42,6 @@ updates:
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
       # peerDependenciesは慎重に扱う
-      - dependency-name: "eslint"
-        update-types:
-          ["version-update:semver-major", "version-update:semver-minor"]
       - dependency-name: "typescript"
         update-types:
           ["version-update:semver-major", "version-update:semver-minor"]

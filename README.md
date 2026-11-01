@@ -9,7 +9,7 @@
 以下の設定が利用可能で、組み合わせて使うことを想定しています。
 
 - [oxfmt](#oxfmt)
-- [ESLint](#eslint)
+- [oxlint](#oxlint)
 - [TypeScript](#typescript)
 - [commitlint](#commitlint)
 - [CSpell](#CSpell)
@@ -101,32 +101,92 @@ VSCodeでフォーマッターとしてoxfmtを利用する場合は、まず[Ox
 }
 ```
 
-## ESLint
+## oxlint
+
+リンターには [oxlint](https://oxc.rs/docs/guide/usage/linter.html) を使います。型情報を使うルールのために `oxlint-tsgolint` も必要です。
+
+```sh
+pnpm add -w -D oxlint oxlint-tsgolint
+```
 
 利用できる設定は以下の通りです。
 
-- `@yoshinani/style-guide/eslint/base`
-- `@yoshinani/style-guide/eslint/next`
-- `@yoshinani/style-guide/eslint/library`
-- `@yoshinani/style-guide/eslint/react-internal`
+| 用途                             | 設定                                         |
+| -------------------------------- | -------------------------------------------- |
+| 汎用 TypeScript                  | `@yoshinani/style-guide/oxlint/base`          |
+| Node（サーバー・CLI・ライブラリ） | `@yoshinani/style-guide/oxlint/library`       |
+| React ライブラリ                 | `@yoshinani/style-guide/oxlint/react-library` |
 
-例として、Next.js プロジェクトで共有 ESLint 設定を使う場合、`eslint.config.mjs` に以下のように記載します。
+プロジェクトルートに `oxlint.config.ts` を作成し、`extends` で共有設定を読み込みます。
 
-```js
-import next from "@yoshinani/style-guide/eslint/next"
+```ts
+import { defineConfig } from "oxlint"
+import library from "@yoshinani/style-guide/oxlint/library"
 
-const eslintConfig = [...next]
-
-export default eslintConfig
+export default defineConfig({
+  extends: [library],
+  options: { typeAware: true },
+})
 ```
 
-プロジェクトの推奨拡張機能として設定するために、`.vscode/extensions.json`を作成し、以下の内容を追加することをお勧めします。
+- 共有設定にも `options.typeAware: true` を入れていますが、oxlint のドキュメント上はルート設定でのみ有効とされているため、ルート設定にも書いてください。
+- 型情報を使うルールは、依存パッケージをインストールし、`tsconfig.json` が解決できる状態で動きます。
+- `oxlint-tsgolint` は oxlint を実行するディレクトリの `node_modules` から探されます。モノレポではルートにインストールしてください。
+
+`package.json` には以下のスクリプトを追加します。
 
 ```json
+"scripts": {
+  "lint": "oxlint",
+  "lint:fix": "oxlint --fix"
+}
+```
+
+### ルールの無効化
+
+ルールを無効化するときは、`--` の後ろに理由を書いてください。理由のない無効化コメントはエラーになります（`eslint-disable` と `oxlint-disable` のどちらも対象です）。
+
+```ts
+// eslint-disable-next-line no-console -- CLI の出力のため
+console.log(result)
+```
+
+### 禁止ライブラリを追加する
+
+oxlint のルールオプションはマージされず置き換わります。`no-restricted-imports` に禁止ライブラリを追加するときは、共有の一覧を展開してから追加してください。
+
+```ts
+import { defineConfig } from "oxlint"
+import library from "@yoshinani/style-guide/oxlint/library"
+import {
+  restrictedImportPaths,
+  restrictedImportPatterns,
+} from "@yoshinani/style-guide/oxlint/rules/restricted-imports"
+
+export default defineConfig({
+  extends: [library],
+  rules: {
+    "no-restricted-imports": [
+      "warn",
+      {
+        paths: [
+          ...restrictedImportPaths,
+          { name: "pino", message: "Effect の Logger を使ってください。" },
+        ],
+        patterns: restrictedImportPatterns,
+      },
+    ],
+  },
+})
+```
+
+VSCodeでは、[Oxcの拡張機能](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode)（oxfmtと同じ拡張機能）で lint の結果が表示されます。保存時に自動修正する場合は、`.vscode/settings.json` に以下を追加します。
+
+```jsonc
 {
-  "recommendations": [
-    "dbaeumer.vscode-eslint"
-  ]
+  "editor.codeActionsOnSave": {
+    "source.fixAll.oxc": "explicit"
+  }
 }
 ```
 

@@ -19,6 +19,7 @@ notionhq
 nuqs
 opengraph
 oxfmt
+oxlint
 picklist
 pkey
 postback
@@ -35,6 +36,7 @@ signups
 sonner
 supabase
 toza
+tsgolint
 turbopack
 turborepo
 uncollectible

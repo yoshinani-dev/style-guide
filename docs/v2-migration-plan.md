@@ -171,6 +171,14 @@ Effect v4 の公式ドキュメントで、oxlint 向けの連携（`@effect/tsg
 - `oxlint/base.mjs` を作る。`options.typeAware: true` は共有設定に入れる（Phase 0 で `extends` 経由でも効くことを確認）。ドキュメント上は「ルート設定のみ」とされているため、README ではルート設定にも書くよう案内する。
 - React 系は oxlint 標準の `react` プラグインに移す（react-hooks と React Compiler のルールも含まれる）。`jsx-pascal-case` と `jsx-no-useless-fragment` が使えるかは要確認。
 
+### 実施結果
+
+- **ルールの範囲：** v1 で実際に有効だったルール（eslint:recommended、typescript-eslint の recommendedTypeChecked、eslint-plugin-react / react-hooks の recommended、独自ルール）を ESLint の設定から算出し、oxlint にあるものはすべて明示的に引き継いだ。そのうえで oxlint の `correctness` カテゴリを `error` で有効にした（React Compiler 系のルールなど、v1 にない明らかな誤りの検出も入る）。
+- **v1 で実は有効でなかったルール：** `no-barrel-files` と `import/no-default-export` は、v1 ではプラグインを登録しているだけで有効になっていなかった。v1 と同じく有効にしていない。
+- **自前の JS プラグイン（`oxlint/plugins/yoshinani.mjs`）：** `@eslint-community/eslint-plugin-eslint-comments` の `require-description` は、oxlint 上ではファイル先頭のコメントでクラッシュし、それ以外でも報告位置が 1 行ずれた（`column: -1` での報告が oxlint と互換でない）。そのため、無効化コメントの理由チェックと enum 禁止を自前のプラグインで実装した。`oxlint-disable` コメントも検出できるようになり、`oxlint-plugin-eslint` も不要になった。
+- **型定義：** 利用者の `oxlint.config.ts` / `oxfmt.config.ts` が型エラーや `no-unsafe-*` に引っかからないよう、公開する設定に `.d.mts` を同梱した。
+- **自リポジトリの lint：** ルートの `oxlint.config.ts` で `oxlint/library.mjs` を使う。`tests/fixtures/` は fixture ごとに `oxlint.config.ts` を持つため、`pnpm check` は `--disable-nested-config` で実行する。
+
 ## Phase 3：Next.js ルール
 
 - 今の `eslint/next` には `@next/eslint-plugin-next` が入っていないので、実質的に新しいルールの追加になる。

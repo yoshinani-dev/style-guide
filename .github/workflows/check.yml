@@ -34,7 +34,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
-      - name: Run Format Check
+      - name: Run Format and Lint Check
         run: pnpm run check
 
       - name: Run TypeScript Type Check
