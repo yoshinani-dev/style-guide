@@ -1,5 +1,67 @@
 # @yoshinani/style-guide
 
+## 2.0.0-beta.0
+
+### Major Changes
+
+- 5e4d0a7: feat!: support TypeScript 6 and 7
+
+  - Widen the `typescript` peer dependency to `^5 || ^6 || ^7`. Type-aware lint runs through `oxlint-tsgolint`, so it no longer depends on the installed TypeScript.
+  - **BREAKING**: `typescript/base.json` now sets `"types": []` (TypeScript 7's default) so TypeScript 5 / 6 / 7 behave the same. Global type definitions such as `@types/node` are no longer loaded automatically; list them in `compilerOptions.types`.
+  - CI validates every shared tsconfig on TypeScript 5, 6 and 7.
+
+- 4744174: feat!: replace the Biome config with an oxfmt config
+
+  - Remove `@yoshinani/style-guide/biome`; use `@yoshinani/style-guide/oxfmt` instead (spread it into your `oxfmt.config.ts`).
+  - `@biomejs/biome` is no longer a peer dependency; `oxfmt` is.
+  - Markdown files are no longer formatted; YAML files now are.
+  - Tailwind CSS classes are now sorted.
+
+- bc565b0: feat!: stop adding `vitest/importMeta` to `typescript/next`
+
+  `typescript/next` no longer sets `"types": ["vitest/importMeta"]` and inherits `"types": []` from the base config, so Next.js projects without vitest no longer fail with TS2688. Projects that use vitest in-source testing (`import.meta.vitest`) should add `vitest/importMeta` (or `vite-plus/test/importMeta` with Vite+) to `compilerOptions.types`.
+
+- 00df80d: feat!: replace the ESLint configs with oxlint configs
+
+  - Remove `@yoshinani/style-guide/eslint/*`. Use `@yoshinani/style-guide/oxlint/base`, `oxlint/library` or `oxlint/react-library` via `extends` in `oxlint.config.ts`. A Next.js config will follow.
+  - `eslint/react-internal` is renamed to `oxlint/react-library`.
+  - `eslint` is no longer a peer dependency; `oxlint` and `oxlint-tsgolint` are.
+  - `functional/immutable-data` is dropped.
+  - Rules beyond v1 from oxlint's `correctness` category are enabled as errors, and `import/no-duplicates` is added.
+  - Disable comments need a reason (`-- reason`) for both `eslint-disable` and `oxlint-disable`.
+  - Validation libraries such as zod now point to Effect Schema or valibot.
+  - The banned-library lists are exported from `@yoshinani/style-guide/oxlint/rules/restricted-imports` so projects can extend them.
+
+- c2ce221: feat!: add the Next.js oxlint config and rename the Next.js TypeScript config
+
+  - Add `@yoshinani/style-guide/oxlint/next`: React rules plus every rule of oxlint's `nextjs` plugin as errors. App Router special files require a default export, and image-generation files may use `<img>`.
+  - Rename `@yoshinani/style-guide/typescript/nextjs` to `@yoshinani/style-guide/typescript/next`.
+
+- dbb25a2: feat!: require Node.js 22.18 or later
+
+  oxfmt and oxlint load `oxfmt.config.ts` / `oxlint.config.ts` with Node.js type stripping, which is enabled by default from Node.js 22.18.
+
+### Minor Changes
+
+- 0c2c913: feat: add Effect-TS (v4) variants
+
+  - Add `oxlint/base-effect`, `oxlint/library-effect`, `oxlint/react-library-effect` and `oxlint/next-effect`, which add the `recommended` preset of Effect's official oxlint integration (`@effect/tsgo`). `effecttsgo/unstable-api-usage` is off in test files.
+  - Add `typescript/effect`, `typescript/react-library-effect` and `typescript/next-effect`, which add the `@effect/language-service` plugin (diagnostics off) and `exactOptionalPropertyTypes`.
+  - `@effect/tsgo` is an optional peer dependency. The Effect rules require an Effect-patched oxlint (`effect-tsgo patch --oxlint --no-typescript`) or running oxlint through `effect-tsgo oxlint`.
+
+- ae4b26a: feat: build the configs from TypeScript with Vite+ and support Vite+ projects
+
+  - The oxfmt / oxlint / commitlint configs are now written in TypeScript and published as built files with generated type declarations. Import paths are unchanged.
+  - The configs can be used from a Vite+ `vite.config.ts` (`fmt` / `lint` blocks) as well as from standalone `oxfmt.config.ts` / `oxlint.config.ts`.
+  - `oxfmt`, `oxlint` and `oxlint-tsgolint` are now optional peer dependencies (not needed with Vite+), and their minimum versions follow the ones bundled with Vite+ 1.4.0 (oxlint 1.89.0, oxfmt 0.74.0, oxlint-tsgolint 7.0.2004). `vite-plus` is an optional peer dependency.
+
+### Patch Changes
+
+- c91cab2: fix: update restricted-import messages
+
+  - express / `@nestjs/*`: point to Next.js Route Handlers (instead of API Routes) or Hono.
+  - typeorm: point to Prisma or Drizzle ORM.
+
 ## 1.0.8
 
 ### Patch Changes
