@@ -14,6 +14,9 @@
 - [commitlint](#commitlint)
 - [CSpell](#CSpell)
 
+> [!NOTE]
+> v2 では Biome / ESLint から oxfmt / oxlint に移行しました。v1 から移行する場合は [移行ガイド](./MIGRATION.md) を参照してください。v2 は現在ベータ版として公開しています（`pnpm add -D @yoshinani/style-guide@beta`）。
+
 ## コントリビュートについて
 
 プルリクエストを作成する前に、[コントリビュートガイド](./CONTRIBUTING.md)をお読みください。

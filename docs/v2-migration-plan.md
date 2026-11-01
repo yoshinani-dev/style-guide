@@ -252,6 +252,14 @@ Effect v4 の公式ドキュメントで、oxlint 向けの連携（`@effect/tsg
   - functional ルールは廃止（利用者側の対応は不要）
   - v1 と v2 でフォーマット結果は完全には一致しないこと。初回フォーマットを 1 コミットにまとめて `.git-blame-ignore-revs` に登録する手順
 
+### 実施結果
+
+- `changeset pre enter beta` で pre モードに入った（`.changeset/pre.json`）。この状態で main にマージすると、changesets の action が `2.0.0-beta.0` のリリース PR を作り、それをマージすると `beta` タグで npm に公開される（`changeset version` を手元で試し、`2.0.0-beta.0` になることを確認済み）。
+- `MIGRATION.md` を追加した。設定の対応表、移行手順（パッケージの入れ替え、oxfmt / oxlint / tsconfig / スクリプト・CI・エディターの更新、フォーマットのコミットと `.git-blame-ignore-revs`）、挙動の違い、Effect を使う場合をまとめた。
+- v1 のルール名で書いた無効化コメント（`@typescript-eslint/no-explicit-any`、`react-hooks/exhaustive-deps`、`no-process-env`）が oxlint でもそのまま効くことを確認し、移行ガイドに書いた。
+- 正式版にするには、ベータ版を実プロジェクトで使ったあと `changeset pre exit` を実行し、リリース PR をマージする。
+- 未対応：v1 の保守用ブランチ（`v1`）はまだ作っていない。リリースのワークフローは main への push でしか動かないため、v1 のパッチを公開するにはワークフローの変更も必要になる。
+
 ## 進め方
 
 - PR はフェーズごとに 1 本ずつに分ける。
