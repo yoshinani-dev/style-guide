@@ -4,8 +4,8 @@ import { defineConfig } from "eslint/config"
 import globals from "globals"
 
 import base from "./base.mjs"
-import react from "./rules/react.mjs"
 import reactHooks from "./rules/react-hooks.mjs"
+import react from "./rules/react.mjs"
 
 export default defineConfig([
   ...base,

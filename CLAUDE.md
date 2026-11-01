@@ -11,16 +11,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```sh
 mise install        # install Node 24 + pnpm 10 (versions pinned in mise.toml)
 pnpm install
-pnpm check          # biome check . — the only CI gate (.github/workflows/check.yml)
-pnpm check:fix      # biome check --write . — autofix formatting/imports
+pnpm check          # oxfmt --check . — formatting check (CI)
+pnpm check:fix      # oxfmt . — format files, including import sorting
+pnpm typecheck      # tsc --noEmit over the config sources (CI)
+pnpm test           # vitest — ESLint config shape/behavior tests (CI)
 pnpm changeset      # record a version bump; required for any user-facing change
 ```
 
-There is no `lint`, `test`, or `build` script — `pnpm check` (Biome) is the full local validation. Commits are validated by a husky `commit-msg` hook running commitlint.
+There is no `lint` or `build` script — `pnpm check`, `pnpm typecheck` and `pnpm test` together match CI (`.github/workflows/check.yml`). Commits are validated by a husky `commit-msg` hook running commitlint.
 
 ## How configs are exposed
 
-`package.json` `exports` maps subpaths to raw config files; `files` whitelists which directories get published. Adding a new config means: create the file, add an `exports` entry, and (if a new top-level dir) add it to `files`. Consumers reference them as e.g. `@yoshinani/style-guide/eslint/next`, `@yoshinani/style-guide/biome`, `@yoshinani/style-guide/typescript/nextjs`.
+`package.json` `exports` maps subpaths to raw config files; `files` whitelists which directories get published. Adding a new config means: create the file, add an `exports` entry, and (if a new top-level dir) add it to `files`. Consumers reference them as e.g. `@yoshinani/style-guide/eslint/next`, `@yoshinani/style-guide/oxfmt`, `@yoshinani/style-guide/typescript/nextjs`.
 
 ## ESLint architecture (the core of this package)
 
@@ -37,8 +39,7 @@ Because rules use `recommendedTypeChecked`, `base.mjs` sets `tsconfigRootDir: im
 
 ## Other configs
 
-- **Biome** (`biome/base.jsonc`) — formatter + import-assist only; **linter is disabled** (`linter.enabled: false`) by design, since ESLint handles linting. Formatting is double-quote, semicolons-as-needed. The repo's own root `biome.jsonc` extends this.
-- **Prettier** (`prettier/prettier.config.cjs`) — the alternative to Biome for formatting; no semicolons, double quotes, trailing-comma all, printWidth 80. Keep it consistent with Biome's formatter settings.
+- **oxfmt** (`oxfmt/base.mjs`) — formatter config object: no semicolons, double quotes, printWidth 80, import sorting (`sortImports` groups: builtin → external → `@repo/**` → alias → relative), Tailwind class sorting, Markdown excluded. oxfmt has no `extends`, so consumers spread it into their own `oxfmt.config.ts` (only `.ts` / `.oxfmtrc.json` are auto-discovered). The repo's own root `oxfmt.config.ts` spreads this file unchanged except for repo-specific `ignorePatterns`, so the repo is always formatted by the config it ships.
 - **TypeScript** (`typescript/base.json` + `nextjs.json`, `react-library.json`) — strict, `noUncheckedIndexedAccess`, NodeNext base; variants override module/jsx.
 - **commitlint** (`commitlint/commitlint.config.mjs`) — conventional commits with a **restricted** `type-enum`: only `build`, `docs`, `feat`, `fix`, `refactor`, `test`, `release` (`release` is reserved for automated releases).
 

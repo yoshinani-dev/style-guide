@@ -34,7 +34,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
-      - name: Run Biome Check
+      - name: Run Format Check
         run: pnpm run check
 
       - name: Run TypeScript Type Check

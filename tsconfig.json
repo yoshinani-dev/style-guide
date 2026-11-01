@@ -8,5 +8,11 @@
     "allowJs": true,
     "checkJs": true
   },
-  "include": ["eslint/**/*.mjs", "tests/**/*.mjs", "commitlint/**/*.mjs"]
+  "include": [
+    "eslint/**/*.mjs",
+    "tests/**/*.mjs",
+    "commitlint/**/*.mjs",
+    "oxfmt/**/*.mjs",
+    "oxfmt.config.ts"
+  ]
 }

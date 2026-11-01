@@ -18,6 +18,7 @@ neverthrow
 notionhq
 nuqs
 opengraph
+oxfmt
 picklist
 pkey
 postback

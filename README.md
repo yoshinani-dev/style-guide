@@ -8,7 +8,7 @@
 
 以下の設定が利用可能で、組み合わせて使うことを想定しています。
 
-- [Biome](#biome)
+- [oxfmt](#oxfmt)
 - [ESLint](#eslint)
 - [TypeScript](#typescript)
 - [commitlint](#commitlint)
@@ -33,36 +33,60 @@ pnpm i --save-dev @yoshinani/style-guide
 yarn add --dev @yoshinani/style-guide
 ```
 
-## Biome
+## oxfmt
 
-現在、この設定ではBiomeのフォーマッター機能のみを有効にしています。リンターとしては、別途 [ESLint](#eslint) を設定してください。
+フォーマッターには [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) を使います。
 
-まず、プロジェクトルートにBiomeをインストールします。
+まず、プロジェクトルートにoxfmtをインストールします。
 
 ```sh
-pnpm add -w -D @biomejs/biome
+pnpm add -w -D oxfmt
 ```
 
-共有のBiome設定を利用するには、`biome.jsonc` を作成して、以下のように `extends` を設定します。
+共有のoxfmt設定を利用するには、`oxfmt.config.ts` を作成して、以下のように共有設定を展開します。oxfmtには `extends` がないため、展開して使います。
 
-```jsonc
-{
-  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "extends": ["@yoshinani/style-guide/biome"],
-  "files": {
-    "includes": ["**", "!**/.next", "!**/.turbo"]
-  }
+```ts
+import { defineConfig } from "oxfmt"
+import base from "@yoshinani/style-guide/oxfmt"
+
+export default defineConfig({
+  ...base,
+  // 除外したいファイルを追加する場合は、共有設定の ignorePatterns を残したうえで追加します
+  ignorePatterns: [...(base.ignorePatterns ?? []), "pnpm-lock.yaml"],
+})
+```
+
+- 設定ファイルは `oxfmt.config.ts` という名前にしてください。`oxfmt.config.mjs` は自動では読み込まれません。
+- Markdown はフォーマットの対象外です（共有設定の `ignorePatterns` で除外しています）。
+- `.gitignore` に書かれたファイルは自動で除外されます。
+- Tailwind CSS のクラスは自動で並び替えられます。独自のテーマを使っている場合は、`sortTailwindcss.stylesheet` にスタイルシートのパスを指定してください。
+
+```ts
+export default defineConfig({
+  ...base,
+  sortTailwindcss: {
+    ...base.sortTailwindcss,
+    stylesheet: "./app/globals.css",
+  },
+})
+```
+
+`package.json` には以下のスクリプトを追加します。
+
+```json
+"scripts": {
+  "format": "oxfmt .",
+  "format:check": "oxfmt --check ."
 }
 ```
 
-VSCodeでフォーマッターとしてBiomeを利用する場合は、まず[Biomeの拡張機能](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)をインストールしてください。
+VSCodeでフォーマッターとしてoxfmtを利用する場合は、まず[Oxcの拡張機能](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode)をインストールしてください。
 
-次に、`.vscode/settings.json` に以下の設定を追加します。
+次に、`.vscode/settings.json` に以下の設定を追加します。importの並び替えもフォーマットの一部として行われるため、`editor.codeActionsOnSave` の設定は不要です。
 
 ```jsonc
 {
-  "biome.enabled": true,
-  "editor.defaultFormatter": "biomejs.biome",
+  "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.formatOnSave": true
 }
 ```
@@ -72,7 +96,7 @@ VSCodeでフォーマッターとしてBiomeを利用する場合は、まず[Bi
 ```jsonc
 {
   "recommendations": [
-    "biomejs.biome"
+    "oxc.oxc-vscode"
   ]
 }
 ```
@@ -184,7 +208,7 @@ pnpm commitlint --edit "$1"
 ```jsonc
 {
   "recommendations": [
-    "biomejs.biome",
+    "oxc.oxc-vscode",
     "streetsidesoftware.code-spell-checker"
   ]
 }

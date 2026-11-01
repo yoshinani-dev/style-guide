@@ -23,24 +23,24 @@
   "scripts": {
     "prepare": "husky",
     "release": "changeset publish",
-    "check": "biome check .",
-    "check:fix": "biome check --write .",
+    "check": "oxfmt --check .",
+    "check:fix": "oxfmt .",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
   "exports": {
-    "./biome": "./biome/base.jsonc",
     "./commitlint": "./commitlint/commitlint.config.mjs",
     "./eslint/*": "./eslint/*.mjs",
+    "./oxfmt": "./oxfmt/base.mjs",
     "./typescript": "./typescript/base.json",
     "./typescript/nextjs": "./typescript/nextjs.json",
     "./typescript/react-library": "./typescript/react-library.json"
   },
   "files": [
-    "biome",
     "commitlint",
     "cspell",
     "eslint",
+    "oxfmt",
     "typescript"
   ],
   "dependencies": {
@@ -59,18 +59,18 @@
     "typescript-eslint": "^8.61.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.16",
     "@changesets/cli": "^3.0.0",
     "@commitlint/cli": "^20.5.3",
     "eslint": "9.31.0",
     "husky": "^9.1.7",
+    "oxfmt": "^0.75.0",
     "typescript": "5.9.3",
     "vitest": "3.2.7"
   },
   "peerDependencies": {
-    "@biomejs/biome": "^2",
     "@commitlint/cli": "^20",
     "eslint": "^9",
+    "oxfmt": ">=0.75.0",
     "typescript": "^5"
   }
 }
