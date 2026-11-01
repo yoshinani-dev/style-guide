@@ -12,7 +12,7 @@
 - **「Effect ルール」は Effect-TS（`effect` ライブラリ）向けのルールを指す。** React の `useEffect` 系ルールではない。
 - **eslint-plugin-functional は廃止する。** v1 で有効だった `functional/immutable-data` も移植しない。採用プロジェクトでは厳しすぎて結局オフにされていたため。
 - **ツールの違いによるフォーマットの細かなズレは許容する。** Biome との完全一致は目指さない。引き継ぐのは方針レベルの設定（セミコロン不要、ダブルクォート、インデント、import のグループ順と空行）のみ。
-- **Next.js 向けの設定では、oxlint の `nextjs` プラグインのルールを可能な限りすべて有効にする。**（Phase 3 参照）
+- **Next.js 向けの設定では、oxlint の `nextjs` プラグインのルールを可能な限りすべて有効にする。**（Phase 3 参照）追加するプラグインは同梱の `nextjs` プラグインだけで、`jsx-a11y` と `react-perf` は使わない。
 - **Effect は必要なプロジェクトだけが使えるよう、Effect あり版と無し版を用意する。**（「設定のバリエーション」参照）
 - **Effect あり版の対象は Effect v4 のみ。** v3 は対象外とする。公式の oxlint 連携（`@effect/tsgo`）が v4 向けのため。
 - **エントリ名を揃える。** `react-internal` → `react-library`、`typescript/nextjs` → `typescript/next`（「v2 での名前の整理」参照）
@@ -203,10 +203,6 @@ Effect v4 の公式ドキュメントで、oxlint 向けの連携（`@effect/tsg
 - 使っている oxlint のバージョンで `oxlint --rules` を実行し、`nextjs` プラグインのルール一覧を確定する。
 - 実在の Next.js（App Router）プロジェクトに全ルールを当て、誤検知が出るルールを洗い出す。
 
-### 関連プラグイン
-
-- `jsx-a11y` と `react-perf` は Next.js 専用ではないので、`react-library` にも関わる。有効にするかは Phase 2 で React まわりと合わせて決める。
-
 ### 実施結果
 
 - `oxlint/next.mjs` を追加した。`nextjs` プラグインの 21 ルールをすべて `error` で列挙し、除外したルールはない。
@@ -214,7 +210,7 @@ Effect v4 の公式ドキュメントで、oxlint 向けの連携（`@effect/tsg
 - App Router の特殊ファイル（`page` / `layout` / `template` / `loading` / `default` / `not-found` / `*error` / 画像生成ファイル / `sitemap` / `robots` / `manifest`）では default export を必須にした（v1 の override を引き継ぎ、対象を広げた）。`route.ts` や `middleware.ts` は名前付き export を使うので対象外。
 - 画像生成ファイル（`opengraph-image` / `twitter-image` / `icon` / `apple-icon`）では `nextjs/no-img-element` を無効にした。
 - `typescript/nextjs` を `typescript/next` に改名した。
-- `jsx-a11y` と `react-perf` は v1 になかったため、Phase 2 / 3 では有効にしていない。
+- Next.js 向けに追加するプラグインは、oxlint に同梱されている `nextjs` プラグインだけとする（決定事項を参照）。
 
 ## Phase 4：Effect-TS ルール（`-effect` バリエーション）
 
