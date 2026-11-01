@@ -34,7 +34,7 @@ export const restrictedImportPaths = [
   },
   {
     name: "express",
-    message: "Next.jsのAPI RoutesまたはHonoを使用してください。",
+    message: "Next.jsのRoute HandlersまたはHonoを使用してください。",
   },
   {
     name: "formik",
@@ -78,7 +78,7 @@ export const restrictedImportPaths = [
   },
   {
     name: "typeorm",
-    message: "Prismaを使用してください。",
+    message: "PrismaまたはDrizzle ORMを使用してください。",
   },
   {
     name: "yup",
@@ -105,7 +105,7 @@ export const restrictedImportPatterns = [
   },
   {
     group: ["@nestjs/*"],
-    message: "Next.jsのAPI RoutesまたはHonoを使用してください。",
+    message: "Next.jsのRoute HandlersまたはHonoを使用してください。",
   },
   {
     group: ["lodash/*"],
