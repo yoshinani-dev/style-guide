@@ -22,12 +22,15 @@ updates:
           - "minor"
           - "patch"
       # Oxc（oxfmt / oxlint）関連
+      # @effect/tsgo は対応する oxlint / oxlint-tsgolint のバージョンが決まっているため、同じグループで更新する
       oxc-dependencies:
         patterns:
           - "oxfmt"
           - "oxlint"
           - "oxlint-*"
           - "@oxlint/*"
+          - "@effect/tsgo"
+          - "effect"
         update-types:
           - "minor"
           - "patch"

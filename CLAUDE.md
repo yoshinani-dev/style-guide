@@ -32,6 +32,7 @@ There is no separate `lint` or `build` script — `pnpm check`, `pnpm typecheck`
 - `library.mjs` — `base` + node globals.
 - `react-library.mjs` — `base` + `rules/react.mjs` + browser/service-worker globals.
 - `next.mjs` — `base` + `rules/react.mjs` + every rule of oxlint's `nextjs` plugin as `error` (a test fails when oxlint adds a `nextjs` rule that isn't listed), App Router overrides (special files need a default export; image-generation files may use `<img>`), browser + node globals.
+- `*-effect.mjs` (`base-effect`, `library-effect`, `react-library-effect`, `next-effect`) — the matching entry point + `rules/effect.mjs`, which pulls in `@effect/tsgo`'s `recommended` oxlint preset (Effect v4 only) and turns off `effecttsgo/unstable-api-usage` in test files. `effecttsgo` is not a stock oxlint plugin: it only loads under an Effect-patched oxlint (`effect-tsgo patch --oxlint --no-typescript`) or via `effect-tsgo oxlint`, so the tests run the Effect fixtures through that wrapper. `@effect/tsgo` pins the oxlint / oxlint-tsgolint versions it supports — keep them in step (dependabot groups them).
 - `rules/react.mjs` — React rule block (oxlint's `react` plugin includes the react-hooks rules), shared by `react-library.mjs` and `next.mjs`.
 - `rules/restricted-imports.mjs` — the banned-library lists, exported so consumers can extend them (oxlint replaces rule options instead of merging).
 - `plugins/yoshinani.mjs` — a local JS plugin for rules oxlint lacks: `yoshinani/require-description` (covers both `eslint-disable` and `oxlint-disable`) and `yoshinani/no-enum`. `base.mjs` references it by absolute path so it resolves when extended from a consumer's config.
@@ -45,7 +46,7 @@ Type-aware rules run through `oxlint-tsgolint` (typescript-go), so consumers nee
 ## Other configs
 
 - **oxfmt** (`oxfmt/base.mjs`) — formatter config object: no semicolons, double quotes, printWidth 80, import sorting (`sortImports` groups: builtin → external → `@repo/**` → alias → relative), Tailwind class sorting, Markdown excluded. oxfmt has no `extends`, so consumers spread it into their own `oxfmt.config.ts` (only `.ts` / `.oxfmtrc.json` are auto-discovered). The repo's own root `oxfmt.config.ts` spreads this file unchanged except for repo-specific `ignorePatterns`, so the repo is always formatted by the config it ships.
-- **TypeScript** (`typescript/base.json` + `next.json`, `react-library.json`) — strict, `noUncheckedIndexedAccess`, NodeNext base; variants override module/jsx.
+- **TypeScript** (`typescript/base.json` + `next.json`, `react-library.json`, and `effect.json` / `next-effect.json` / `react-library-effect.json`) — strict, `noUncheckedIndexedAccess`, NodeNext base; variants override module/jsx. The `-effect` variants add the `@effect/language-service` plugin (diagnostics off; oxlint reports them) and `exactOptionalPropertyTypes`. `compilerOptions.plugins` is replaced, not merged, on `extends`, so `next-effect.json` re-lists the `next` plugin.
 - **commitlint** (`commitlint/commitlint.config.mjs`) — conventional commits with a **restricted** `type-enum`: only `build`, `docs`, `feat`, `fix`, `refactor`, `test`, `release` (`release` is reserved for automated releases).
 
 ## Release flow

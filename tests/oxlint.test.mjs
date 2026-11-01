@@ -6,14 +6,21 @@ import { promisify } from "node:util"
 
 import { beforeAll, describe, expect, it } from "vitest"
 
+import baseEffect from "../oxlint/base-effect.mjs"
 import base from "../oxlint/base.mjs"
+import libraryEffect from "../oxlint/library-effect.mjs"
 import library from "../oxlint/library.mjs"
+import nextEffect from "../oxlint/next-effect.mjs"
 import next from "../oxlint/next.mjs"
+import reactLibraryEffect from "../oxlint/react-library-effect.mjs"
 import reactLibrary from "../oxlint/react-library.mjs"
+import effect from "../oxlint/rules/effect.mjs"
 
 const execFileAsync = promisify(execFile)
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
 const oxlintBin = path.join(root, "node_modules", ".bin", "oxlint")
+// effecttsgo プラグインは Effect 版の oxlint でしか動かないため、node_modules を書き換えずに済むラッパー経由で実行する
+const effectTsgoBin = path.join(root, "node_modules", ".bin", "effect-tsgo")
 
 /**
  * @typedef {{ code: string, severity: string, filename: string }} Diagnostic
@@ -24,13 +31,18 @@ const oxlintBin = path.join(root, "node_modules", ".bin", "oxlint")
  * 違反が見つかると oxlint は終了コード 1 で終わるため、stdout をそのまま使う。
  *
  * @param {string} variant
+ * @param {{ effect?: boolean }} [options]
  * @returns {Promise<Map<string, Diagnostic[]>>}
  */
-async function lintFixtures(variant) {
+async function lintFixtures(variant, { effect = false } = {}) {
   const dir = path.join("tests", "fixtures", variant)
+  const [bin, ...prefix] = effect
+    ? [effectTsgoBin, "oxlint", "--type-aware"]
+    : [oxlintBin]
   const stdout = await execFileAsync(
-    oxlintBin,
+    bin,
     [
+      ...prefix,
       "-c",
       path.join(dir, "oxlint.config.ts"),
       "-f",
@@ -75,6 +87,29 @@ describe("config shape", () => {
     for (const config of [library, reactLibrary, next]) {
       expect(config.rules).toMatchObject(base.rules ?? {})
     }
+  })
+
+  it.each([
+    ["base-effect", baseEffect, base],
+    ["library-effect", libraryEffect, library],
+    ["react-library-effect", reactLibraryEffect, reactLibrary],
+    ["next-effect", nextEffect, next],
+  ])(
+    "%s は Effect 無し版のルールと Effect のルールを両方持つ",
+    (_name, config, withoutEffect) => {
+      expect(config.rules).toMatchObject(withoutEffect.rules ?? {})
+      expect(config.rules).toMatchObject(effect.rules)
+      expect(config.plugins).toContain("effecttsgo")
+      expect(config.overrides).toEqual(expect.arrayContaining(effect.overrides))
+    },
+  )
+
+  it("Effect の unstable-api-usage はテストファイルでだけ無効になる", () => {
+    expect(effect.rules["effecttsgo/unstable-api-usage"]).toBeDefined()
+    expect(effect.overrides).toContainEqual({
+      files: ["**/*.{test,spec}.{ts,tsx,mts,cts}"],
+      rules: { "effecttsgo/unstable-api-usage": "off" },
+    })
   })
 })
 
@@ -185,4 +220,35 @@ describe("next", () => {
       expect(results.get(file) ?? []).toEqual([])
     },
   )
+})
+
+describe("library-effect", () => {
+  /** @type {Map<string, Diagnostic[]>} */
+  let results
+
+  beforeAll(async () => {
+    results = await lintFixtures("library-effect", { effect: true })
+  })
+
+  it("Effect の実行し忘れが effecttsgo(floating-effect) で error になる", () => {
+    expect(results.get("floating-effect.ts") ?? []).toContainEqual(
+      expect.objectContaining({
+        code: "effecttsgo(floating-effect)",
+        severity: "error",
+      }),
+    )
+  })
+
+  it("Effect.runPromise の await し忘れが no-floating-promises で error になる", () => {
+    expect(results.get("floating-run-promise.ts") ?? []).toContainEqual(
+      expect.objectContaining({
+        code: "typescript(no-floating-promises)",
+        severity: "error",
+      }),
+    )
+  })
+
+  it("Effect.gen を使う正常なコードでは何も検出されない", () => {
+    expect(results.get("clean.ts") ?? []).toEqual([])
+  })
 })

@@ -193,6 +193,69 @@ export default defineConfig({
 })
 ```
 
+### Effect-TS
+
+[Effect](https://effect.website/)（v4）を使うプロジェクトでは、各設定の Effect あり版を使います。Effect 公式の oxlint 連携（`@effect/tsgo`）の recommended プリセットが追加されます。Effect v3 は対象外です。
+
+| Effect なし                   | Effect あり                          |
+| ----------------------------- | ------------------------------------ |
+| `oxlint/base`                 | `oxlint/base-effect`                 |
+| `oxlint/library`              | `oxlint/library-effect`              |
+| `oxlint/react-library`        | `oxlint/react-library-effect`        |
+| `oxlint/next`                 | `oxlint/next-effect`                 |
+
+```sh
+pnpm add -w -D @effect/tsgo
+```
+
+```ts
+import { defineConfig } from "oxlint"
+import nextEffect from "@yoshinani/style-guide/oxlint/next-effect"
+
+export default defineConfig({
+  extends: [nextEffect],
+  options: { typeAware: true },
+})
+```
+
+Effect のルール（`effecttsgo` プラグイン）は oxlint 標準ではなく、Effect 版の oxlint でしか動きません。次のどちらかで実行してください。通常の oxlint のまま実行すると `Unknown plugin: 'effecttsgo'` で設定の読み込みに失敗します。
+
+- `prepare` スクリプトで oxlint にパッチを当てる（エディターの拡張機能も Effect 版で動きます）
+
+  ```json
+  "scripts": {
+    "prepare": "effect-tsgo patch --oxlint --no-typescript"
+  }
+  ```
+
+- `node_modules` を書き換えずに、ラッパー経由で実行する
+
+  ```json
+  "scripts": {
+    "lint": "effect-tsgo oxlint --type-aware"
+  }
+  ```
+
+注意点：
+
+- `@effect/tsgo` が対応している oxlint / oxlint-tsgolint のバージョンは決まっています（`@effect/tsgo` 0.63.0 では oxlint 1.88.0〜1.90.0、oxlint-tsgolint 7.0.2004〜7.0.2005）。oxlint だけを先に上げず、`@effect/tsgo` と揃えて更新してください。
+- `@effect/vitest` の `it` などに対する `effecttsgo/unstable-api-usage` は、テストファイル（`*.test.*` / `*.spec.*`）では無効にしています。
+- Promise の await し忘れは引き続き `no-floating-promises` が、Effect の実行し忘れは `effecttsgo/floating-effect` が検出します。
+
+TypeScript の Effect あり版（`typescript/effect` など）では、次の 2 点が追加されます。
+
+- `compilerOptions.plugins` に `{ "name": "@effect/language-service", "diagnostics": false }` を追加します。診断は oxlint 側で出すため、エディターで二重に表示されないよう LSP 側の診断は切っています。
+- `exactOptionalPropertyTypes: true` を有効にします。Effect Schema の型が正確になります。ライブラリの型と相性が悪い場合は、プロジェクト側の `tsconfig.json` で `false` に上書きしてください。
+
+```json
+{
+  "extends": "@yoshinani/style-guide/typescript/next-effect",
+  "compilerOptions": {
+    "exactOptionalPropertyTypes": false
+  }
+}
+```
+
 VSCodeでは、[Oxcの拡張機能](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode)（oxfmtと同じ拡張機能）で lint の結果が表示されます。保存時に自動修正する場合は、`.vscode/settings.json` に以下を追加します。
 
 ```jsonc
@@ -207,11 +270,13 @@ VSCodeでは、[Oxcの拡張機能](https://marketplace.visualstudio.com/items?i
 
 このスタイルガイドは複数の TypeScript 設定を提供しています。利用可能な設定は以下の通りです。
 
-| 種類          | 設定パッケージ名                                  |
-| ------------- | ------------------------------------------------- |
-| base          | `@yoshinani/style-guide/typescript`               |
-| next          | `@yoshinani/style-guide/typescript/next`          |
-| react-library | `@yoshinani/style-guide/typescript/react-library` |
+| 種類          | 設定パッケージ名                                  | Effect あり版                                            |
+| ------------- | ------------------------------------------------- | -------------------------------------------------------- |
+| base          | `@yoshinani/style-guide/typescript`               | `@yoshinani/style-guide/typescript/effect`               |
+| next          | `@yoshinani/style-guide/typescript/next`          | `@yoshinani/style-guide/typescript/next-effect`          |
+| react-library | `@yoshinani/style-guide/typescript/react-library` | `@yoshinani/style-guide/typescript/react-library-effect` |
+
+Effect あり版の違いは[Effect-TS](#effect-ts)を参照してください。
 
 共有 TypeScript 設定を使うには、`tsconfig.json` に以下のように記載します。
 

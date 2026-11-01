@@ -221,6 +221,14 @@ Effect v4 の公式ドキュメントで、oxlint 向けの連携（`@effect/tsg
 - `typescript/effect` / `typescript/react-library-effect` / `typescript/next-effect` では `exactOptionalPropertyTypes: true` にする（決定事項を参照）。ライブラリの型と相性が悪い場合にプロジェクト側で `false` に上書きする方法を README に書く。
 - バリデーションライブラリは Effect Schema と valibot の両方を許容する（決定事項を参照）。lint で使い分けを強制することはできないので、`no-restricted-imports` は Effect あり版と無し版で同じ内容にする。
 
+### 実施結果
+
+- `oxlint/rules/effect.mjs` に `@effect/tsgo` の `recommended` プリセットと、テストファイルで `effecttsgo/unstable-api-usage` を無効にする override をまとめた。`base-effect` / `library-effect` / `react-library-effect` / `next-effect` は、Effect 無し版にこれを重ねるだけの薄いラッパーにした。
+- `typescript/effect` / `typescript/react-library-effect` / `typescript/next-effect` を追加した。`next-effect` は `plugins` が置き換わるため、`next` プラグインも並べている。
+- `@effect/tsgo` は optional peer にした。Effect 無し版だけを使うプロジェクトでは、インストールしなくても動くことを確認した。
+- テストでは、Effect あり版の fixture を `effect-tsgo oxlint` 経由で実行する（`node_modules` のバイナリを書き換えずに済むため）。Effect の実行し忘れ（`floating-effect`）、`Effect.runPromise` の await し忘れ（`no-floating-promises`）、`Effect.gen` で誤検知が出ないことを確かめている。
+- dependabot では `@effect/tsgo` と `effect` を oxc のグループに入れ、oxlint と揃えて更新されるようにした。`@effect/tsgo` が未対応の oxlint に上がった場合は、Effect の fixture のテストが失敗する。
+
 ## Phase 5：リポジトリ内部の整備
 
 - CI は `pnpm check` を `oxfmt --check . && oxlint` に変更する。自リポジトリが配布設定どおりにフォーマットされていなければ CI が失敗する。
