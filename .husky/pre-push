@@ -1,0 +1,16 @@
+#!/bin/sh
+# yoshinani 共通ルール: CI では検査しないので、push の前にローカルで `pnpm verify` を通す。
+# https://github.com/yoshinani-dev/.github/blob/main/CI_POLICY.md
+# 緊急時だけ `git push --no-verify` で飛ばせる（使ったら PR に理由を書く）。
+
+# ブランチの削除だけの push では検査しない
+needs_verify=0
+while read -r _local_ref local_sha _remote_ref _remote_sha; do
+  case "$local_sha" in
+    *[!0]*) needs_verify=1 ;;
+  esac
+done
+[ "$needs_verify" = 0 ] && exit 0
+
+echo "pre-push: pnpm verify を実行します（飛ばす場合は git push --no-verify）"
+exec pnpm run verify

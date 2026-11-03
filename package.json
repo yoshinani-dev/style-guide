@@ -28,7 +28,9 @@
     "check": "vp check",
     "check:fix": "vp check --fix",
     "test": "vp pack && vp test",
-    "test:tsconfig": "node tests/tsconfig.ts"
+    "test:tsconfig": "node tests/tsconfig.ts",
+    "verify": "pnpm run check && pnpm run test:tsconfig && pnpm run test",
+    "verify:full": "pnpm run verify && pnpm --package=typescript@6 dlx node tests/tsconfig.ts && pnpm --package=typescript@7 dlx node tests/tsconfig.ts && git diff --exit-code package.json"
   },
   "exports": {
     "./commitlint": "./dist/commitlint/index.mjs",
