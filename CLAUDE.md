@@ -66,5 +66,5 @@ GitHub Actions では検査を実行しない。検査はすべてローカル�
 - `pnpm verify:full`: PR をマージする前に必ず実行し、結果を PR の「テスト項目」に書く。中身: `pnpm run verify && pnpm --package=typescript@6 dlx node tests/tsconfig.ts && pnpm --package=typescript@7 dlx node tests/tsconfig.ts && git diff --exit-code package.json`
 - フックが動かないときは `pnpm install` を一度実行する（`prepare` で有効になる）
 - `git push --no-verify` は緊急時だけ。使ったら PR に理由を書く
-- Dependabot の PR もチェックアウトして `pnpm verify:full` を通してからマージする
+- 依存パッケージは月1回ローカルで更新する（`pnpm update` → `pnpm verify:full`）。Dependabot のバージョン更新は使わない（脆弱性アラートだけ有効）
 - Actions に検査用のワークフローを追加しない（置いてよいのは PR の自動ラベル付け・デプロイ・リリースだけ）
