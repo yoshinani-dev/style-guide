@@ -18,4 +18,9 @@ lockfile by hand. `gh actions-lock --verify-local` is an optional offline covera
 check; `--verify` also checks the locked references against GitHub.
 
 Run verification locally, following the [organization CI policy](https://github.com/yoshinani-dev/.github/blob/main/CI_POLICY.md).
-Update action versions manually and regenerate the lockfile in the same change.
+
+As a public OSS exception to the organization's dependency update policy,
+Dependabot updates GitHub Actions every Monday at 08:00 Asia/Tokyo and refreshes
+the matching lockfile entries in the same pull request. Minor and patch updates
+are grouped; major updates have separate pull requests. Run `gh actions-lock`
+when adding workflows or changing action references manually.
