@@ -12,7 +12,7 @@ jobs:
   waiting_for_review:
     runs-on: ubuntu-slim
     steps:
-      - uses: actions-ecosystem/action-add-labels@v1
+      - uses: actions-ecosystem/action-add-labels@v1.1.3
         with:
           labels: "Waiting for review"
 
@@ -20,6 +20,6 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'DO NOT MERGE')
     runs-on: ubuntu-slim
     steps:
-      - uses: actions-ecosystem/action-remove-labels@v1
+      - uses: actions-ecosystem/action-remove-labels@v1.3.0
         with:
           labels: "DO NOT MERGE"
